@@ -7,6 +7,9 @@ function modules.setup()
             "insert_utils",
             "surround",
         },
+        ["mappings"] = {
+            "which_key",
+        },
         ["core"] = {
             "omega",
         },
