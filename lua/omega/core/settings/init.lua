@@ -1,5 +1,5 @@
 -- disable builtin plugins
-require"omega.core.settings.disable_builtin"
+require("omega.core.settings.disable_builtin")
 
 -- use lua filetype detection
 vim.g.do_filetype_lua = 1
