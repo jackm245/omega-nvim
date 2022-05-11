@@ -16,6 +16,9 @@ insert.configs = {
                     [","] = "<cmd>lua require'omega.utils'.append_comma()<CR><esc>o",
                     j = "<esc>A<cr>",
                 },
+                [" "] = {
+                    [" "] = "<right>",
+                },
             },
         })
     end,
