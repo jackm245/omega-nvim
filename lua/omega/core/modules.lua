@@ -4,9 +4,13 @@ function modules.setup()
     local module_sections = {
         ["utils"] = {
             "mkdir",
+            "insert_utils",
         },
         ["core"] = {
             "omega",
+        },
+        ["misc"] = {
+            "treesitter",
         },
     }
     for section, sec_modules in pairs(module_sections) do
@@ -59,6 +63,13 @@ function modules.load()
     for sec_name, section in pairs(omega.modules) do
         for mod_name, mod in pairs(section) do
             for plugin, packer_spec in pairs(mod.plugins) do
+                if
+                    mod.configs
+                    and mod.configs[plugin]
+                    and type(mod.configs[plugin]) == "function"
+                then
+                    packer_spec["config"] = mod.configs[plugin]
+                end
                 use(packer_spec)
             end
         end
