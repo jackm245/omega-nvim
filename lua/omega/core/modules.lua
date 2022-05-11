@@ -5,6 +5,7 @@ function modules.setup()
         ["utils"] = {
             "mkdir",
             "insert_utils",
+            "surround",
         },
         ["core"] = {
             "omega",
