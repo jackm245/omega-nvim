@@ -14,13 +14,13 @@ ft_aucmd("*.cpp", "cpp")
 aucmd({ "BufEnter", "BufWinEnter" }, {
     pattern = "neorg://*",
     command = [[set foldlevel=1000]],
-    desc="Open folds in neorg"
+    desc = "Open folds in neorg",
 })
 
 aucmd({ "BufRead", "BufNewFile" }, {
     pattern = "*.norg",
     command = "setlocal filetype=norg",
-    desc="Set norg filetype"
+    desc = "Set norg filetype",
 })
 
 -- TODO: readd this
@@ -55,12 +55,10 @@ aucmd(
     { "InsertLeave", "WinEnter", "CmdlineLeave" },
     { pattern = "*", command = "set cursorline" }
 )
-aucmd(
-    { "InsertEnter", "WinLeave", "CmdlineEnter" },{
-	pattern = "*",
-	command = "set nocursorline"
-    }
-)
+aucmd({ "InsertEnter", "WinLeave", "CmdlineEnter" }, {
+    pattern = "*",
+    command = "set nocursorline",
+})
 
 -- windows to close with "q"
 aucmd({ "FileType" }, {
@@ -153,7 +151,7 @@ aucmd({ "BufNewFile", "BufRead", "BufWinEnter" }, {
 
 -- TODO: enable this
 -- local in_mathzone = require("ignis.utils").in_mathzone
--- 
+--
 -- aucmd("CursorHold", {
 --     pattern = "*.tex",
 --     callback = function()
