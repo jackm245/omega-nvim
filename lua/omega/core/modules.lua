@@ -13,6 +13,9 @@ function modules.setup()
         ["misc"] = {
             "treesitter",
         },
+        ["completion"] = {
+            "autopairs",
+        },
     }
     for section, sec_modules in pairs(module_sections) do
         omega.modules[section] = {}
