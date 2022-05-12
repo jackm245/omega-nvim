@@ -6,22 +6,19 @@ which_key.plugins = {
     },
 }
 
-which_key.config = {
+which_key.configs = {
     ["which-key.nvim"] = function()
         require("which-key").setup({
             show_help = false,
             layout = {
                 height = { max = 20 },
-                spacing = 5, -- spacing between columns
+                spacing = 3, -- spacing between columns
             },
             window = {
-                -- border = { "╔", "═", "╗", "║", "╝", "═", "╚", "║" },
-                border = border,
+                border = require"omega.utils".border(),
                 margin = { 1, 0, 1, 0 }, -- top right bottom left
-                -- padding = { 1, 2, 1, 3 }, -- top right bottom left
                 padding = { 0, 2, 0, 0 }, -- top right bottom left
                 winblend = 0,
-                -- winblend = 10,
             },
             icons = {
                 group = " ",
