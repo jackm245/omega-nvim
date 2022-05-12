@@ -11,3 +11,5 @@ vim.opt.relativenumber = true
 vim.opt.number = true
 vim.opt.termguicolors = true
 vim.opt.mouse = "a"
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
