@@ -22,6 +22,7 @@ function modules.setup()
         ["tools"] = {
             "telescope",
             "toggleterm",
+            "formatter",
         },
     }
     for section, sec_modules in pairs(module_sections) do
