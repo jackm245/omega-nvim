@@ -11,6 +11,16 @@ wk.register({
         e = { "<cmd>Telescope emoji<cr>", "Emoji" },
         ["<CR>"] = { "i<CR><ESC>", "Linebreak at Cursor" },
     },
+    ["P"]={
+	name=" Packer",
+	S={"<cmd>PackerStatus<cr>","Status"},
+	s={"<cmd>PackerSync<cr>", "Sync"},
+	c={"<cmd>PackerCompile<cr>","Compile"},
+	p={"<cmd>PackerProfile<cr>","Profile"},
+	i={"<cmd>PackerInstall<cr>", "Install"},
+	u={"<cmd>PackerUpdate<cr>", "Update"},
+	C={"<cmd>PackerUpdate<cr>", "Clean"},
+    }
 }, {
     prefix = "<leader>",
     mode = "n",
