@@ -31,21 +31,25 @@ tele_mod.plugins = {
 tele_mod.keybindings = function()
     local wk = require("which-key")
     wk.register({
-        f = {
-            name = " Find",
-            f = {
-                "<cmd>Telescope find_files<cr>",
-                "File",
-            },
-        },
-        ["/"] = {
-            "<cmd>Telescope live_grep<cr>",
-            " Live Grep",
-        },
+	f = {
+	    name = " Find",
+	    f = {
+		"<cmd>Telescope find_files<cr>",
+		"File",
+	    },
+	},
+	["/"] = {
+	    "<cmd>Telescope live_grep<cr>",
+	    " Live Grep",
+	},
+	i={
+	    e = { "<cmd>Telescope emoji<cr>", "Emoji" },
+
+	}
     }, {
-        prefix = "<leader>",
-        mode = "n",
-    })
+	    prefix = "<leader>",
+	    mode = "n",
+	})
 end
 
 return tele_mod
