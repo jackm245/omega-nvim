@@ -12,8 +12,8 @@ utils.bootstrap_impatient()
 
 require("omega.core.settings")
 require("omega.core.autocommands")
-require("omega.core.mappings")
 
 require("omega.core.ui")
 modules.setup()
 modules.load()
+require("omega.core.mappings")
