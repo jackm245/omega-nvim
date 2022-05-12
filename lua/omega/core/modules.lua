@@ -19,6 +19,9 @@ function modules.setup()
         ["completion"] = {
             "autopairs",
         },
+        ["tools"] = {
+            "telescope",
+        },
     }
     for section, sec_modules in pairs(module_sections) do
         omega.modules[section] = {}
