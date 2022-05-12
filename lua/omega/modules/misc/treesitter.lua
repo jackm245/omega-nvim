@@ -11,6 +11,10 @@ ts_mod.plugins = {
         "lewis6991/nvim-treesitter-context",
         event = "CursorMoved",
     },
+    ["playground"] = {
+        "nvim-treesitter/playground",
+        cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
+    },
 }
 
 ts_mod.configs = {
