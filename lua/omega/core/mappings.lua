@@ -1,4 +1,4 @@
-local map=vim.keymap.set
+local map = vim.keymap.set
 
 local wk = require("which-key")
 wk.register({
@@ -13,25 +13,40 @@ wk.register({
         e = { "<cmd>Telescope emoji<cr>", "Emoji" },
         ["<CR>"] = { "i<CR><ESC>", "Linebreak at Cursor" },
     },
-    ["P"]={
-	name=" Packer",
-	S={"<cmd>PackerStatus<cr>","Status"},
-	s={"<cmd>PackerSync<cr>", "Sync"},
-	c={"<cmd>PackerCompile<cr>","Compile"},
-	p={"<cmd>PackerProfile<cr>","Profile"},
-	i={"<cmd>PackerInstall<cr>", "Install"},
-	u={"<cmd>PackerUpdate<cr>", "Update"},
-	C={"<cmd>PackerUpdate<cr>", "Clean"},
-    }
+    ["P"] = {
+        name = " Packer",
+        S = { "<cmd>PackerStatus<cr>", "Status" },
+        s = { "<cmd>PackerSync<cr>", "Sync" },
+        c = { "<cmd>PackerCompile<cr>", "Compile" },
+        p = { "<cmd>PackerProfile<cr>", "Profile" },
+        i = { "<cmd>PackerInstall<cr>", "Install" },
+        u = { "<cmd>PackerUpdate<cr>", "Update" },
+        C = { "<cmd>PackerUpdate<cr>", "Clean" },
+    },
 }, {
     prefix = "<leader>",
     mode = "n",
 })
 
-map("n",",,", function() require"omega.utils".append_comma() end,{
-    noremap=true,silent=true,desc="Append comma"
+map("n", ",,", function()
+    require("omega.utils").append_comma()
+end, {
+    noremap = true,
+    silent = true,
+    desc = "Append comma",
 })
 
-map("n",";;", function() require"omega.utils".append_semicolon() end,{
-    noremap=true,silent=true,desc="Append semicolon"
+map("n", ";;", function()
+    require("omega.utils").append_semicolon()
+end, {
+    noremap = true,
+    silent = true,
+    desc = "Append semicolon",
 })
+
+map(
+    "n",
+    "<esc>",
+    "<cmd>nohl<cr>",
+    { noremap = true, silent = true, desc = "Clear highlight from search" }
+)
