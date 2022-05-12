@@ -1,3 +1,5 @@
+local map=vim.keymap.set
+
 local wk = require("which-key")
 wk.register({
     y = { '"+y', " Yank to clipboard" },
@@ -24,4 +26,12 @@ wk.register({
 }, {
     prefix = "<leader>",
     mode = "n",
+})
+
+map("n",",,", function() require"omega.utils".append_comma() end,{
+    noremap=true,silent=true,desc="Append comma"
+})
+
+map("n",";;", function() require"omega.utils".append_semicolon() end,{
+    noremap=true,silent=true,desc="Append semicolon"
 })
