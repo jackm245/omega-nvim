@@ -7,6 +7,9 @@ function modules.setup()
             "insert_utils",
             "surround",
         },
+        ["ui"] = {
+            "bufferline",
+        },
         ["mappings"] = {
             "which_key",
         },
