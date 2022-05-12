@@ -21,7 +21,7 @@ function modules.setup()
         },
         ["tools"] = {
             "telescope",
-	    "toggleterm"
+            "toggleterm",
         },
     }
     for section, sec_modules in pairs(module_sections) do
@@ -34,8 +34,8 @@ function modules.setup()
             )
             if ok then
                 omega.modules[section][module] = result
-	    else 
-		print(result)
+            else
+                print(result)
             end
         end
     end
@@ -89,35 +89,35 @@ function modules.load()
         end
     end
     for sec_name, section in pairs(omega.modules) do
-	for mod_name, mod in pairs(section) do
-	    if mod.keybindings then
-		mod.keybindings()
-	    end
-	end
+        for mod_name, mod in pairs(section) do
+            if mod.keybindings then
+                mod.keybindings()
+            end
+        end
     end
 end
 
 function modules.bootstrap_packer()
     function modules.packer_bootstrap()
-	local has_packer = pcall(require, "packer")
-	if not has_packer then
-	    -- Packer Bootstrapping
-	    local packer_path = vim.fn.stdpath("data")
-	    .. "/site/pack/packer/start/packer.nvim"
-	    if vim.fn.empty(vim.fn.glob(packer_path)) > 0 then
-		vim.notify("Bootstrapping packer.nvim, please wait ...")
-		vim.fn.system({
-		    "git",
-		    "clone",
-		    "--depth",
-		    "1",
-		    "https://github.com/wbthomason/packer.nvim",
-		    packer_path,
-		})
-	    end
+        local has_packer = pcall(require, "packer")
+        if not has_packer then
+            -- Packer Bootstrapping
+            local packer_path = vim.fn.stdpath("data")
+                .. "/site/pack/packer/start/packer.nvim"
+            if vim.fn.empty(vim.fn.glob(packer_path)) > 0 then
+                vim.notify("Bootstrapping packer.nvim, please wait ...")
+                vim.fn.system({
+                    "git",
+                    "clone",
+                    "--depth",
+                    "1",
+                    "https://github.com/wbthomason/packer.nvim",
+                    packer_path,
+                })
+            end
 
-	    vim.cmd("packadd packer.nvim")
-	end
+            vim.cmd("packadd packer.nvim")
+        end
     end
 end
 
