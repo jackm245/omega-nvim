@@ -217,4 +217,26 @@ bufferline_mod.configs = {
     end,
 }
 
+bufferline_mod.keybindings = function()
+    local wk = require("which-key")
+    wk.register({
+        b = {
+            name = "﩯Buffer",
+            ["b"] = { "<cmd>e #<CR>", "Switch to Other Buffer" },
+            ["p"] = { "<cmd>BufferLineCyclePrev<CR>", "Previous Buffer" },
+            ["["] = { "<cmd>BufferLineCyclePrev<CR>", "Previous Buffer" },
+            ["n"] = { "<cmd>BufferLineCycleNext<CR>", "Next Buffer" },
+            ["]"] = { "<cmd>BufferLineCycleNext<CR>", "Next Buffer" },
+            ["d"] = {
+                "<cmd>lua require('bufferline').handle_close(vim.fn.bufnr('%'))<cr>",
+                "Delete Buffer",
+            },
+            ["g"] = { "<cmd>BufferLinePick<CR>", "Goto Buffer" },
+        },
+    }, {
+        prefix = "<leader>",
+        mode = "n",
+    })
+end
+
 return bufferline_mod
