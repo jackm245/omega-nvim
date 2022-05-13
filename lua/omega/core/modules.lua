@@ -21,6 +21,10 @@ function modules.setup()
         ["misc"] = {
             "treesitter",
         },
+        ["lsp"] = {
+            "main",
+            "lua",
+        },
         ["completion"] = {
             "autopairs",
         },
