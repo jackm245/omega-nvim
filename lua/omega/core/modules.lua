@@ -27,8 +27,12 @@ function modules.setup()
         },
         ["completion"] = {
             "autopairs",
+            "cmp",
+            "snippets",
+            "annotations",
         },
         ["tools"] = {
+            "comment",
             "telescope",
             "toggleterm",
             -- "dynamic_help",
@@ -84,7 +88,6 @@ end
 
 function modules.load()
     local use = require("packer").use
-    local wk = require("which-key")
     for sec_name, section in pairs(omega.modules) do
         for mod_name, mod in pairs(section) do
             for plugin, packer_spec in pairs(mod.plugins) do
