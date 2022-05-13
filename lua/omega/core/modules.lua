@@ -9,6 +9,8 @@ function modules.setup()
         },
         ["ui"] = {
             "bufferline",
+            "heirline",
+            "devicons",
         },
         ["mappings"] = {
             "which_key",
@@ -25,6 +27,7 @@ function modules.setup()
         ["tools"] = {
             "telescope",
             "toggleterm",
+            -- "dynamic_help",
             "formatter",
         },
     }
