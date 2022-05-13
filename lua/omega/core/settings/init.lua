@@ -13,3 +13,7 @@ vim.opt.termguicolors = true
 vim.opt.mouse = "a"
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.signcolumn = "yes:3"
+vim.opt.undofile = true
+vim.opt.undodir = vim.fn.expand("~") .. "/.vim/undodir" -- directory to save undofiles
+vim.opt.updatetime = 300 -- update CursorHold and save swap every 2000ms
