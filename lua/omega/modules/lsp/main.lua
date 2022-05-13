@@ -14,9 +14,30 @@ lsp_mod.plugins = {
             end, 0)
         end,
     },
+
+    ["lsp_signature.nvim"] = {
+        "ray-x/lsp_signature.nvim",
+        after = "nvim-lspconfig",
+    },
 }
 
 lsp_mod.configs = {
+    ["lsp_signature.nvim"] = function()
+        require("lsp_signature").setup({
+            bind = true,
+            doc_lines = 0,
+            floating_window = false,
+            fix_pos = true, -- set to true, the floating window will not auto-close until finish all parameters
+            hint_enable = true,
+            hint_prefix = " ",
+            hint_scheme = "String",
+            hi_parameter = "TSEmphasis",
+            handler_opts = {
+                border = require("omega.utils").border(),
+            },
+            padding = "|",
+        })
+    end,
     ["nvim-lspconfig"] = function()
         vim.api.nvim_set_hl(0, "DiagnosticHeader", { link = "Special" })
         vim.api.nvim_create_autocmd("CursorHold", {
