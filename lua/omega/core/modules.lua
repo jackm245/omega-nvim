@@ -20,6 +20,7 @@ function modules.setup()
         },
         ["misc"] = {
             "treesitter",
+	    "neorg"
         },
         ["lsp"] = {
             "main",
