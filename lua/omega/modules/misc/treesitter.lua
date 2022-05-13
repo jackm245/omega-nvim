@@ -15,6 +15,10 @@ ts_mod.plugins = {
         "nvim-treesitter/playground",
         cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
     },
+    ["nvim-treehopper"] = {
+        "~/neovim_plugins/nvim-treehopper/",
+        module = "tsht",
+    },
 }
 
 ts_mod.configs = {
@@ -227,4 +231,19 @@ ts_mod.configs = {
         })
     end,
 }
+
+ts_mod.keybindings = function()
+    vim.keymap.set(
+        "o",
+        "m",
+        ":<C-U>lua require('tsht').nodes()<CR>",
+        { noremap = true, silent = true }
+    )
+    vim.keymap.set(
+        "x",
+        "m",
+        ":<C-U>lua require('tsht').nodes()<CR>",
+        { noremap = true, silent = true }
+    )
+end
 return ts_mod
