@@ -23,6 +23,13 @@ aucmd({ "BufRead", "BufNewFile" }, {
     desc = "Set norg filetype",
 })
 
+aucmd({ "BufAdd","BufEnter" }, {
+    pattern = "*.norg",
+    callback = function()
+	vim.bo.ft="norg"
+    end,
+})
+
 -- TODO: readd this
 -- local netrw = vim.api.nvim_create_augroup("netrw", { clear = true })
 -- aucmd({ "Filetype" }, {

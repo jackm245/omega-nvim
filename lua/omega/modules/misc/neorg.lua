@@ -3,14 +3,24 @@ local neorg_mod = {}
 neorg_mod.plugins = {
     ["neorg"] = {
         "nvim-neorg/neorg",
+	ft="norg",
     },
-    ["neorg-telescope"] = { "~/neovim_plugins/neorg-telescope/" },
-    ["neorg-context"] = { "~/neovim_plugins/neorg-context/" },
-    ["neorg-kanban"] = { "~/neovim_plugins/neorg-kanban/" },
-    ["neorg-zettelkasten"] = { "~/neovim_plugins/neorg-zettelkasten/" },
+    ["neorg-telescope"] = { "~/neovim_plugins/neorg-telescope/",after="neorg"},
+    ["neorg-context"] = { "~/neovim_plugins/neorg-context/",after="neorg"},
+    ["neorg-kanban"] = { "~/neovim_plugins/neorg-kanban/",after="neorg"},
+    ["neorg-zettelkasten"] = { "~/neovim_plugins/neorg-zettelkasten/",after="neorg"},
 }
 
 neorg_mod.configs = {
+    ["neorg-context"]=function()
+	neorg.modules.load_module("external.context", nil, {})
+    end,
+    ["neorg-kanban"]=function()
+	neorg.modules.load_module("external.kanban", nil, {})
+    end,
+    ["neorg-zettelkasten"]=function()
+	neorg.modules.load_module("external.zettelkasten", nil, {})
+    end,
     ["neorg"] = function()
         local neorg_callbacks = require("neorg.callbacks")
 
@@ -22,9 +32,6 @@ neorg_mod.configs = {
                         type = "auto",
                     },
                 },
-                ["external.zettelkasten"] = {},
-                ["external.context"] = {},
-                ["external.kanban"] = {},
                 -- ["core.cheatsheet"] = {},
                 ["core.norg.concealer"] = {
                     config = {
