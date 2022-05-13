@@ -5,6 +5,8 @@ vim.g.mapleader = " "
 
 -- create `omega` gloabel variable
 require("omega.core.omega_global")
+-- add config to `omega` global
+require("omega.core.config").load()
 
 modules.bootstrap_packer()
 
