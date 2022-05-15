@@ -13,6 +13,29 @@ wk.register({
         e = { "<cmd>Telescope emoji<cr>", "Emoji" },
         ["<CR>"] = { "i<CR><ESC>", "Linebreak at Cursor" },
     },
+    v = {
+        name = " View",
+        l = {
+            function()
+                require("ignis.utils").LatexPreview()
+            end,
+            "Latex",
+        },
+	-- TODO: readd
+        -- f = {
+        --     function()
+        --         require("nabla").popup()
+        --     end,
+        --     "Formulas",
+        -- },
+        m = {
+            function()
+                require("ignis.utils").MarkdownPreview()
+            end,
+            "Markdown",
+        },
+    },
+
     ["P"] = {
         name = " Packer",
         S = { "<cmd>PackerStatus<cr>", "Status" },
