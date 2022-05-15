@@ -46,7 +46,8 @@ tele_mod.configs = {
         local calc_tabline = function(max_lines)
             local tbln = (vim.o.showtabline == 2)
                 or (
-                    vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages()
+                    vim.o.showtabline == 1
+                    and #vim.api.nvim_list_tabpages()
                         > 1
                 )
             if tbln then
@@ -411,7 +412,9 @@ tele_mod.keybindings = function()
         f = {
             name = " Find",
             f = {
-                "<cmd>Telescope find_files<cr>",
+                function()
+                    omega.modules.tools.telescope.api.find_files()
+                end,
                 "File",
             },
         },
@@ -434,5 +437,27 @@ tele_mod.keybindings = function()
         mode = "n",
     })
 end
+
+tele_mod.api = {
+    ["find_files"] = function()
+        local opts = {
+            prompt_title = "~ Find Files ~",
+            preview_title = "~ File Preview ~",
+            results_title = "~ Files ~",
+            find_command = {
+                "rg",
+                "-g",
+                "!.git",
+                "--files",
+                "--hidden",
+                "--no-ignore",
+            },
+            layout_config = {
+                prompt_position = "top",
+            },
+        }
+        require("telescope.builtin").find_files(opts)
+    end,
+}
 
 return tele_mod
