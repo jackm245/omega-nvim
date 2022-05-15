@@ -86,3 +86,7 @@ end, {
     noremap = true,
     silent = true,
 })
+
+map("v", "<leader>s", ":s///g<LEFT><LEFT><LEFT>", { noremap = true })
+map("i", "<leader><leader>", "<right>", { noremap = true, silent = true })
+map("i", "<leader>", " ", { noremap = true })
