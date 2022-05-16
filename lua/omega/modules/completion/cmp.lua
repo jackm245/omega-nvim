@@ -5,6 +5,10 @@ cmp_mod.plugins = {
         "hrsh7th/nvim-cmp",
         event = { "InsertEnter", "CmdLineEnter" },
     },
+    ["cmp_luasnip"] = {
+        "saadparwaiz1/cmp_luasnip",
+        after = "nvim-cmp",
+    },
     ["cmp-emoji"] = {
         "hrsh7th/cmp-emoji",
         after = "nvim-cmp",
@@ -57,7 +61,6 @@ cmp_mod.configs = {
         local types = require("cmp.types")
         local luasnip = require("luasnip")
         local neogen = require("neogen")
-        local util = require("luasnip.util.util")
         local cmp_autopairs = require("nvim-autopairs.completion.cmp")
         cmp.event:on(
             "confirm_done",
@@ -258,7 +261,7 @@ cmp_mod.configs = {
                 -- { name = "cmp_tabnine", priority = 8 },
                 { name = "nvim_lsp", priority = 9 },
                 { name = "luasnip", priority = 8 },
-                -- { name = "neorg", priority = 6 },
+                { name = "neorg", priority = 6 },
                 { name = "latex_symbols", priority = 1 },
                 { name = "nvim_lsp_signature_help", priority = 10 },
             },
