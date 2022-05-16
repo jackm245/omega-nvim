@@ -26,6 +26,20 @@ tele_mod.plugins = {
         "nvim-telescope/telescope-file-browser.nvim",
         after = "telescope.nvim",
     },
+    ["telescope-ui-select.nvim"] = {
+        "nvim-telescope/telescope-ui-select.nvim",
+        opt = true,
+        setup = function()
+            vim.ui.select = function(items, opts, on_choice)
+                vim.cmd([[
+		    PackerLoad telescope.nvim
+		    PackerLoad telescope-ui-select.nvim
+		]])
+                require("telescope").load_extension("ui-select")
+                vim.ui.select(items, opts, on_choice)
+            end
+        end,
+    },
 }
 
 tele_mod.configs = {
@@ -155,8 +169,6 @@ tele_mod.configs = {
                         == "table"
                     and type(layout_config.height.padding) == "number"
                 then
-                    -- Since bottom_pane only has padding at the top, we only need half as much padding in total
-                    -- This doesn't match the vim help for `resolve.resolve_height`, but it matches expectations
                     height = math.floor((max_lines + height) / 2)
                 end
                 prompt.border = results.border
@@ -277,20 +289,7 @@ tele_mod.configs = {
                 prompt.col = 2
                 results.height = results.height - 1
                 preview.height = prompt.height + results.height
-                -- preview.title = "~ Preview ~"
-                -- results.title = {
-                --     {
-                --         pos = "S",
-                --         text = "~ Results ~",
-                --     },
-                -- }
                 results.col = 2
-                -- print("preview:")
-                -- dump(preview)
-                -- print("prompt:")
-                -- dump(prompt)
-                -- print("results:")
-                -- dump(results)
 
                 return {
                     preview = self.previewer and preview.width > 0 and preview,
@@ -328,7 +327,7 @@ tele_mod.configs = {
                 layout_strategy = "custom_bottom",
                 prompt_prefix = "   ",
                 selection_caret = "  ",
-                get_status_text = function(self)
+                get_status_text = function(_)
                     return ""
                 end,
                 layout_config = {
@@ -380,7 +379,10 @@ tele_mod.configs = {
                     },
                 },
                 extensions = {
-                    file_browser = {
+                    ["ui-select"] = {
+                        require("telescope.themes").get_dropdown({}),
+                    },
+                    ["file_browser"] = {
                         -- theme = "ivy",
                         mappings = {
                             ["i"] = {
