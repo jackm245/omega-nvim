@@ -21,7 +21,7 @@ wk.register({
             end,
             "Latex",
         },
-	-- TODO: readd
+        -- TODO: readd
         -- f = {
         --     function()
         --         require("nabla").popup()
@@ -90,3 +90,34 @@ end, {
 map("v", "<leader>s", ":s///g<LEFT><LEFT><LEFT>", { noremap = true })
 map("i", "<leader><leader>", "<right>", { noremap = true, silent = true })
 map("i", "<leader>", " ", { noremap = true })
+map(
+    "n",
+    "<C-f>",
+    ':lua vim.cmd(":vert :h "..vim.fn.expand("<cword>"))<CR>',
+    { noremap = true, silent = true }
+)
+map("i", "<m-cr>", "<cr>", { noremap = true, silent = true })
+map(
+    "n",
+    "<c-j>",
+    ":wincmd j<CR>",
+    { noremap = true, silent = true, desc = "Move to split above" }
+)
+map(
+    "n",
+    "<c-h>",
+    ":wincmd h<CR>",
+    { noremap = true, silent = true, desc = "Move to split on left side" }
+)
+map(
+    "n",
+    "<c-k>",
+    ":wincmd k<CR>",
+    { noremap = true, silent = true, desc = "Move to split below" }
+)
+map(
+    "n",
+    "<c-l>",
+    ":wincmd l<CR>",
+    { noremap = true, silent = true, desc = "Move to split on right side" }
+)
