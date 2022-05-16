@@ -370,6 +370,7 @@ cmp_mod.configs = {
                 entries = { name = "wildmenu", separator = " | " },
             },
         })
+        vim.cmd([[PackerLoad neorg]])
         local neorg = require("neorg")
 
         local function load_completion()
