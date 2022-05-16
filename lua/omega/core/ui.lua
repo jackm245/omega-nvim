@@ -1,1 +1,1 @@
-require("omega.colors").init("doom_one")
+require("omega.colors").init(omega.config.colorscheme)
