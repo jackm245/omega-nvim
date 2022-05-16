@@ -1,5 +1,4 @@
 local utils = require("omega.utils")
-local modules = require("omega.core.modules")
 -- set early so mappings are defined with it
 vim.g.mapleader = " "
 
@@ -7,6 +6,8 @@ vim.g.mapleader = " "
 require("omega.core.omega_global")
 -- add config to `omega` global
 require("omega.core.config").load()
+
+local modules = require("omega.core.modules")
 
 modules.bootstrap_packer()
 

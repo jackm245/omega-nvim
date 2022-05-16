@@ -89,6 +89,9 @@ end
 
 function modules.load()
     local use = require("packer").use
+    if not omega.config.use_impatient then
+        omega.modules.core.omega.plugins["impatient.nvim"] = nil
+    end
     for sec_name, section in pairs(omega.modules) do
         for mod_name, mod in pairs(section) do
             for plugin, packer_spec in pairs(mod.plugins) do

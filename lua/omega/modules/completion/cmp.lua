@@ -3,6 +3,7 @@ local cmp_mod = {}
 cmp_mod.plugins = {
     ["nvim-cmp"] = {
         "hrsh7th/nvim-cmp",
+        requires = { "nvim-autopairs" },
         event = { "InsertEnter", "CmdLineEnter" },
     },
     ["cmp_luasnip"] = {
@@ -369,7 +370,6 @@ cmp_mod.configs = {
                 entries = { name = "wildmenu", separator = " | " },
             },
         })
-
         local neorg = require("neorg")
 
         local function load_completion()

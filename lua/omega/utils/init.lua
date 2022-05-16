@@ -34,6 +34,9 @@ function utils.t(str)
 end
 
 function utils.bootstrap_impatient()
+    if not omega.config.use_impatient then
+        return
+    end
     local has_impatient = pcall(require, "impatient")
     if not has_impatient then
         -- Packer Bootstrapping
