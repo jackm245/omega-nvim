@@ -57,6 +57,8 @@ function utils.bootstrap_impatient()
         vim.cmd("packadd impatient.nvim")
 
         require("impatient").enable_profile()
+    else
+        require("impatient").enable_profile()
     end
 end
 
