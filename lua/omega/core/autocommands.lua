@@ -201,10 +201,10 @@ aucmd("User", {
     desc = "Send desktop notification",
 })
 
--- TODO: readd this
--- aucmd("CmdLineEnter", {
---     once = true,
---     callback = function()
---         require("ignis.extras.normal_cmdline").setup()
---     end,
--- })
+
+aucmd("CmdLineEnter", {
+    once = true,
+    callback = function()
+        require("omega.modules.utils.normal_cmdline").setup()
+    end,
+})
