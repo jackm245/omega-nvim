@@ -6,6 +6,10 @@ ts_mod.plugins = {
     ["nvim-treesitter-textobjects"] = {
         "nvim-treesitter/nvim-treesitter-textobjects",
     },
+    ["nvim-treesitter-endwise"] = {
+        "RRethy/nvim-treesitter-endwise",
+        event = "InsertEnter",
+    },
     ["nvim-ts-rainbow"] = { "p00f/nvim-ts-rainbow" },
     ["nvim-treesitter-context"] = {
         "lewis6991/nvim-treesitter-context",
