@@ -17,7 +17,7 @@ wk.register({
         name = " View",
         l = {
             function()
-                require("ignis.utils").LatexPreview()
+                require("omega.utils").LatexPreview()
             end,
             "Latex",
         },
@@ -30,7 +30,7 @@ wk.register({
         -- },
         m = {
             function()
-                require("ignis.utils").MarkdownPreview()
+                require("omega.utils").MarkdownPreview()
             end,
             "Markdown",
         },

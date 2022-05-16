@@ -4,9 +4,6 @@ formatter.plugins = {
     ["formatter.nvim"] = {
         "mhartington/formatter.nvim",
         ft = { "lua" },
-        config = function()
-            require("ignis.modules.misc.formatter")
-        end,
     },
 }
 

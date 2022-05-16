@@ -1,10 +1,10 @@
-local extras
+local extras = {}
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local conf = require("telescope.config").values
 local action_state = require("telescope.actions.state")
 local exp = vim.fn.expand
-local utils=require"omega.utils"
+local utils = require("omega.utils")
 
 local files = {
     python = "python3 -i " .. vim.fn.stdpath("data") .. "/temp",
@@ -111,7 +111,8 @@ extras.scratch_buf = function(args)
         "python",
         "c",
         "cpp",
-        -- "java",
+        "java",
+        "tex",
         "javascript",
         "typescrip",
         "plain",

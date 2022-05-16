@@ -1,5 +1,21 @@
 local utils = {}
 
+function utils.LatexPreview()
+    vim.cmd([[
+      write
+      silent !pdflatex %; open %:t:r.pdf
+    ]])
+end
+
+---Convert markdown file to html and open
+function utils.MarkdownPreview()
+    vim.cmd([[
+  write
+  silent !python3 -m markdown % > ~/temp_html.html
+  silent !open ~/temp_html.html
+  ]])
+end
+
 function utils.border()
     return {
         { "╭", "FloatBorder" },
