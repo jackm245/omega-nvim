@@ -23,32 +23,31 @@ aucmd({ "BufRead", "BufNewFile" }, {
     desc = "Set norg filetype",
 })
 
--- TODO: readd this
--- local netrw = vim.api.nvim_create_augroup("netrw", { clear = true })
--- aucmd({ "Filetype" }, {
---     pattern = "netrw",
---     callback = function()
---         require("ignis.core.settings.netrw").draw_icons()
---     end,
---     desc = "Draw netrw icons",
---     group = netrw,
--- })
--- aucmd({ "TextChanged" }, {
---     pattern = "*",
---     callback = function()
---         require("ignis.core.settings.netrw").draw_icons()
---     end,
---     desc = "Draw netrw icons",
---     group = netrw,
--- })
--- aucmd({ "Filetype" }, {
---     pattern = "netrw",
---     callback = function()
---         require("ignis.core.settings.netrw").set_maps()
---     end,
---     desc = "Define netrw mappings",
---     group = netrw,
--- })
+local netrw = vim.api.nvim_create_augroup("netrw", { clear = true })
+aucmd({ "Filetype" }, {
+    pattern = "netrw",
+    callback = function()
+        require("omega.core.settings.netrw").draw_icons()
+    end,
+    desc = "Draw netrw icons",
+    group = netrw,
+})
+aucmd({ "TextChanged" }, {
+    pattern = "*",
+    callback = function()
+        require("omega.core.settings.netrw").draw_icons()
+    end,
+    desc = "Draw netrw icons",
+    group = netrw,
+})
+aucmd({ "Filetype" }, {
+    pattern = "netrw",
+    callback = function()
+        require("omega.core.settings.netrw").set_maps()
+    end,
+    desc = "Define netrw mappings",
+    group = netrw,
+})
 
 -- show cursor line only in active window
 aucmd(
