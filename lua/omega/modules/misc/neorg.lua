@@ -44,6 +44,10 @@ neorg_mod.configs = {
                             },
                             todo = {
                                 enable = true,
+                                recurring={
+                                    -- icon="ﯩ",
+                                    icon="",
+                                },
                                 pending = {
                                     -- icon = ""
                                     icon = "",
