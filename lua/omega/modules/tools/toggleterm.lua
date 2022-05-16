@@ -60,6 +60,11 @@ toggleterm.keybindings = function()
             print("Running: " .. command)
         end
     end
+    local function toggle_lazygit()
+        require("toggleterm.terminal").Terminal
+            :new({ cmd = "lazygit", close_on_exit = true })
+            :toggle()
+    end
 
     local wk = require("which-key")
     wk.register({
@@ -79,11 +84,6 @@ toggleterm.keybindings = function()
         prefix = "<leader>",
         mode = "n",
     })
-    local function toggle_lazygit()
-        require("toggleterm.terminal").Terminal
-            :new({ cmd = "lazygit", close_on_exit = true })
-            :toggle()
-    end
     vim.keymap.set("n", "<c-g>", function()
         toggle_lazygit()
     end, {
