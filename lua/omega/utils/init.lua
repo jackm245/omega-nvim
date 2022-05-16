@@ -13,6 +13,10 @@ function utils.border()
     }
 end
 
+function utils.t(str)
+    return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
+
 function utils.bootstrap_impatient()
     local has_impatient = pcall(require, "impatient")
     if not has_impatient then
@@ -56,7 +60,6 @@ function utils.append_semicolon()
     -- restore cursor position
     vim.api.nvim_win_set_cursor(0, cursor)
 end
-
 
 utils.in_mathzone = function()
     local has_treesitter, ts = pcall(require, "vim.treesitter")
