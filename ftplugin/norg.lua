@@ -4,8 +4,6 @@ vim.bo.commentstring = "#%s"
 vim.wo.spell = true
 vim.bo.spelllang = "de,en"
 
-local system = require("ignis.utils.system")
-
 local wk = require("which-key")
 
 wk.register({
@@ -23,10 +21,6 @@ wk.register({
     prefix = "g",
     mode = "n",
 })
-
-vim.cmd(
-    "source " .. system.ignis_dir .. system.separator .. "clipboard_neorg.vim"
-)
 
 vim.cmd([[hi link NeorgMarkupVerbatim Comment]])
 -- vim.api.nvim_create_autocmd("BufWritePre", {
