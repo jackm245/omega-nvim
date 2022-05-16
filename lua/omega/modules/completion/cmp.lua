@@ -367,19 +367,19 @@ cmp_mod.configs = {
             },
         })
 
-        -- local neorg = require("neorg")
+        local neorg = require("neorg")
 
-        -- local function load_completion()
-        --     neorg.modules.load_module("core.norg.completion", nil, {
-        --         engine = "nvim-cmp",
-        --     })
-        -- end
+        local function load_completion()
+            neorg.modules.load_module("core.norg.completion", nil, {
+                engine = "nvim-cmp",
+            })
+        end
 
-        -- if neorg.is_loaded() then
-        --     load_completion()
-        -- else
-        --     neorg.callbacks.on_event("core.started", load_completion)
-        -- end
+        if neorg.is_loaded() then
+            load_completion()
+        else
+            neorg.callbacks.on_event("core.started", load_completion)
+        end
 
         vim.cmd([[hi NormalFloat guibg=none]])
     end,
