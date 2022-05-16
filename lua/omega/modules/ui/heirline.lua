@@ -707,6 +707,8 @@ heirline_mod.configs = {
         }
         if omega.config.statusline == "round" then
             require("heirline").setup(round_statuslines)
+        -- elseif omega.config.statusline=="angled" then
+        --     require("heirline").setup(angled_statuslines)
         end
     end,
 }
