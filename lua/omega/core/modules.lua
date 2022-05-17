@@ -6,6 +6,7 @@ function modules.setup()
             "mkdir",
             "insert_utils",
             "surround",
+            "lightspeed",
         },
         ["ui"] = {
             "bufferline",
