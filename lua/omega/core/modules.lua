@@ -21,6 +21,7 @@ function modules.setup()
             "omega",
         },
         ["misc"] = {
+            "gitsigns",
             "treesitter",
             "neorg",
         },
