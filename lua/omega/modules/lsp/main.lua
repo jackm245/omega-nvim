@@ -4,15 +4,26 @@ lsp_mod.plugins = {
     ["nvim-lspconfig"] = {
         "neovim/nvim-lspconfig",
         opt = true,
-        setup = function()
-            vim.defer_fn(function()
-                require("packer").loader("nvim-lspconfig")
-                require("packer").loader("lua-dev.nvim")
-                if vim.bo.ft ~= "packer" then
-                    vim.cmd("silent! e %")
-                end
-            end, 0)
-        end,
+        ft = {
+            "python",
+            "html",
+            "typescript",
+            "css",
+            "nix",
+            "rust",
+            "haskell",
+            "tex",
+            "vim",
+            "lua",
+        },
+        -- setup = function()
+        -- vim.defer_fn(function()
+        --     require("packer").loader("nvim-lspconfig")
+        --     if vim.bo.ft ~= "packer" then
+        --         vim.cmd("silent! e %")
+        --     end
+        -- end, 0)
+        -- end,
     },
 
     ["lsp_signature.nvim"] = {
@@ -39,6 +50,7 @@ lsp_mod.configs = {
         })
     end,
     ["nvim-lspconfig"] = function()
+        require("packer").loader("lua-dev.nvim")
         vim.api.nvim_set_hl(0, "DiagnosticHeader", { link = "Special" })
         vim.api.nvim_create_autocmd("CursorHold", {
             callback = function()

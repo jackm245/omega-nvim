@@ -3,13 +3,13 @@ local lua_lsp = {}
 lua_lsp.plugins = {
     ["lua-dev.nvim"] = {
         "~/neovim_plugins/lua-dev.nvim",
-	opt=true
+        opt = true,
     },
 }
 
 lua_lsp.configs = {
     ["lua-dev.nvim"] = function()
-	local lspconfig=require"lspconfig"
+        local lspconfig = require("lspconfig")
         local lua_cmd = {
             vim.fn.expand("~") .. "/lua-language-server/bin/lua-language-server",
         }
