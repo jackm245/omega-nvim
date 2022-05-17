@@ -121,3 +121,5 @@ map(
     ":wincmd l<CR>",
     { noremap = true, silent = true, desc = "Move to split on right side" }
 )
+map("x", "<", "<gv", { noremap = true })
+map("x", ">", ">gv", { noremap = true })
