@@ -44,7 +44,7 @@ wk.register({
         p = { "<cmd>PackerProfile<cr>", "Profile" },
         i = { "<cmd>PackerInstall<cr>", "Install" },
         u = { "<cmd>PackerUpdate<cr>", "Update" },
-        C = { "<cmd>PackerUpdate<cr>", "Clean" },
+        C = { "<cmd>PackerClean<cr>", "Clean" },
     },
 }, {
     prefix = "<leader>",
