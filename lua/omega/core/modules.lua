@@ -12,6 +12,7 @@ function modules.setup()
             "bufferline",
             "heirline",
             "devicons",
+            "notify",
         },
         ["mappings"] = {
             "which_key",
