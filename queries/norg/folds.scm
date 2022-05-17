@@ -6,4 +6,5 @@
  (heading5)
  (heading6)
  (ranged_tag)
+ (generic_list)
 ] @fold
