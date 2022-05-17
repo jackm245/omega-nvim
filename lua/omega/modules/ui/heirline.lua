@@ -63,11 +63,11 @@ heirline_mod.configs = {
             i = vim.g.terminal_color_2,
             v = vim.g.terminal_color_5,
             V = vim.g.terminal_color_5,
-            ["^V"] = vim.g.terminal_color_5,
+            ["^V"] = colors.blue,
             c = colors.blue,
             s = vim.g.terminal_color_3,
             S = vim.g.terminal_color_3,
-            ["^S"] = vim.g.terminal_color_3,
+            ["^S"] = colors.yellow,
             R = colors.purple,
             r = vim.g.terminal_color_4,
             ["!"] = vim.g.terminal_color_1,
@@ -166,7 +166,7 @@ heirline_mod.configs = {
                 end,
                 hl = function(self)
                     local mode = self.mode:sub(1, 1)
-                    return { fg = mode_colors[mode] }
+                    return { fg = mode_colors[mode] or colors.blue }
                 end,
             },
         }
@@ -325,7 +325,7 @@ heirline_mod.configs = {
                 end,
                 hl = function(self)
                     local mode = self.mode:sub(1, 1)
-                    return { fg = mode_colors[mode] }
+                    return { fg = mode_colors[mode] or colors.blue }
                 end,
             },
             {
@@ -390,7 +390,10 @@ heirline_mod.configs = {
                 },
                 hl = function(self)
                     local mode = self.mode:sub(1, 1)
-                    return { bg = mode_colors[mode], fg = colors.black }
+                    return {
+                        bg = mode_colors[mode] or colors.blue,
+                        fg = colors.black,
+                    }
                 end,
                 provider = function(self)
                     return "%2("
@@ -408,7 +411,7 @@ heirline_mod.configs = {
                 end,
                 hl = function(self)
                     local mode = self.mode:sub(1, 1)
-                    return { fg = mode_colors[mode] }
+                    return { fg = mode_colors[mode] or colors.blue }
                 end,
             },
         }
@@ -602,7 +605,7 @@ heirline_mod.configs = {
                 end,
                 hl = function(self)
                     local mode = self.mode:sub(1, 1)
-                    return { fg = mode_colors[mode] }
+                    return { fg = mode_colors[mode] or colors.blue }
                 end,
             },
             {
@@ -614,7 +617,10 @@ heirline_mod.configs = {
                 end,
                 hl = function(self)
                     local mode = self.mode:sub(1, 1)
-                    return { bg = mode_colors[mode], fg = colors.black }
+                    return {
+                        bg = mode_colors[mode] or colors.blue,
+                        fg = colors.black,
+                    }
                 end,
                 condition = conditions.is_active(),
             },
@@ -627,7 +633,7 @@ heirline_mod.configs = {
                 end,
                 hl = function(self)
                     local mode = self.mode:sub(1, 1)
-                    return { fg = mode_colors[mode] }
+                    return { fg = mode_colors[mode] or colors.blue }
                 end,
             },
         }
@@ -707,8 +713,8 @@ heirline_mod.configs = {
         }
         if omega.config.statusline == "round" then
             require("heirline").setup(round_statuslines)
-        -- elseif omega.config.statusline=="angled" then
-        --     require("heirline").setup(angled_statuslines)
+            -- elseif omega.config.statusline=="angled" then
+            --     require("heirline").setup(angled_statuslines)
         end
     end,
 }
