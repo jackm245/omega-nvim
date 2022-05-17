@@ -1,19 +1,69 @@
 local ts_mod = {}
+local ts_filetypes = {
+    "markdown",
+    "rust",
+    "lua",
+    "python",
+    "cpp",
+    "c",
+    "vim",
+    "latex",
+    "java",
+    "help",
+    "vim",
+    "norg",
+}
 
 ts_mod.plugins = {
-    ["nvim-treesitter"] = { "nvim-treesitter/nvim-treesitter", run = "TSUpdate" },
-    ["nvim-treesitter-refactor"] = { "nvim-treesitter/nvim-treesitter-refactor" },
+    ["nvim-treesitter"] = {
+        "nvim-treesitter/nvim-treesitter",
+        run = "TSUpdate",
+        ft = ts_filetypes,
+    },
+    ["nvim-treesitter-refactor"] = {
+        "nvim-treesitter/nvim-treesitter-refactor",
+        after = "nvim-treesitter",
+    },
     ["nvim-treesitter-textobjects"] = {
         "nvim-treesitter/nvim-treesitter-textobjects",
+        after = "nvim-treesitter",
     },
     ["nvim-treesitter-endwise"] = {
         "RRethy/nvim-treesitter-endwise",
-        event = "InsertEnter",
+        opt = true,
+        setup = function()
+            vim.api.nvim_create_autocmd("InsertEnter", {
+                callback = function()
+                    if
+                        vim.tbl_contains({
+                            "markdown",
+                            "rust",
+                            "lua",
+                            "python",
+                            "cpp",
+                            "c",
+                            "vim",
+                            "latex",
+                            "java",
+                            "help",
+                            "vim",
+                            "norg",
+                        }, vim.bo.ft)
+                    then
+                        require("packer").loader("nvim-treesitter")
+                        require("packer").loader("nvim-treesitter-endwise")
+                    end
+                end,
+            })
+        end,
     },
-    ["nvim-ts-rainbow"] = { "p00f/nvim-ts-rainbow" },
+    ["nvim-ts-rainbow"] = {
+        "p00f/nvim-ts-rainbow",
+        after = "nvim-treesitter",
+    },
     ["nvim-treesitter-context"] = {
-        "lewis6991/nvim-treesitter-context",
-        event = "CursorMoved",
+        "nvim-treesitter/nvim-treesitter-context",
+        after = "nvim-treesitter",
     },
     ["playground"] = {
         "nvim-treesitter/playground",
@@ -222,6 +272,7 @@ ts_mod.configs = {
         vim.cmd([[hi! link TreesitterContext TS_Context]])
         require("treesitter-context").setup({
             enable = true,
+            line_numbers = true,
             patterns = {
                 default = {
                     "class",
