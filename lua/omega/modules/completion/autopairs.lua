@@ -3,9 +3,13 @@ local autopairs = {}
 autopairs.plugins = {
     ["nvim-autopairs"] = {
         "windwp/nvim-autopairs",
-        event = "InsertEnter",
+        event = {
+            "InsertEnter",
+            -- for working with cmp
+            "CmdLineEnter",
+        },
         -- TODO: uncomment this
-        -- after="nvim-cmp",
+        after = "nvim-cmp",
     },
 }
 autopairs.configs = {
