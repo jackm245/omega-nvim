@@ -55,9 +55,11 @@ function utils.bootstrap_impatient()
         end
 
         vim.cmd("packadd impatient.nvim")
+        vim.cmd([[LuaCacheClear]])
 
         require("impatient").enable_profile()
     else
+        vim.cmd([[LuaCacheClear]])
         require("impatient").enable_profile()
     end
 end
