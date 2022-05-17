@@ -8,4 +8,17 @@ lightspeed.plugins = {
     },
 }
 
+lightspeed.configs={
+    ["lightspeed.nvim"]=function()
+        vim.cmd([[
+            sunmap f
+            sunmap F
+            sunmap s
+            sunmap S
+            sunmap t
+            sunmap T
+        ]])
+    end
+}
+
 return lightspeed
