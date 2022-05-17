@@ -3,8 +3,19 @@ local bufferline_mod = {}
 bufferline_mod.plugins = {
     ["bufferline.nvim"] = {
         "akinsho/bufferline.nvim",
-        -- HACK: when a buffer is left a second one is entered
-        event = { "BufUnload", "BufLeave", "BufHidden", "BufDelete" },
+        opt=true,
+        setup = function()
+            vim.api.nvim_create_autocmd({ "BufAdd", "TabEnter" }, {
+                pattern = "*",
+                group = vim.api.nvim_create_augroup("BufferLineLazyLoading", {}),
+                callback = function()
+                    local count = #vim.fn.getbufinfo({ buflisted = 1 })
+                    if count>=2 then
+                        vim.cmd([[PackerLoad bufferline.nvim]])
+                    end
+                end,
+            })
+        end,
     },
 }
 
@@ -17,16 +28,16 @@ bufferline_mod.configs = {
             vim.g.toggle_icon = " "
             vim.g.defined_buf_line_functions = true
             vim.cmd([=[
-		function! Switch_theme(a,b,c,d)
-		    lua require"ignis.modules.files.telescope".colorschemes()
-		endfunction
-		function! Close_buf(a,b,c,d)
-		    lua vim.cmd([[wq]])
-		endfunction
-		function! Toggle_light(a,b,c,d)
-		    lua require"colors".toggle_light()
-		endfunction
-	    ]=])
+                function! Switch_theme(a,b,c,d)
+                lua require"ignis.modules.files.telescope".colorschemes()
+                endfunction
+                function! Close_buf(a,b,c,d)
+                lua vim.cmd([[wq]])
+                endfunction
+                function! Toggle_light(a,b,c,d)
+                lua require"colors".toggle_light()
+                endfunction
+                ]=])
         end
 
         require("bufferline").setup({
