@@ -48,6 +48,7 @@ wk.register({
         },
         f = {
             function()
+                ---@diagnostic disable-next-line: undefined-field
                 require("nabla").popup()
             end,
             "Formulas",
