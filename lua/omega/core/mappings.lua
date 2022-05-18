@@ -4,6 +4,11 @@ local wk = require("which-key")
 wk.register({
     y = { '"+y', " Yank to clipboard" },
     ["S"] = { "<cmd>w<cr>", " Save" },
+    q = {
+        name = " Quickfix",
+        n = { "<cmd>cnext<CR>", "Next Entry" },
+        p = { "<cmd>cprevious<CR>", "Previous Entry" },
+    },
     i = {
         name = " Insert",
         o = { "o<ESC>k", "Empty line below" },
