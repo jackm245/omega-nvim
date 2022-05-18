@@ -63,3 +63,5 @@ vim.opt.fillchars = {
     vertright = "╠",
     verthoriz = "╬",
 }
+vim.opt.laststatus = 3
+vim.opt.winbar = "%{%v:lua.require'omega.modules.ui.winbar'.eval()%}"
