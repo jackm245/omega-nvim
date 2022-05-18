@@ -24,6 +24,7 @@ function modules.setup()
             "gitsigns",
             "treesitter",
             "neorg",
+            "nabla",
         },
         ["lsp"] = {
             "main",

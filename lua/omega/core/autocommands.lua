@@ -155,18 +155,17 @@ aucmd({ "BufNewFile", "BufRead", "BufWinEnter" }, {
 --     end,
 -- })
 
--- TODO: enable this
--- local in_mathzone = require("ignis.utils").in_mathzone
---
--- aucmd("CursorHold", {
---     pattern = "*.tex",
---     callback = function()
---         if in_mathzone() then
---             require("nabla").popup()
---         end
---     end,
---     desc = "Open nabla",
--- })
+local in_mathzone = require("omega.utils").in_mathzone
+
+aucmd("CursorHold", {
+    pattern = "*.tex",
+    callback = function()
+        if in_mathzone() then
+            require("nabla").popup()
+        end
+    end,
+    desc = "Open nabla",
+})
 
 aucmd("User", {
     pattern = "PackerCompileDone",
