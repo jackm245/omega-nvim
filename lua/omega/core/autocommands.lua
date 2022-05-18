@@ -1,5 +1,12 @@
 local aucmd = vim.api.nvim_create_autocmd
 
+vim.api.nvim_create_autocmd({ "BufRead" }, {
+    pattern = "*",
+    callback = function()
+        require("omega.utils").last_place()
+    end,
+})
+
 local ft_aucmd = function(pattern, ft)
     aucmd({ "BufRead", "BufEnter", "BufNewFile" }, {
         pattern = pattern,

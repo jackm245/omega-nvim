@@ -151,4 +151,33 @@ utils.in_mathzone = function()
     end
 end
 
+function utils.last_place()
+    if
+        vim.tbl_contains(
+            vim.api.nvim_list_bufs(),
+            vim.api.nvim_get_current_buf()
+        )
+    then
+        -- check if filetype isn't one of the listed
+        if
+            not vim.tbl_contains(
+                { "gitcommit", "help", "packer", "toggleterm" },
+                vim.bo.ft
+            )
+        then
+            -- check if mark `"` is inside the current file (can be false if at end of file and stuff got deleted outside neovim)
+            -- if it is go to it
+            vim.cmd(
+                [[if line("'\"") > 1 && line("'\"") <= line("$") | execute "normal! g`\"" | endif]]
+            )
+            -- get cursor position
+            local cursor = vim.api.nvim_win_get_cursor(0)
+            -- if there are folds under the cursor open them
+            if vim.fn.foldclosed(cursor[1]) ~= -1 then
+                vim.cmd([[silent normal! zO]])
+            end
+        end
+    end
+end
+
 return utils
