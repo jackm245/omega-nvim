@@ -149,3 +149,14 @@ map(
 )
 map("x", "<", "<gv", { noremap = true })
 map("x", ">", ">gv", { noremap = true })
+-- change case of cword
+map("n", "<C-U>", function()
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    vim.api.nvim_feedkeys("b~", "n", true)
+    vim.defer_fn(function()
+        vim.api.nvim_win_set_cursor(0, cursor)
+    end, 1)
+end, {
+    noremap = true,
+    silent = true,
+})
