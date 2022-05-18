@@ -22,13 +22,12 @@ wk.register({
             end,
             "Latex",
         },
-        -- TODO: readd
-        -- f = {
-        --     function()
-        --         require("nabla").popup()
-        --     end,
-        --     "Formulas",
-        -- },
+        f = {
+            function()
+                require("nabla").popup()
+            end,
+            "Formulas",
+        },
         m = {
             function()
                 require("omega.utils").MarkdownPreview()
