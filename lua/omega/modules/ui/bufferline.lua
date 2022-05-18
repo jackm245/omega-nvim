@@ -3,14 +3,14 @@ local bufferline_mod = {}
 bufferline_mod.plugins = {
     ["bufferline.nvim"] = {
         "akinsho/bufferline.nvim",
-        opt=true,
+        opt = true,
         setup = function()
             vim.api.nvim_create_autocmd({ "BufAdd", "TabEnter" }, {
                 pattern = "*",
                 group = vim.api.nvim_create_augroup("BufferLineLazyLoading", {}),
                 callback = function()
                     local count = #vim.fn.getbufinfo({ buflisted = 1 })
-                    if count>=2 then
+                    if count >= 2 then
                         vim.cmd([[PackerLoad bufferline.nvim]])
                     end
                 end,
@@ -32,12 +32,12 @@ bufferline_mod.configs = {
                 lua require"ignis.modules.files.telescope".colorschemes()
                 endfunction
                 function! Close_buf(a,b,c,d)
-                lua vim.cmd([[wq]])
+                    lua vim.cmd([[wq]])
                 endfunction
                 function! Toggle_light(a,b,c,d)
-                lua require"colors".toggle_light()
+                    lua require"omega.colors".toggle_light()
                 endfunction
-                ]=])
+            ]=])
         end
 
         require("bufferline").setup({
@@ -168,11 +168,13 @@ bufferline_mod.configs = {
                     right = function()
                         local result = {}
                         -- TODO: readd
-                        -- table.insert(result, {
-                        --     text = "%@Toggle_light@ " .. vim.g.toggle_icon .. " %X ",
-                        --     guifg = colors.blue,
-                        --     guibg = colors.light_grey,
-                        -- })
+                        table.insert(result, {
+                            text = "%@Toggle_light@ "
+                                .. vim.g.toggle_icon
+                                .. " %X ",
+                            guifg = colors.blue,
+                            guibg = colors.light_grey,
+                        })
 
                         -- table.insert(result, {
                         --     text = "%@Switch_theme@  %X ",

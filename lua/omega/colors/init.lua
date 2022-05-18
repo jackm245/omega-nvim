@@ -41,6 +41,10 @@ local colors = {}
 
 -- if theme given, load given theme if given, otherwise nvchad_theme
 colors.init = function(theme)
+    local reload = false
+    if theme and vim.g.colors_name and theme ~= vim.g.colors_name then
+        reload = true
+    end
     -- set the global theme, used at various places like theme switcher, highlights
     if not theme then
         if vim.g.forced_theme then
@@ -74,9 +78,13 @@ colors.init = function(theme)
         vim.cmd([[hi clear ]] .. highlight)
     end
     require("omega.colors.highlights")
-    -- require("colors.custom")
-    -- require("plenary.reload").reload_module("ignis.modules.ui.bufferline")
-    -- require("plenary.reload").reload_module("bufferline")
+    require("omega.colors.custom")
+    if reload then
+        require("plenary.reload").reload_module("omega")
+        -- require("plenary.reload").reload_module("bufferline")
+        require"omega.core.modules".load()
+        -- require("omega.core")
+    end
     -- require("ignis.modules.ui.bufferline")
     -- require"colorscheme_switcher".new_scheme()
 end
@@ -84,9 +92,9 @@ end
 local old_theme = nil
 
 function colors.toggle_light()
-    if vim.g.colors_name ~= vim.g.light_theme then
+    if vim.g.colors_name ~= omega.config.light_colorscheme then
         old_theme = vim.g.colors_name
-        colors.init(vim.g.light_theme)
+        colors.init(omega.config.light_colorscheme)
         vim.g.toggle_icon = " "
     else
         colors.init(old_theme)
