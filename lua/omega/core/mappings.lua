@@ -13,6 +13,7 @@ wk.register({
         e = { "<cmd>Telescope emoji<cr>", "Emoji" },
         ["<CR>"] = { "i<CR><ESC>", "Linebreak at Cursor" },
     },
+
     v = {
         name = " View",
         l = {
@@ -35,6 +36,7 @@ wk.register({
             "Markdown",
         },
     },
+    p = { '"0p', "Paste Last Yank" },
 
     ["P"] = {
         name = " Packer",
