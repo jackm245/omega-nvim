@@ -3,7 +3,16 @@ local formatter = {}
 formatter.plugins = {
     ["formatter.nvim"] = {
         "mhartington/formatter.nvim",
-        ft = { "lua" },
+        cmd = "FormatWrite",
+        setup = function()
+            local group = vim.api.nvim_create_augroup("Formatter", {})
+            vim.api.nvim_create_autocmd("BufWritePost", {
+                callback = function()
+                    vim.cmd([[FormatWrite]])
+                end,
+                group = group,
+            })
+        end,
     },
 }
 
@@ -23,14 +32,15 @@ formatter.configs = {
                         }
                     end,
                 },
+                rust = {
+                    function()
+                        return {
+                            exe = "rustfmt",
+                            stdin = true,
+                        }
+                    end,
+                },
             },
-        })
-        local group = vim.api.nvim_create_augroup("Formatter", {})
-        vim.api.nvim_create_autocmd("BufWritePost", {
-            callback = function()
-                vim.cmd([[FormatWrite]])
-            end,
-            group = group,
         })
     end,
 }
