@@ -645,9 +645,24 @@ tele_mod.keybindings = function()
         prefix = "<leader>",
         mode = "n",
     })
+    vim.keymap.set("n", "<c-s>", function()
+        omega.modules.tools.telescope.api.buffer_fuzzy()
+    end)
 end
 
 tele_mod.api = {
+    ["buffer_fuzzy"] = function()
+        local opts = {
+            shorten_path = false,
+            prompt_position = "top",
+            prompt_title = "~ Current Buffer ~",
+            preview_title = "~ Location Preview~ ",
+            results_title = "~ Lines ~",
+            layout_strategy = "custom_bottom",
+            layout_config = { prompt_position = "top", height = 0.4 },
+        }
+        require("telescope.builtin").current_buffer_fuzzy_find(opts)
+    end,
     ["help_tags"] = function()
         local builtin = require("telescope.builtin")
         local opts = {
