@@ -68,28 +68,6 @@ gitsigns.configs = {
                     linehl = "GitSignsChangeLn",
                 },
             },
-            keymaps = {
-                -- Default keymap options
-                noremap = true,
-                buffer = true,
-                ["n ]c"] = {
-                    expr = true,
-                    "&diff ? ']c' : '<cmd>lua require\"gitsigns\".next_hunk()<CR>'",
-                },
-                ["n [c"] = {
-                    expr = true,
-                    "&diff ? '[c' : '<cmd>lua require\"gitsigns\".prev_hunk()<CR>'",
-                },
-                ["n <leader>ghs"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-                ["n <leader>ghu"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-                ["n <leader>ghr"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-                ["n <leader>ghR"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-                ["n <leader>ghp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-                ["n <leader>ghb"] = '<cmd>lua require"gitsigns".blame_line()<CR>',
-                -- Text objects
-                ["o ih"] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
-                ["x ih"] = ':<C-U>lua require"gitsigns".select_hunk()<CR>',
-            },
         })
         vim.cmd([[
             highlight GitSignsAdd guifg=#9ece6a
@@ -98,5 +76,57 @@ gitsigns.configs = {
         ]])
     end,
 }
+
+gitsigns.keybindings = function()
+    local wk = require("which-key")
+    wk.register({
+        g = {
+            name = " Git",
+            h = {
+                name = "Hunk",
+                s = {
+                    function()
+                        require("gitsigns").stage_hunk()
+                    end,
+                    "Stage",
+                },
+                p = {
+                    function()
+                        require("gitsigns").preview_hunk()
+                    end,
+                    "Preview",
+                },
+                b = {
+                    function()
+                        require("gitsigns").blame_line()
+                    end,
+                    "Blame Line",
+                    desc = " Git Blame Line",
+                },
+                R = {
+                    function()
+                        require("gitsigns").reset_buffer()
+                    end,
+                    "Reset Buffer",
+                },
+                r = {
+                    function()
+                        require("gitsigns").reset_hunk()
+                    end,
+                    "Reset Hunk",
+                },
+                u = {
+                    function()
+                        require("gitsigns").undo_stage_hunk()
+                    end,
+                    "Undo Stage",
+                },
+            },
+        },
+    }, {
+        mode = "n",
+        prefix = "<leader>",
+    })
+end
 
 return gitsigns
