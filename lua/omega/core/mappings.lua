@@ -160,3 +160,17 @@ end, {
     noremap = true,
     silent = true,
 })
+
+-- add j and k with count to jumplist
+map(
+    "n",
+    "j",
+    [[(v:count > 1 ? "m'" . v:count : '') . 'j']],
+    { noremap = true, expr = true }
+)
+map(
+    "n",
+    "k",
+    [[(v:count > 1 ? "m'" . v:count : '') . 'k']],
+    { noremap = true, expr = true }
+)
