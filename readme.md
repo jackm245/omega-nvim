@@ -2,6 +2,8 @@
 
 This is my new neovim config after [ignis-nvim](https://github.com/max397574/ignis-nvim).
 
+![Screenshot 2022-05-18 at 21 30 16](https://user-images.githubusercontent.com/81827001/169141006-12601439-a19a-4305-95b4-5ac1650f7473.png)
+
 ## Why a new configuration?
 
 I wanted to do some big refactors.
