@@ -160,6 +160,7 @@ end, {
     noremap = true,
     silent = true,
 })
+map("n", "Q", "@q", { noremap = true, silent = true })
 
 -- add j and k with count to jumplist
 map(
