@@ -5,6 +5,7 @@ vim.api.nvim_create_autocmd({ "BufRead" }, {
     callback = function()
         require("omega.utils").last_place()
     end,
+    desc = "Go to last position in buffer",
 })
 
 local ft_aucmd = function(pattern, ft)
@@ -12,6 +13,7 @@ local ft_aucmd = function(pattern, ft)
         pattern = pattern,
         command = [[set ft=]] .. ft,
         once = false,
+        desc = "Set filetype to " .. ft,
     })
 end
 
@@ -57,13 +59,15 @@ aucmd({ "Filetype" }, {
 })
 
 -- show cursor line only in active window
-aucmd(
-    { "InsertLeave", "WinEnter", "CmdlineLeave" },
-    { pattern = "*", command = "set cursorline" }
-)
+aucmd({ "InsertLeave", "WinEnter", "CmdlineLeave" }, {
+    pattern = "*",
+    command = "set cursorline",
+    desc = "Enable cursorline",
+})
 aucmd({ "InsertEnter", "WinLeave", "CmdlineEnter" }, {
     pattern = "*",
     command = "set nocursorline",
+    desc = "Disable cursorline",
 })
 
 -- windows to close with "q"
@@ -81,30 +85,33 @@ aucmd({ "FileType" }, {
     desc = "Map q to close buffer",
 })
 
-aucmd("FocusGained", { pattern = "*", command = "checktime" })
+aucmd(
+    "FocusGained",
+    { command = "checktime", desc = "Check if buffer was changed" }
+)
 
 aucmd({ "TextYankPost" }, {
     pattern = "*",
     callback = function()
         vim.highlight.on_yank({ higrou = "IncSearch", timeout = 500 })
     end,
+    group = vim.api.nvim_create_augroup("highlight_yank", {}),
     desc = "Highlight yanked text",
-    group = vim.api.nvim_create_augroup("highlight_yank", { clear = true }),
 })
 
-vim.cmd([[
-  augroup nvim-luadev
-    autocmd!
-    function! SetLuaDevOptions()
-      nmap <buffer> <C-c><C-c> <Plug>(Luadev-RunLine)
-      vmap <buffer> <C-c><C-c> <Plug>(Luadev-Run)
-      nmap <buffer> <C-c><C-k> <Plug>(Luadev-RunWord)
-      map  <buffer> <C-x><C-p> <Plug>(Luadev-Complete)
-      set filetype=lua
-    endfunction
-    autocmd BufEnter \[nvim-lua\] call SetLuaDevOptions()
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup nvim-luadev
+--     autocmd!
+--     function! SetLuaDevOptions()
+--       nmap <buffer> <C-c><C-c> <Plug>(Luadev-RunLine)
+--       vmap <buffer> <C-c><C-c> <Plug>(Luadev-Run)
+--       nmap <buffer> <C-c><C-k> <Plug>(Luadev-RunWord)
+--       map  <buffer> <C-x><C-p> <Plug>(Luadev-Complete)
+--       set filetype=lua
+--     endfunction
+--     autocmd BufEnter \[nvim-lua\] call SetLuaDevOptions()
+--   augroup end
+-- ]])
 
 aucmd({ "BufNewFile", "BufRead", "BufWinEnter" }, {
     pattern = "*.tex",
@@ -219,6 +226,7 @@ aucmd("FileType", {
             - "o" -- don't continue comments after o/O
             - "2" -- don't use indent of second line for rest of paragraph
     end,
+    desc = "Set formatoptions",
 })
 
 aucmd("CmdLineEnter", {
@@ -226,4 +234,5 @@ aucmd("CmdLineEnter", {
     callback = function()
         require("omega.modules.utils.normal_cmdline").setup()
     end,
+    desc = "Set up normal_cmdline",
 })

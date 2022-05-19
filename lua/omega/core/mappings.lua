@@ -106,24 +106,42 @@ map("i", "<leader><tab>", function()
 end, {
     noremap = true,
     silent = true,
+    desc = "Expand snippet or jump",
 })
 map("s", "<leader><tab>", function()
     require("luasnip").expand_or_jump()
 end, {
     noremap = true,
     silent = true,
+    desc = "Expand snippet or jump",
 })
 
-map("v", "<leader>s", ":s///g<LEFT><LEFT><LEFT>", { noremap = true })
-map("i", "<leader><leader>", "<right>", { noremap = true, silent = true })
+map(
+    "v",
+    "<leader>s",
+    ":s///g<LEFT><LEFT><LEFT>",
+    { noremap = true, desc = "Substitue on visual selection" }
+)
+map(
+    "i",
+    "<leader><leader>",
+    "<right>",
+    { noremap = true, silent = true, desc = "Move right" }
+)
 map("i", "<leader>", " ", { noremap = true })
 map(
     "n",
     "<C-f>",
     ':lua vim.cmd(":vert :h "..vim.fn.expand("<cword>"))<CR>',
-    { noremap = true, silent = true }
+    { noremap = true, silent = true, desc = "Open helpfile of word under cursor" }
 )
-map("i", "<m-cr>", "<cr>", { noremap = true, silent = true })
+map(
+    "i",
+    "<m-cr>",
+    "<cr>",
+    { noremap = true, silent = true, desc = "Unmapped <cr>" }
+)
+
 map(
     "n",
     "<c-j>",
@@ -148,9 +166,9 @@ map(
     ":wincmd l<CR>",
     { noremap = true, silent = true, desc = "Move to split on right side" }
 )
-map("x", "<", "<gv", { noremap = true })
-map("x", ">", ">gv", { noremap = true })
--- change case of cword
+map("x", "<", "<gv", { noremap = true, desc = "Shift left and reselect" })
+map("x", ">", ">gv", { noremap = true, desc = "Shift left and reselect" })
+
 map("n", "<C-U>", function()
     local cursor = vim.api.nvim_win_get_cursor(0)
     vim.api.nvim_feedkeys("b~", "n", true)
@@ -160,19 +178,20 @@ map("n", "<C-U>", function()
 end, {
     noremap = true,
     silent = true,
+    desc = "Change case of word under cursor",
 })
-map("n", "Q", "@q", { noremap = true, silent = true })
+map("n", "Q", "@q", { noremap = true, silent = true, desc = "Execute macro q" })
 
 -- add j and k with count to jumplist
 map(
     "n",
     "j",
     [[(v:count > 1 ? "m'" . v:count : '') . 'j']],
-    { noremap = true, expr = true }
+    { noremap = true, expr = true, desc = "Add j with count to jumplist" }
 )
 map(
     "n",
     "k",
     [[(v:count > 1 ? "m'" . v:count : '') . 'k']],
-    { noremap = true, expr = true }
+    { noremap = true, expr = true, desc = "Add k with count to jumplist" }
 )

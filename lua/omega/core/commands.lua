@@ -21,15 +21,18 @@ add_cmd("Tmp", function(args)
 end, {
     nargs = "?",
     complete = filetypes,
+    desc = "Open scratch buffer",
 })
 
 add_cmd("CursorNodes", function()
     local node = require("nvim-treesitter.ts_utils").get_node_at_cursor()
     while node do
-        dump(node:type())
+        vim.pretty_print(node:type())
         node = node:parent()
     end
-end, {})
+end, {
+    desc = "Print nodes under cursor",
+})
 
 local function ShowLangTree(langtree, indent)
     local ts = vim.treesitter
@@ -51,11 +54,15 @@ end
 
 add_cmd("LangTree", function()
     ShowLangTree()
-end, {})
+end, {
+    desc = "Shows language tree",
+})
 
 add_cmd("ClearUndo", function()
     local old = vim.opt.undolevels
     vim.opt.undolevels = -1
     vim.cmd([[exe "normal a \<BS>\<Esc>"]])
     vim.opt.undolevels = old
-end, {})
+end, {
+    desc = "Clear undo history",
+})

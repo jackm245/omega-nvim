@@ -1,5 +1,7 @@
+--- Utils for omega-nvim
 local utils = {}
 
+--- Preview latex
 function utils.LatexPreview()
     vim.cmd([[
       write
@@ -7,7 +9,7 @@ function utils.LatexPreview()
     ]])
 end
 
----Convert markdown file to html and open
+--- Convert markdown file to html and open
 function utils.MarkdownPreview()
     vim.cmd([[
   write
@@ -16,6 +18,8 @@ function utils.MarkdownPreview()
   ]])
 end
 
+--- Retunrs a border
+---@return dict<string, string> border char, highlight
 function utils.border()
     return {
         { "╭", "FloatBorder" },
@@ -29,10 +33,14 @@ function utils.border()
     }
 end
 
+--- Replaces termcodes
+---@param str string
+---@return string
 function utils.t(str)
     return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+--- Bootsrpats impatient
 function utils.bootstrap_impatient()
     if not omega.config.use_impatient then
         return
@@ -64,7 +72,7 @@ function utils.bootstrap_impatient()
     end
 end
 
----Appends a `,` to the current line
+--- Appends a `,` to the current line
 function utils.append_comma()
     -- save cursor position
     local cursor = vim.api.nvim_win_get_cursor(0)
@@ -74,7 +82,7 @@ function utils.append_comma()
     vim.api.nvim_win_set_cursor(0, cursor)
 end
 
----Appends a `;` to the current line
+--- Appends a `;` to the current line
 function utils.append_semicolon()
     -- save cursor position
     local cursor = vim.api.nvim_win_get_cursor(0)
@@ -84,6 +92,8 @@ function utils.append_semicolon()
     vim.api.nvim_win_set_cursor(0, cursor)
 end
 
+--- Checks if cursor is in mathzone
+--- @return boolean
 utils.in_mathzone = function()
     local has_treesitter, ts = pcall(require, "vim.treesitter")
     local _, query = pcall(require, "vim.treesitter.query")
@@ -151,6 +161,7 @@ utils.in_mathzone = function()
     end
 end
 
+--- Go to last place in file
 function utils.last_place()
     if
         vim.tbl_contains(

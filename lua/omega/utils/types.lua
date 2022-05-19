@@ -5,4 +5,4 @@
 ---@class OmegaModule
 ---@field keybindings function Set up keybindings for this module
 ---@field plugins table Keys
----@field configs table
+---@field configs table<string,function>
