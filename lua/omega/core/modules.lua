@@ -40,6 +40,8 @@ function modules.setup()
             "comment",
             "telescope",
             "toggleterm",
+            "trouble",
+            "todo",
             -- "dynamic_help",
             "formatter",
         },
