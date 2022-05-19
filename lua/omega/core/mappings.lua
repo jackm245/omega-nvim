@@ -8,6 +8,7 @@ wk.register({
         name = " Quickfix",
         n = { "<cmd>cnext<CR>", "Next Entry" },
         p = { "<cmd>cprevious<CR>", "Previous Entry" },
+        o = { "<cmd>copen<CR>", "Open" },
     },
     w = {
         name = " Window",
