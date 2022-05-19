@@ -61,6 +61,7 @@ wk.register({
         },
     },
     p = { '"0p', "Paste Last Yank" },
+    Q = { ":let @q='<c-r><c-r>q", "Edit Macro Q" },
 
     ["P"] = {
         name = " Packer",
