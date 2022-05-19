@@ -35,7 +35,7 @@ end
 
 local inspect_snippet = [[
 print("${1:variable}:")
-dump($1)]]
+vim.pretty_print($1)]]
 
 local map_cmd = [[<cmd>${0}<CR>]]
 
