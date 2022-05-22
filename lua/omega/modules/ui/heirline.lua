@@ -689,7 +689,7 @@ heirline_mod.configs = {
             align,
             HelpFileName,
             align,
-            progress,
+            round_progress,
         }
 
         local startup_nvim_statusline = {
@@ -711,8 +711,88 @@ heirline_mod.configs = {
             inactive_statusline,
             default_statusline,
         }
+        local winbar_line = {
+            condition = function()
+                if vim.api.nvim_buf_get_name == "" then
+                    return false
+                end
+                if
+                    vim.api.nvim_eval_statusline("%f", {})["str"] == "[No Name]"
+                then
+                    return false
+                end
+                return true
+            end,
+            {
+                provider = function()
+                    return ""
+                end,
+                hl = function()
+                    return { fg = colors.grey }
+                end,
+            },
+            {
+                init = function(self)
+                    self.mode = vim.fn.mode(1)
+                    local filename = self.filename
+                    local extension = vim.fn.fnamemodify(filename, ":e")
+                    if use_dev_icons then
+                        self.icon, self.icon_color = require(
+                            "nvim-web-devicons"
+                        ).get_icon_color(
+                            filename,
+                            extension,
+                            { default = true }
+                        )
+                    else
+                        self.icon = file_icons[extension] or ""
+                    end
+                end,
+                provider = function(self)
+                    return self.icon and (" " .. self.icon)
+                end,
+                hl = function(self)
+                    if use_dev_icons then
+                        return { fg = self.icon_color }
+                    else
+                        return { fg = colors.black, bg = colors.grey }
+                    end
+                end,
+                condition = function()
+                    return vim.tbl_contains(vim.tbl_keys(file_icons), vim.bo.ft)
+                end,
+            },
+            {
+                init = function(self)
+                    self.filename = vim.api.nvim_buf_get_name(0)
+                    self.mode = vim.fn.mode(1)
+                end,
+                provider = function(self)
+                    local filename = vim.fn.pathshorten(
+                        vim.fn.fnamemodify(self.filename, ":.")
+                    )
+                    if filename == "" then
+                        return ""
+                    end
+                    return filename .. " "
+                end,
+                hl = function()
+                    return { fg = colors.green, bg = colors.grey }
+                end,
+            },
+            {
+                provider = function()
+                    return ""
+                end,
+                hl = function()
+                    return { fg = colors.grey }
+                end,
+            },
+        }
+
         if omega.config.statusline == "round" then
-            require("heirline").setup(round_statuslines)
+            require("heirline").setup(round_statuslines, winbar_line)
+            -- require("heirline").setup(round_statuslines)
             -- elseif omega.config.statusline=="angled" then
             --     require("heirline").setup(angled_statuslines)
         end
