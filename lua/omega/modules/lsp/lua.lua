@@ -25,11 +25,11 @@ lua_lsp.configs = {
                     diagnostics = {
                         globals = {
                             "vim",
-                            "dump",
+                            -- "dump",
                             "hs",
                             "lvim",
-                            "P",
-                            "RELOAD",
+                            -- "P",
+                            -- "RELOAD",
                             "neorg",
                         },
                     },
