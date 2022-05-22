@@ -120,6 +120,10 @@ bg("TS_Context", grey_fg)
 -- Line number
 fg("cursorlinenr", white)
 
+fg("Yellow",colors.yellow)
+fg("Green",colors.green)
+fg("Red",colors.red)
+
 -- same it bg, so it doesn't appear
 fg("EndOfBuffer", black)
 
