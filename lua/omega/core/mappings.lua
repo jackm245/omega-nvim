@@ -5,7 +5,7 @@ wk.register({
     y = { '"+y', " Yank to clipboard" },
     ["S"] = { "<cmd>w<cr>", " Save" },
     q = {
-        name = " Quickfix",
+        name = " Quickfix",
         n = { "<cmd>cnext<CR>", "Next Entry" },
         p = { "<cmd>cprevious<CR>", "Previous Entry" },
         o = { "<cmd>copen<CR>", "Open" },
@@ -61,8 +61,35 @@ wk.register({
             "Markdown",
         },
     },
-    p = { '"0p', "Paste Last Yank" },
-    Q = { ":let @q='<c-r><c-r>q", "Edit Macro Q" },
+    p = { '"0p', " Paste Last Yank" },
+
+    Q = { ":let @q='<c-r><c-r>q", " Edit Macro Q" },
+
+    m = {
+        name = " Messages",
+        v = {
+            function()
+                require("omega.utils").view_messages()
+            end,
+            "View",
+        },
+        s = {
+            "<cmd>messages<cr>",
+            "Show",
+        },
+        y = {
+            function()
+                vim.cmd([[let @0 = execute('messages')]])
+            end,
+            "Yank",
+        },
+        c = {
+            function()
+                vim.cmd([[let @+ = execute('messages')]])
+            end,
+            "Copy to Clipboard",
+        },
+    },
 
     ["P"] = {
         name = " Packer",
