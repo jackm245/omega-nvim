@@ -1,6 +1,37 @@
 --- Utils for omega-nvim
 local utils = {}
 
+function utils.view_messages()
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
+    vim.keymap.set(
+        "n",
+        "<ESC>",
+        "<cmd>q<CR>",
+        { noremap = true, silent = true, nowait = true, buffer = buf }
+    )
+    vim.keymap.set(
+        "n",
+        "q",
+        "<cmd>q<CR>",
+        { noremap = true, silent = true, nowait = true, buffer = buf }
+    )
+    local width = vim.api.nvim_win_get_width(0)
+    local height = vim.api.nvim_win_get_height(0)
+    local win = vim.api.nvim_open_win(buf, true, {
+        relative = "win",
+        win = 0,
+        width = math.floor(width * 0.25),
+        height = math.floor(height * 0.9),
+        col = math.floor(width * 0.75),
+        row = math.floor(height * 0.05),
+        border = "single",
+        style = "minimal",
+    })
+    vim.api.nvim_win_set_option(win, "winblend", 20)
+    vim.cmd([[put =execute('messages')]])
+end
+
 --- Preview latex
 function utils.LatexPreview()
     vim.cmd([[
@@ -63,11 +94,11 @@ function utils.bootstrap_impatient()
         end
 
         vim.cmd("packadd impatient.nvim")
-        vim.cmd([[LuaCacheClear]])
+        -- vim.cmd([[LuaCacheClear]])
 
         require("impatient").enable_profile()
     else
-        vim.cmd([[LuaCacheClear]])
+        -- vim.cmd([[LuaCacheClear]])
         require("impatient").enable_profile()
     end
 end
