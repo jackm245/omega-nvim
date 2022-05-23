@@ -712,6 +712,24 @@ heirline_mod.configs = {
             default_statusline,
         }
         local winbar_line = {
+            init = function(self)
+                self.filename = vim.api.nvim_buf_get_name(0)
+                self.mode = vim.fn.mode(1)
+                local filename = self.filename
+                local extension = vim.fn.fnamemodify(filename, ":e")
+                if use_dev_icons then
+                    self.icon, self.icon_color =
+                        require(
+                            "nvim-web-devicons"
+                        ).get_icon_color(
+                            filename,
+                            extension,
+                            { default = true }
+                        )
+                else
+                    self.icon = file_icons[extension] or ""
+                end
+            end,
             condition = function()
                 if vim.api.nvim_buf_get_name == "" then
                     return false
@@ -732,35 +750,20 @@ heirline_mod.configs = {
                 end,
             },
             {
-                init = function(self)
-                    self.mode = vim.fn.mode(1)
-                    local filename = self.filename
-                    local extension = vim.fn.fnamemodify(filename, ":e")
-                    if use_dev_icons then
-                        self.icon, self.icon_color = require(
-                            "nvim-web-devicons"
-                        ).get_icon_color(
-                            filename,
-                            extension,
-                            { default = true }
-                        )
-                    else
-                        self.icon = file_icons[extension] or ""
-                    end
-                end,
                 provider = function(self)
-                    return self.icon and (" " .. self.icon)
+                    return self.icon
+                    -- return self.icon
                 end,
                 hl = function(self)
                     if use_dev_icons then
                         return { fg = self.icon_color }
                     else
-                        return { fg = colors.black, bg = colors.grey }
+                        return { fg = colors.green, bg = colors.grey }
                     end
                 end,
-                condition = function()
-                    return vim.tbl_contains(vim.tbl_keys(file_icons), vim.bo.ft)
-                end,
+                -- condition = function()
+                --     return vim.tbl_contains(vim.tbl_keys(file_icons), vim.bo.ft)
+                -- end,
             },
             {
                 init = function(self)
