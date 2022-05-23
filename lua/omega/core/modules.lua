@@ -40,6 +40,7 @@ function modules.setup()
             "todo",
             -- "dynamic_help",
             "formatter",
+            "paperplanes",
         -- },
         -- ["utils"] = {
             "mkdir",
