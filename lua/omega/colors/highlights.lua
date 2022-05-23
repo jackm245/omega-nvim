@@ -215,8 +215,8 @@ bg("NvimTreeNormal", darker_black)
 fg("NvimTreeOpenedFolderName", blue)
 fg("NvimTreeRootFolder", red, { underline = true }) -- enable underline for root folder in nvim tree
 fg_bg("NvimTreeStatuslineNc", darker_black, darker_black)
-fg("NvimTreeVertSplit", darker_black)
-bg("NvimTreeVertSplit", darker_black)
+fg_bg("NvimTreeVertSplit", darker_black,darker_black)
+-- bg("NvimTreeVertSplit", darker_black)
 fg_bg("NvimTreeWindowPicker", red, tele_prompt)
 
 -- if require("custom.db").get_ts_layout() == "custom_bottom_no_borders" then
