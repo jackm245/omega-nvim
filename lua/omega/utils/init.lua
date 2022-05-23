@@ -1,6 +1,8 @@
 --- Utils for omega-nvim
 local utils = {}
 
+local Path = require("plenary.path")
+
 function utils.view_messages()
     local buf = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
@@ -246,6 +248,22 @@ end
 
 function utils.lighten_color(color, amount)
     return utils.adjust_color(color, amount)
+end
+
+---Get the available nvim-base16 themes
+---@return table themes All the themes found
+utils.get_themes = function()
+    local themes = {}
+    local theme_dir = vim.fn.expand("~")
+        .. "/.config/neovim_configs/omega/lua/hl_themes"
+    local theme_files = require("plenary.scandir").scan_dir(theme_dir, {})
+    for _, theme in ipairs(theme_files) do
+        table.insert(
+            themes,
+            (Path:new(theme):make_relative(theme_dir):gsub(".lua", ""))
+        )
+    end
+    return themes
 end
 
 return utils
