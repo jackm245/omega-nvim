@@ -45,6 +45,7 @@ function modules.setup()
         -- ["utils"] = {
             "mkdir",
             "insert_utils",
+            "colorscheme_switcher",
             "surround",
             "lightspeed",
         },

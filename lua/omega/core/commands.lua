@@ -1,5 +1,11 @@
 local add_cmd = vim.api.nvim_create_user_command
 
+add_cmd("ReloadColors", function()
+    require("colorscheme_switcher").new_scheme()
+end, {
+    desc = "Reload colors",
+})
+
 local function filetypes()
     return {
         "lua",
