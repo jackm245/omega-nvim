@@ -33,6 +33,7 @@ function modules.setup()
         -- },
         -- ["tools"] = {
             "comment",
+            "colorizer",
             "telescope",
             "toggleterm",
             "trouble",
