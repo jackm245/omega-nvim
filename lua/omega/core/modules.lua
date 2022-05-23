@@ -44,6 +44,7 @@ function modules.setup()
         -- },
         -- ["utils"] = {
             "mkdir",
+            "gitlinker",
             "insert_utils",
             "colorscheme_switcher",
             "surround",
