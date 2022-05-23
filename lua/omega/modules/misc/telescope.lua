@@ -6,7 +6,7 @@ tele_mod.plugins = {
         cmd = "Telescope",
         module = {
             "telescope",
-            "omega.modules.tools.telescope",
+            "omega.modules.misc.telescope",
         },
     },
     ["telescope-emoji.nvim"] = {
@@ -51,6 +51,7 @@ tele_mod.configs = {
         local finders = require("telescope.finders")
         local pickers = require("telescope.pickers")
         local make_entry = require("telescope.make_entry")
+        local previewers = require("telescope.previewers")
         local conf = require("telescope.config").values
         --- Pick any picker and use `cwd` as `cwd`
         ---@param cwd string The `cwd` to use
@@ -162,7 +163,7 @@ tele_mod.configs = {
             local opts = {
                 border = true,
                 disable_coordinates = true,
-                layout_strategy = "custom_bottom",
+                -- layout_strategy = "custom_bottom",
                 file_ignore_patterns = {
                     "vendor/*",
                     "node_modules",
@@ -242,7 +243,6 @@ tele_mod.configs = {
         local action_layout = require("telescope.actions.layout")
         local actions_layout = require("telescope.actions.layout")
         -- local fb_actions = require("telescope._extensions.file_browser.actions")
-        local previewers = require("telescope.previewers")
         local themes = require("telescope.themes")
         local previewers = require("telescope.previewers")
         local finders = require("telescope.finders")
@@ -510,91 +510,183 @@ tele_mod.configs = {
                 or bad_files(filepath)
             previewers.buffer_previewer_maker(filepath, bufnr, opts)
         end
-
-        require("telescope").setup(themes.get_ivy({
-            -- defaults = themes.get_ivy({
-            defaults = {
-                buffer_previewer_maker = new_maker,
-                initial_mode = "insert",
-                selection_strategy = "reset",
-                sorting_strategy = "ascending",
-                prompt_prefix = "   ",
-                selection_caret = "  ",
-                get_status_text = function(_)
-                    return ""
-                end,
-                layout_config = {
-                    width = 0.85,
-                    height = 0.9,
-                    preview_cutoff = 20,
-                    prompt_position = "top",
-                    vertical = { mirror = false },
-                    horizontal = {
-                        mirror = false,
-                        preview_width = 0.6,
-                    },
-                },
-                mappings = {
-                    n = {
-                        ["<C-j>"] = actions.move_selection_next,
-                        ["<C-k>"] = actions.move_selection_previous,
-                        ["<C-s>"] = live_grep_selected,
-                        ["<C-o>"] = actions.select_vertical,
-                        ["<C-q>"] = actions.send_selected_to_qflist
-                            + actions.open_qflist,
-                        ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
-                        ["<C-h>"] = "which_key",
-                        ["<C-l>"] = actions_layout.toggle_preview,
-                        -- ["<C-y>"] = set_prompt_to_entry_value,
-                        ["<C-d>"] = actions.preview_scrolling_up,
-                        ["<C-f>"] = actions.preview_scrolling_down,
-                        ["<C-n>"] = require("telescope.actions").cycle_history_next,
-                        ["<C-u>"] = require("telescope.actions").cycle_history_prev,
-                        ["<a-cr>"] = picker_selection_as_cwd,
-                    },
-                    i = {
-                        ["<C-j>"] = actions.move_selection_next,
-                        ["<c-p>"] = action_layout.toggle_prompt_position,
-                        ["<C-k>"] = actions.move_selection_previous,
-                        -- ["<C-y>"] = set_prompt_to_entry_value,
-                        ["<C-o>"] = actions.select_vertical,
-                        ["<C-q>"] = actions.send_selected_to_qflist
-                            + actions.open_qflist,
-                        ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
-                        ["<C-h>"] = "which_key",
-                        ["<C-l>"] = actions_layout.toggle_preview,
-                        ["<C-d>"] = actions.preview_scrolling_up,
-                        ["<C-f>"] = actions.preview_scrolling_down,
-                        ["<C-s>"] = live_grep_selected,
-                        ["<C-n>"] = require("telescope.actions").cycle_history_next,
-                        ["<C-u>"] = require("telescope.actions").cycle_history_prev,
-                        ["<a-cr>"] = picker_selection_as_cwd,
-                    },
-                },
-                extensions = {
-                    ["ui-select"] = {
-                        require("telescope.themes").get_dropdown({}),
-                    },
-                    ["file_browser"] = {
-                        -- theme = "ivy",
-                        mappings = {
-                            ["i"] = {
-                                ["<C-o>"] = actions.select_vertical,
-                                -- ["<C-b>"] = fb_actions.toggle_browser,
-                            },
-                            ["n"] = {},
+        if omega.config.telescope_theme == "custom_bottom_no_borders" then
+            require("telescope").setup(themes.get_ivy({
+                -- defaults = themes.get_ivy({
+                defaults = {
+                    buffer_previewer_maker = new_maker,
+                    initial_mode = "insert",
+                    selection_strategy = "reset",
+                    layout_strategy = "custom_bottom",
+                    sorting_strategy = "ascending",
+                    prompt_prefix = "   ",
+                    selection_caret = "  ",
+                    get_status_text = function(_)
+                        return ""
+                    end,
+                    layout_config = {
+                        width = 0.85,
+                        height = 0.9,
+                        preview_cutoff = 20,
+                        prompt_position = "top",
+                        vertical = { mirror = false },
+                        horizontal = {
+                            mirror = false,
+                            preview_width = 0.6,
                         },
                     },
-                    fzf = {
-                        fuzzy = true, -- false will only do exact matching
-                        override_generic_sorter = false, -- override the generic sorter
-                        override_file_sorter = true, -- override the file sorter
-                        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+                    mappings = {
+                        n = {
+                            ["<C-j>"] = actions.move_selection_next,
+                            ["<C-k>"] = actions.move_selection_previous,
+                            ["<C-s>"] = live_grep_selected,
+                            ["<C-o>"] = actions.select_vertical,
+                            ["<C-q>"] = actions.send_selected_to_qflist
+                                + actions.open_qflist,
+                            ["<C-a>"] = actions.send_to_qflist
+                                + actions.open_qflist,
+                            ["<C-h>"] = "which_key",
+                            ["<C-l>"] = actions_layout.toggle_preview,
+                            -- ["<C-y>"] = set_prompt_to_entry_value,
+                            ["<C-d>"] = actions.preview_scrolling_up,
+                            ["<C-f>"] = actions.preview_scrolling_down,
+                            ["<C-n>"] = require("telescope.actions").cycle_history_next,
+                            ["<C-u>"] = require("telescope.actions").cycle_history_prev,
+                            ["<a-cr>"] = picker_selection_as_cwd,
+                        },
+                        i = {
+                            ["<C-j>"] = actions.move_selection_next,
+                            ["<c-p>"] = action_layout.toggle_prompt_position,
+                            ["<C-k>"] = actions.move_selection_previous,
+                            -- ["<C-y>"] = set_prompt_to_entry_value,
+                            ["<C-o>"] = actions.select_vertical,
+                            ["<C-q>"] = actions.send_selected_to_qflist
+                                + actions.open_qflist,
+                            ["<C-a>"] = actions.send_to_qflist
+                                + actions.open_qflist,
+                            ["<C-h>"] = "which_key",
+                            ["<C-l>"] = actions_layout.toggle_preview,
+                            ["<C-d>"] = actions.preview_scrolling_up,
+                            ["<C-f>"] = actions.preview_scrolling_down,
+                            ["<C-s>"] = live_grep_selected,
+                            ["<C-n>"] = require("telescope.actions").cycle_history_next,
+                            ["<C-u>"] = require("telescope.actions").cycle_history_prev,
+                            ["<a-cr>"] = picker_selection_as_cwd,
+                        },
                     },
+                    extensions = {
+                        ["ui-select"] = {
+                            require("telescope.themes").get_dropdown({}),
+                        },
+                        ["file_browser"] = {
+                            -- theme = "ivy",
+                            mappings = {
+                                ["i"] = {
+                                    ["<C-o>"] = actions.select_vertical,
+                                    -- ["<C-b>"] = fb_actions.toggle_browser,
+                                },
+                                ["n"] = {},
+                            },
+                        },
+                        fzf = {
+                            fuzzy = true, -- false will only do exact matching
+                            override_generic_sorter = false, -- override the generic sorter
+                            override_file_sorter = true, -- override the file sorter
+                            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+                        },
+                    },
+                    set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
                 },
-                set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
-            },
-        }))
+            }))
+        elseif omega.config.telescope_theme == "float_all_borders" then
+            require("telescope").setup({
+                -- defaults = themes.get_ivy({
+                defaults = {
+                    buffer_previewer_maker = new_maker,
+                    initial_mode = "insert",
+                    selection_strategy = "reset",
+                    sorting_strategy = "ascending",
+                    layout_strategy = "horizontal",
+                    prompt_prefix = "   ",
+                    selection_caret = "  ",
+                    get_status_text = function(_)
+                        return ""
+                    end,
+                    layout_config = {
+                        width = 0.85,
+                        height = 0.9,
+                        preview_cutoff = 20,
+                        prompt_position = "top",
+                        vertical = { mirror = false },
+                        horizontal = {
+                            mirror = false,
+                            preview_width = 0.6,
+                        },
+                    },
+                    mappings = {
+                        n = {
+                            ["<C-j>"] = actions.move_selection_next,
+                            ["<C-k>"] = actions.move_selection_previous,
+                            ["<C-s>"] = live_grep_selected,
+                            ["<C-o>"] = actions.select_vertical,
+                            ["<C-q>"] = actions.send_selected_to_qflist
+                                + actions.open_qflist,
+                            ["<C-a>"] = actions.send_to_qflist
+                                + actions.open_qflist,
+                            ["<C-h>"] = "which_key",
+                            ["<C-l>"] = actions_layout.toggle_preview,
+                            -- ["<C-y>"] = set_prompt_to_entry_value,
+                            ["<C-d>"] = actions.preview_scrolling_up,
+                            ["<C-f>"] = actions.preview_scrolling_down,
+                            ["<C-n>"] = require("telescope.actions").cycle_history_next,
+                            ["<C-u>"] = require("telescope.actions").cycle_history_prev,
+                            ["<a-cr>"] = picker_selection_as_cwd,
+                        },
+                        i = {
+                            ["<C-j>"] = actions.move_selection_next,
+                            ["<c-p>"] = action_layout.toggle_prompt_position,
+                            ["<C-k>"] = actions.move_selection_previous,
+                            -- ["<C-y>"] = set_prompt_to_entry_value,
+                            ["<C-o>"] = actions.select_vertical,
+                            ["<C-q>"] = actions.send_selected_to_qflist
+                                + actions.open_qflist,
+                            ["<C-a>"] = actions.send_to_qflist
+                                + actions.open_qflist,
+                            ["<C-h>"] = "which_key",
+                            ["<C-l>"] = actions_layout.toggle_preview,
+                            ["<C-d>"] = actions.preview_scrolling_up,
+                            ["<C-f>"] = actions.preview_scrolling_down,
+                            ["<C-s>"] = live_grep_selected,
+                            ["<C-n>"] = require("telescope.actions").cycle_history_next,
+                            ["<C-u>"] = require("telescope.actions").cycle_history_prev,
+                            ["<a-cr>"] = picker_selection_as_cwd,
+                        },
+                    },
+                    extensions = {
+                        ["ui-select"] = {
+                            require("telescope.themes").get_dropdown({}),
+                        },
+                        ["file_browser"] = {
+                            -- theme = "ivy",
+                            mappings = {
+                                ["i"] = {
+                                    ["<C-o>"] = actions.select_vertical,
+                                    -- ["<C-b>"] = fb_actions.toggle_browser,
+                                },
+                                ["n"] = {},
+                            },
+                        },
+                        fzf = {
+                            fuzzy = true, -- false will only do exact matching
+                            override_generic_sorter = false, -- override the generic sorter
+                            override_file_sorter = true, -- override the file sorter
+                            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+                        },
+                    },
+                    set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
+                },
+            })
+        end
         require("telescope").load_extension("fzf")
     end,
     ["telescope-emoji.nvim"] = function()
@@ -609,14 +701,14 @@ tele_mod.keybindings = function()
             name = " Find",
             f = {
                 function()
-                    omega.modules.tools.telescope.api.find_files()
+                    omega.modules.misc.telescope.api.find_files()
                 end,
                 "File",
             },
         },
         ["/"] = {
             function()
-                omega.modules.tools.telescope.api.live_grep()
+                omega.modules.misc.telescope.api.live_grep()
             end,
             " Live Grep",
         },
@@ -626,14 +718,14 @@ tele_mod.keybindings = function()
             c = { "<cmd>Telescope commands<cr>", "Commands" },
             h = {
                 function()
-                    omega.modules.tools.telescope.api.help_tags()
+                    omega.modules.misc.telescope.api.help_tags()
                 end,
                 "Tags",
             },
         },
         ["."] = {
             function()
-                omega.modules.tools.telescope.api.file_browser()
+                omega.modules.misc.telescope.api.file_browser()
             end,
             " File Browser",
         },
@@ -646,7 +738,7 @@ tele_mod.keybindings = function()
         mode = "n",
     })
     vim.keymap.set("n", "<c-s>", function()
-        omega.modules.tools.telescope.api.buffer_fuzzy()
+        omega.modules.misc.telescope.api.buffer_fuzzy()
     end)
 end
 
@@ -658,18 +750,22 @@ tele_mod.api = {
             prompt_title = "~ Current Buffer ~",
             preview_title = "~ Location Preview~ ",
             results_title = "~ Lines ~",
-            layout_strategy = "custom_bottom",
+            -- layout_strategy = "custom_bottom",
             layout_config = { prompt_position = "top", height = 0.4 },
         }
         require("telescope.builtin").current_buffer_fuzzy_find(opts)
     end,
     ["help_tags"] = function()
+        vim.cmd([[
+            PackerLoad nvim-luaref
+            PackerLoad luv-vimdocs
+        ]])
         local builtin = require("telescope.builtin")
         local opts = {
             prompt_title = "~ Help Tags ~",
             initial_mode = "insert",
             sorting_strategy = "ascending",
-            layout_strategy = "custom_bottom",
+            -- layout_strategy = "custom_bottom",
             layout_config = {
                 prompt_position = "top",
                 preview_width = 0.75,
@@ -689,7 +785,7 @@ tele_mod.api = {
 
         opts = {
             sorting_strategy = "ascending",
-            layout_strategy = "custom_bottom",
+            -- layout_strategy = "custom_bottom",
             scroll_strategy = "cycle",
             prompt_prefix = "  ",
             layout_config = {
@@ -704,7 +800,7 @@ tele_mod.api = {
             prompt_title = "~ Find Files ~",
             preview_title = "~ File Preview ~",
             results_title = "~ Files ~",
-            layout_strategy = "custom_bottom",
+            -- layout_strategy = "custom_bottom",
             find_command = {
                 "rg",
                 "-g",
@@ -726,7 +822,7 @@ tele_mod.api = {
             shorten_path = false,
             prompt_title = "~ Find String ~",
             preview_title = "~ Location Preview ~ ",
-            layout_strategy = "custom_bottom",
+            -- layout_strategy = "custom_bottom",
             results_title = "~ Occurrences ~",
             disable_coordinates = true,
             layout_config = {

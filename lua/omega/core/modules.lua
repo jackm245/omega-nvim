@@ -2,12 +2,6 @@ local modules = {}
 
 function modules.setup()
     local module_sections = {
-        ["utils"] = {
-            "mkdir",
-            "insert_utils",
-            "surround",
-            "lightspeed",
-        },
         ["ui"] = {
             "bufferline",
             "heirline",
@@ -20,13 +14,6 @@ function modules.setup()
         ["core"] = {
             "omega",
         },
-        ["misc"] = {
-            "gitsigns",
-            "nvim-tree",
-            "treesitter",
-            "neorg",
-            "nabla",
-        },
         ["lsp"] = {
             "main",
             "lua",
@@ -37,7 +24,14 @@ function modules.setup()
             "snippets",
             "annotations",
         },
-        ["tools"] = {
+        ["misc"] = {
+            "gitsigns",
+            "nvim-tree",
+            "treesitter",
+            "neorg",
+            "nabla",
+        -- },
+        -- ["tools"] = {
             "comment",
             "telescope",
             "toggleterm",
@@ -45,6 +39,12 @@ function modules.setup()
             "todo",
             -- "dynamic_help",
             "formatter",
+        -- },
+        -- ["utils"] = {
+            "mkdir",
+            "insert_utils",
+            "surround",
+            "lightspeed",
         },
     }
     for section, sec_modules in pairs(module_sections) do
