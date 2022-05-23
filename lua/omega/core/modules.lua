@@ -26,6 +26,7 @@ function modules.setup()
         },
         ["misc"] = {
             "gitsigns",
+            "help_files",
             "nvim-tree",
             "treesitter",
             "neorg",
