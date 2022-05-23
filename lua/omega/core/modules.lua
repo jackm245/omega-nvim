@@ -22,6 +22,7 @@ function modules.setup()
         },
         ["misc"] = {
             "gitsigns",
+            "nvim-tree",
             "treesitter",
             "neorg",
             "nabla",
