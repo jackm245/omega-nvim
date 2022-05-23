@@ -120,9 +120,9 @@ bg("TS_Context", grey_fg)
 -- Line number
 fg("cursorlinenr", white)
 
-fg("Yellow",colors.yellow)
-fg("Green",colors.green)
-fg("Red",colors.red)
+fg("Yellow", colors.yellow)
+fg("Green", colors.green)
+fg("Red", colors.red)
 
 -- same it bg, so it doesn't appear
 fg("EndOfBuffer", black)
@@ -215,12 +215,12 @@ bg("NvimTreeNormal", darker_black)
 fg("NvimTreeOpenedFolderName", blue)
 fg("NvimTreeRootFolder", red, { underline = true }) -- enable underline for root folder in nvim tree
 fg_bg("NvimTreeStatuslineNc", darker_black, darker_black)
-fg_bg("NvimTreeVertSplit", darker_black,darker_black)
+fg_bg("NvimTreeVertSplit", darker_black, darker_black)
 -- bg("NvimTreeVertSplit", darker_black)
 fg_bg("NvimTreeWindowPicker", red, tele_prompt)
 
--- if require("custom.db").get_ts_layout() == "custom_bottom_no_borders" then
-if true then
+if omega.config.telescope_theme == "custom_bottom_no_borders" then
+    -- if true then
     fg_bg("TelescopeBorder", tele_bg, tele_bg)
     fg_bg("TelescopePromptBorder", tele_prompt, tele_prompt)
     fg_bg("TelescopePreviewBorder", tele_bg, tele_bg)
@@ -238,7 +238,7 @@ if true then
     fg_bg("TelescopeSelection", blue, light_grey)
     fg_bg("TelescopeSelectionCaret", blue, light_grey)
     bg("TelescopePreviewLine", light_grey)
-elseif require("custom.db").get_ts_layout() == "float_all_borders" then
+elseif omega.config.telescope_theme == "float_all_borders" then
     fg_bg("TelescopeBorder", light_grey, black)
     fg_bg("TelescopePromptBorder", light_grey, black)
     fg_bg("TelescopePreviewBorder", light_grey, black)
