@@ -3,6 +3,7 @@ local modules = {}
 function modules.setup()
     local module_sections = {
         ["ui"] = {
+            -- "blankline", -- can't lazyload
             "bufferline",
             "heirline",
             "devicons",
