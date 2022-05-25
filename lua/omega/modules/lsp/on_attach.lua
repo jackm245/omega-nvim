@@ -27,10 +27,10 @@ function on_attach.setup(client, bufnr)
     vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
     vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
     vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+    -- vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
     vim.keymap.set("n", "<C-d>", vim.diagnostic.goto_prev, opts)
     vim.keymap.set("n", "<C-f>", vim.diagnostic.goto_next, opts)
-    vim.keymap.set("n", "<Leader>fs", vim.lsp.buf.formatting_sync, opts)
+    -- vim.keymap.set("n", "<Leader>fs", vim.lsp.buf.formatting_sync, opts)
     lsp_highlight_document(client, bufnr)
 end
 
