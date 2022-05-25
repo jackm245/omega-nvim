@@ -18,6 +18,7 @@ function modules.setup()
         ["lsp"] = {
             "main",
             "lua",
+            "rust",
         },
         ["completion"] = {
             "autopairs",
@@ -33,8 +34,8 @@ function modules.setup()
             "treesitter",
             "neorg",
             "nabla",
-        -- },
-        -- ["tools"] = {
+            -- },
+            -- ["tools"] = {
             "comment",
             "colorizer",
             "telescope",
@@ -44,8 +45,8 @@ function modules.setup()
             -- "dynamic_help",
             "formatter",
             "paperplanes",
-        -- },
-        -- ["utils"] = {
+            -- },
+            -- ["utils"] = {
             "mkdir",
             "gitlinker",
             "insert_utils",
