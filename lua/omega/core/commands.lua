@@ -72,3 +72,34 @@ add_cmd("ClearUndo", function()
 end, {
     desc = "Clear undo history",
 })
+
+add_cmd("CodeActions", function()
+    local line_diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
+    local parameters = vim.lsp.util.make_range_params()
+    parameters.context = { diagnostics = line_diagnostics }
+    local all_responses = vim.lsp.buf_request_sync(
+        0,
+        "textDocument/codeAction",
+        parameters
+    )
+
+    if all_responses == nil or vim.tbl_isempty(all_responses) then
+        vim.api.nvim_notify(
+            "No code actions available",
+            vim.log.levels.WARN,
+            {}
+        )
+        return
+    end
+
+    local all_code_actions = {}
+
+    for _, client_response in ipairs(all_responses) do
+        for _, code_action in ipairs(client_response.result) do
+            table.insert(all_code_actions, code_action)
+        end
+    end
+    vim.pretty_print(all_code_actions)
+end, {
+    desc = "Get Code Actions",
+})
