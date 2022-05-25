@@ -10,6 +10,10 @@ help_file.plugins = {
         "milisims/nvim-luaref",
         cmd = { "Telescope", "h" },
     },
+    ["help_files"] = {
+        "~/neovim_plugins/help_files/",
+        cmd = { "Telescope", "h" },
+    },
 }
 
 return help_file

@@ -706,9 +706,7 @@ tele_mod.keybindings = function()
                 "NvChad Base 16 Picker",
             },
             s = {
-                function()
-                    require("ignis.modules.files.telescope").highlights()
-                end,
+                "<cmd>Telescope highlights<cr>",
                 "Search",
             },
         },
@@ -878,6 +876,7 @@ tele_mod.api = {
     ["help_tags"] = function()
         vim.cmd([[
             PackerLoad nvim-luaref
+            PackerLoad help_files
             PackerLoad luv-vimdocs
         ]])
         local builtin = require("telescope.builtin")
@@ -885,11 +884,13 @@ tele_mod.api = {
             prompt_title = "~ Help Tags ~",
             initial_mode = "insert",
             sorting_strategy = "ascending",
+            anchor = "S",
             -- layout_strategy = "custom_bottom",
             layout_config = {
                 prompt_position = "top",
                 preview_width = 0.75,
-                height = 0.6,
+                width = 0.95,
+                height = 0.8,
             },
             preview = {
                 preview_cutoff = 120,
