@@ -72,7 +72,7 @@ aucmd({ "InsertEnter", "WinLeave", "CmdlineEnter" }, {
 
 -- windows to close with "q"
 aucmd({ "FileType" }, {
-    pattern = { "help", "startuptime", "qf", "lspinfo", "man" },
+    pattern = { "help", "startuptime", "qf", "lspinfo", "man", "tsplayground" },
     callback = function()
         vim.keymap.set("n", "q", function()
             vim.cmd([[close]])
