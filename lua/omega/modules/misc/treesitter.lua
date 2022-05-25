@@ -266,6 +266,7 @@ ts_mod.configs = {
             ["function_definition"] = "FunctionDefinition",
             ["quantifier"] = "Special",
             ["utils"] = "Function",
+            ["code"] = "Comment",
         })
     end,
     ["nvim-treesitter-context"] = function()
