@@ -236,3 +236,13 @@ aucmd("CmdLineEnter", {
     end,
     desc = "Set up normal_cmdline",
 })
+
+aucmd("BufEnter", {
+    pattern = { "*.tex", "*.norg" },
+    callback = function()
+        vim.cmd([[
+            set spell
+            set spelllang=de,en
+        ]])
+    end,
+})
