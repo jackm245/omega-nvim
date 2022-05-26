@@ -249,6 +249,16 @@ heirline_mod.configs = {
         end
 
         local git = {
+            on_click = {
+                callback = function()
+                    vim.defer_fn(function()
+                        require("toggleterm.terminal").Terminal
+                            :new({ cmd = "lazygit", close_on_exit = true })
+                            :toggle()
+                    end,10)
+                end,
+                name = "toggle_lazygit",
+            },
             condition = conditions.is_git_repo,
 
             init = function(self)
