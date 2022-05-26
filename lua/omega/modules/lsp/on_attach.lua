@@ -32,6 +32,24 @@ function on_attach.setup(client, bufnr)
     vim.keymap.set("n", "<C-f>", vim.diagnostic.goto_next, opts)
     -- vim.keymap.set("n", "<Leader>fs", vim.lsp.buf.formatting_sync, opts)
     lsp_highlight_document(client, bufnr)
+    require("which-key").register({
+        s = {
+            name = " Search",
+            c = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
+        },
+    }, {
+        mode = "n",
+        prefix = "<leader>",
+    })
+    require("which-key").register({
+        s = {
+            name = " Search",
+            c = { "<cmd>lua vim.lsp.buf.range_code_action()<CR>", "Code Action" },
+        },
+    }, {
+        mode = "v",
+        prefix = "<leader>",
+    })
 end
 
 return on_attach
