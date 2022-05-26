@@ -1,11 +1,17 @@
 local rust_lsp = {}
 
 rust_lsp.plugins = {
-    ["lua-dev.nvim"] = {
+    ["rust-tools.nvim"] = {
         "simrat39/rust-tools.nvim",
         ft = "rust",
         requires = {
-            { "mfussenegger/nvim-dap", after = "rust-tools.nvim" },
+            {
+                "mfussenegger/nvim-dap",
+                after = "rust-tools.nvim",
+                config = function()
+                    vim.cmd([[PackerLoad nvim-dap-ui]])
+                end,
+            },
             {
                 "rcarriga/nvim-dap-ui",
                 config = function()
@@ -13,14 +19,14 @@ rust_lsp.plugins = {
                         mappings = { toggle = "<tab>" },
                     })
                 end,
-                after = "rust-tools.nvim",
+                opt = true,
             },
         },
     },
 }
 
 rust_lsp.configs = {
-    ["lua-dev.nvim"] = function()
+    ["rust-tools.nvim"] = function()
         local function on_attach(client, bufnr)
             require("omega.modules.lsp.on_attach").setup(client, bufnr)
         end
