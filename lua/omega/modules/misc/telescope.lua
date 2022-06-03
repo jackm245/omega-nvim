@@ -167,6 +167,7 @@ tele_mod.configs = {
                 file_ignore_patterns = {
                     "vendor/*",
                     "node_modules",
+                    "target/",
                     "%.jpg",
                     "%.jpeg",
                     "%.png",
@@ -699,11 +700,11 @@ tele_mod.keybindings = function()
     wk.register({
         C = {
             name = " Colors",
-            n = {
+            p = {
                 function()
                     omega.modules.misc.telescope.api.colorscheme_switcher()
                 end,
-                "NvChad Base 16 Picker",
+                "Pick",
             },
             s = {
                 "<cmd>Telescope highlights<cr>",
