@@ -29,6 +29,7 @@ toggleterm.configs = {
                 },
             },
         })
+        omega.modules.misc.toggleterm.keybindings()
     end,
 }
 local exp = vim.fn.expand
