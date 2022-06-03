@@ -103,3 +103,9 @@ add_cmd("CodeActions", function()
 end, {
     desc = "Get Code Actions",
 })
+
+add_cmd("ViewColors", function()
+    require("omega.colors.extras.color_viewer").view_colors()
+end, {
+    desc = "View colors",
+})
