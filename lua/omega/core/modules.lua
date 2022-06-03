@@ -17,6 +17,7 @@ function modules.setup()
         },
         ["lsp"] = {
             "main",
+            "swift",
             "lua",
             "rust",
         },
@@ -32,6 +33,7 @@ function modules.setup()
             "symbols_outline",
             "nvim-tree",
             "treesitter",
+            "colortils",
             "neorg",
             "nabla",
             -- },
