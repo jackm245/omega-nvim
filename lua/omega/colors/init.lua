@@ -24,8 +24,8 @@ function colors.create_colorscheme()
     scheme.dark_green = utils.darken_color(scheme.green, 25)
     scheme.vibrant_green = vim.fn.input("Vibrant Green> ", "")
     scheme.blue = vim.fn.input("Blue> ", "")
-    scheme.teal = vim.fn.input("Orange> ", "")
-    scheme.orange = vim.fn.input("Teal> ", "")
+    scheme.orange = vim.fn.input("Orange> ", "")
+    scheme.teal = vim.fn.input("Teal> ", "")
     scheme.cyan = vim.fn.input("Cyan> ", "")
     scheme.dark_blue = utils.darken_color(scheme.blue, 25)
     scheme.nord_blue = utils.darken_color(scheme.blue, 13)
@@ -42,9 +42,11 @@ end
 -- if theme given, load given theme if given, otherwise nvchad_theme
 colors.init = function(theme, reload)
     reload = reload or false
-    -- if theme and vim.g.colors_name and theme ~= vim.g.colors_name then
+    -- local old_colorscheme = require("omega.core.data_save").data["colorscheme"]
+    -- if old_colorscheme and theme ~= old_colorscheme then
     --     reload = true
     -- end
+    -- require("lua.omega.core.data_save").store("colorscheme", theme)
     -- set the global theme, used at various places like theme switcher, highlights
     if not theme then
         if vim.g.forced_theme then
@@ -82,9 +84,9 @@ colors.init = function(theme, reload)
     if reload then
         require("plenary.reload").reload_module("omega")
         require("plenary.reload").reload_module("bufferline")
-        omega.modules.ui.bufferline.configs["bufferline.nvim"]()
+        pcall(omega.modules.ui.bufferline.configs["bufferline.nvim"])
         require("plenary.reload").reload_module("heirline")
-        omega.modules.ui.heirline.configs["heirline.nvim"]()
+        pcall(omega.modules.ui.heirline.configs["heirline.nvim"])
         require("colorscheme_switcher").new_scheme()
         -- require("omega.core.modules").load()
         -- require("omega.core")
