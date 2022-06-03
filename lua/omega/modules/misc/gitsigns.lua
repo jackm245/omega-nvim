@@ -73,7 +73,7 @@ gitsigns.configs = {
             highlight GitSignsAdd guifg=#9ece6a
             highlight GitSignsChange guifg=#e0af68
             highlight GitSignsDelete guifg=#db4b4b
-        ]])
+            ]])
     end,
 }
 
@@ -124,9 +124,9 @@ gitsigns.keybindings = function()
             },
         },
     }, {
-        mode = "n",
-        prefix = "<leader>",
-    })
+            mode = "n",
+            prefix = "<leader>",
+        })
 end
 
 return gitsigns
