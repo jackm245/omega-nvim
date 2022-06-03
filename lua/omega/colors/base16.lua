@@ -114,7 +114,7 @@ local function apply_base16_theme(theme)
     highlight("Boolean", theme.base09, nil, nil, nil)
     highlight("Character", theme.base08, nil, nil, nil)
     highlight("Comment", theme.base03, nil, nil, nil)
-    highlight("Conditional", theme.base0E, nil, nil, nil)
+    highlight("Conditional", theme.base0E, nil, "italic", nil)
     highlight("Constant", theme.base09, nil, nil, nil)
     highlight("Define", theme.base0E, nil, "none", nil)
     highlight("Delimiter", theme.base0F, nil, nil, nil)
@@ -224,9 +224,9 @@ local function apply_base16_theme(theme)
 
     -- code from https://github.com/NvChad/nvim-base16.lua
     -- Modified from https://github.com/chriskempson/base16-vim
-    vim.g.color_base_01 = "#" .. theme.base01
-    vim.g.color_base_09 = "#" .. theme.base09
-    vim.g.color_base_0F = "#" .. theme.base0F
+    vim.g.color_base_01 = theme.base01
+    vim.g.color_base_09 = theme.base09
+    vim.g.color_base_0F = theme.base0F
     highlight("LspDiagnosticsDefaultError", theme.base08, nil, nil, nil)
     highlight("LspDiagnosticsDefaultWarning", theme.base0A, nil, nil, nil)
     highlight("LspDiagnosticsDefaultWarn", theme.base0A, nil, nil, nil)
