@@ -17,7 +17,7 @@ local ts_filetypes = {
 ts_mod.plugins = {
     ["nvim-treesitter"] = {
         "nvim-treesitter/nvim-treesitter",
-        run = "TSUpdate",
+        run = ":TSUpdate",
         ft = ts_filetypes,
     },
     ["nvim-treesitter-refactor"] = {
@@ -267,6 +267,7 @@ ts_mod.configs = {
             ["quantifier"] = "Special",
             ["utils"] = "Function",
             ["code"] = "Comment",
+            ["rust_path"] = "String",
         })
     end,
     ["nvim-treesitter-context"] = function()
