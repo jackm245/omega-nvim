@@ -223,3 +223,5 @@ map(
     [[(v:count > 1 ? "m'" . v:count : '') . 'k']],
     { noremap = true, expr = true, desc = "Add k with count to jumplist" }
 )
+
+map("i", "<C-U>", "<ESC>b~A", { noremap = true, silent = true })
