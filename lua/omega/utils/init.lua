@@ -242,10 +242,18 @@ function utils.adjust_color(color, amount)
     return "#" .. first .. second .. third
 end
 
+--- Darkens a color by a certain value
+---@param color string
+---@param amount number
+---@return string color
 function utils.darken_color(color, amount)
     return utils.adjust_color(color, -amount)
 end
 
+--- Lightens a color by a certain value
+---@param color string
+---@param amount number
+---@return string color
 function utils.lighten_color(color, amount)
     return utils.adjust_color(color, amount)
 end
@@ -264,6 +272,26 @@ utils.get_themes = function()
         )
     end
     return themes
+end
+
+--- Checks if nested fields are available
+---@param base table
+---@param fields table Fields in reversed order
+utils.recursive_available = function(base, fields)
+    local length = #fields
+    if length == 1 then
+        if base[fields[1]] then
+            return true
+        end
+        return false
+    else
+        if base[fields[length]] then
+            local last = fields[length]
+            fields[length] = nil
+            return utils.recursive_available(base[last], fields)
+        end
+        return false
+    end
 end
 
 return utils
