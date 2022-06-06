@@ -3,11 +3,31 @@ local heirline_mod = {}
 heirline_mod.plugins = {
     ["heirline.nvim"] = {
         "rebelot/heirline.nvim",
+        -- commit = "6e9aaa8d4c193ba1bd828a1260d2ef9b2eff2513",
     },
 }
 
 heirline_mod.configs = {
     ["heirline.nvim"] = function()
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "HeirlineInitWinbar",
+            callback = function(args)
+                local buf = args.buf
+                if
+                    vim.tbl_contains(
+                        { "terminal", "prompt", "nofile", "help", "quickfix" },
+                        vim.bo[buf].buftype
+                    )
+                    or vim.tbl_contains(
+                        { "gitcommit", "fugitive", "toggleterm" },
+                        vim.bo[buf].filetype
+                    )
+                    or not vim.bo[buf].buflisted
+                then
+                    vim.opt_local.winbar = nil
+                end
+            end,
+        })
         local conditions = require("heirline.conditions")
         local utilities = require("heirline.utils")
         local utils = require("heirline.utils")
@@ -255,7 +275,7 @@ heirline_mod.configs = {
                         require("toggleterm.terminal").Terminal
                             :new({ cmd = "lazygit", close_on_exit = true })
                             :toggle()
-                    end,10)
+                    end, 10)
                 end,
                 name = "toggle_lazygit",
             },
@@ -485,6 +505,14 @@ heirline_mod.configs = {
                 warn_icon = " ",
                 info_icon = " ",
                 hint_icon = " ",
+            },
+            on_click = {
+                callback = function()
+                    require("trouble").toggle({ mode = "document_diagnostics" })
+                    -- or
+                    -- vim.diagnostic.setqflist()
+                end,
+                name = "heirline_diagnostics",
             },
 
             init = function(self)
@@ -745,7 +773,8 @@ heirline_mod.configs = {
                     return false
                 end
                 if
-                    vim.api.nvim_eval_statusline("%f", {})["str"] == "[No Name]"
+                    vim.api.nvim_eval_statusline("%f", {})["str"]
+                    == "[No Name]"
                 then
                     return false
                 end
@@ -768,7 +797,9 @@ heirline_mod.configs = {
                     if use_dev_icons then
                         return { fg = self.icon_color }
                     else
-                        return { fg = colors.green, bg = colors.grey }
+                        return conditions.is_active()
+                                and { fg = colors.green, bg = colors.grey }
+                            or { fg = colors.onebg, bg = colors.grey }
                     end
                 end,
                 -- condition = function()
@@ -790,8 +821,27 @@ heirline_mod.configs = {
                     return filename .. " "
                 end,
                 hl = function()
-                    return { fg = colors.green, bg = colors.grey }
+                    return conditions.is_active()
+                            and { fg = colors.green, bg = colors.grey }
+                        or { fg = colors.onebg, bg = colors.grey }
                 end,
+            },
+            {
+                condition = function(self)
+                    return not vim.bo.modified
+                end,
+                provider = "",
+                hl = function()
+                    return { fg = colors.red, bg = colors.grey }
+                end,
+                on_click = {
+                    callback = function(_, winid)
+                        vim.api.nvim_win_close(winid, true)
+                    end,
+                    name = function(self)
+                        return "heirline_close_button_" .. self.winnr
+                    end,
+                },
             },
             {
                 provider = function()

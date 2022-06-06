@@ -4,6 +4,7 @@ local trouble = {}
 trouble.plugins = {
     ["trouble.nvim"] = {
         "folke/trouble.nvim",
+        module = "trouble",
         cmd = {
             "Trouble",
             "TroubleClose",
