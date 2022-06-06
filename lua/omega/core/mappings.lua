@@ -225,3 +225,5 @@ map(
 )
 
 map("i", "<C-U>", "<ESC>b~A", { noremap = true, silent = true })
+map("s", "t", "a<bs>t", { noremap = true })
+map("s", "f", "a<bs>f", { noremap = true })

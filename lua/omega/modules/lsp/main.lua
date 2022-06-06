@@ -238,7 +238,7 @@ lsp_mod.configs = {
             float = {
                 focusable = false,
                 border = utils.border(),
-                scope = "cursor",
+                scope = "line",
                 format = function(diagnostic)
                     -- dump(diagnostic)
                     if diagnostic.user_data == nil then

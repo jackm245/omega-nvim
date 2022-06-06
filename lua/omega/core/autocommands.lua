@@ -246,3 +246,9 @@ aucmd("BufEnter", {
         ]])
     end,
 })
+--
+-- aucmd("VimLeavePre", {
+--     callback = function()
+--         require("omega.core.data_save").set_data()
+--     end,
+-- })

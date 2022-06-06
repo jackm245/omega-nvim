@@ -42,7 +42,6 @@ map(
     "<Plug>SurroundToggleBrackets",
     "<cmd>lua require('surround').toggle_brackets()<cr>"
 )
-map("x", "s", "<Plug>SurroundAddVisual")
 map("n", "ys", "<Plug>SurroundAddNormal")
 map("n", "ds", "<Plug>SurroundDelete")
 map("n", "cs", "<Plug>SurroundReplace")

@@ -25,6 +25,7 @@ lua_lsp.configs = {
                     diagnostics = {
                         globals = {
                             "vim",
+                            "omega",
                             -- "dump",
                             "hs",
                             "lvim",

@@ -3,8 +3,10 @@ local neorg_mod = {}
 neorg_mod.plugins = {
     ["neorg"] = {
         "nvim-neorg/neorg",
+        -- "~/neovim_plugins/neorg",
         ft = "norg",
         requires = { "nvim-treesitter" },
+        -- commit = "2cda01f7fcd24881161d8ff7c21344da08facf5b",
     },
     ["neorg-telescope"] = { "~/neovim_plugins/neorg-telescope/", after = "neorg" },
     ["neorg-context"] = { "~/neovim_plugins/neorg-context/", after = "neorg" },
@@ -26,7 +28,7 @@ neorg_mod.configs = {
         neorg.modules.load_module("external.zettelkasten", nil, {})
     end,
     ["neorg"] = function()
-        require"packer".loader("nvim-treesitter")
+        require("packer").loader("nvim-treesitter")
         local neorg_callbacks = require("neorg.callbacks")
 
         require("neorg").setup({

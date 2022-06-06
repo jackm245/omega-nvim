@@ -3,7 +3,8 @@ local neogen_mod = {}
 
 neogen_mod.plugins = {
     ["neogen"] = {
-        "danymat/neogen",
+        -- "danymat/neogen",
+        "~/neovim_plugins/neogen",
         module = { "neogen" },
         requires = { "LuaSnip" },
     },

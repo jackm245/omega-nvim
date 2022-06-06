@@ -3,8 +3,10 @@ local config = {}
 function config.load()
     omega.config = {
         statusline = "round",
-        colorscheme = "doom_one",
-        -- colorscheme="onedark",
+        colorscheme = "catppuccin_frappe",
+        -- colorscheme = "catppuccin_macchiato",
+        -- colorscheme = "doom_one",
+        -- colorscheme = "onedark",
         -- colorscheme = "everforest",
         -- colorscheme = "everforest_light",
         light_colorscheme = "everforest",

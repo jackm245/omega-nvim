@@ -9,7 +9,9 @@ colortils_mod.plugins = {
 
 colortils_mod.configs = {
     ["colortils.nvim"] = function()
-        require("colortils").setup({ border = require("omega.utils").border() })
+        require("colortils").setup({
+            border = require("omega.utils").border(),
+        })
     end,
 }
 

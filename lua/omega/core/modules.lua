@@ -1,4 +1,5 @@
 local modules = {}
+-- local utils = require("omega.utils")
 
 function modules.setup()
     local module_sections = {
@@ -29,6 +30,7 @@ function modules.setup()
         },
         ["misc"] = {
             "gitsigns",
+            "tomato",
             "help_files",
             "symbols_outline",
             "nvim-tree",
@@ -92,9 +94,9 @@ function modules.setup()
                     border = require("omega.utils").border(),
                 })
             end,
-        },
-        keybindings = {
-            toggle_info = "<TAB>",
+            keybindings = {
+                toggle_info = "<TAB>",
+            },
         },
         profile = {
             enable = true,
@@ -118,6 +120,23 @@ function modules.load()
                     and type(mod.configs[plugin]) == "function"
                 then
                     packer_spec["config"] = mod.configs[plugin]
+                    -- if
+                    --     -- utils.recursive_available(
+                    --     --     omega.modules[sec_name][mod_name],
+                    --     --     { plugin, "configs" }
+                    --     -- ) and
+                    --     omega.modules[sec_name][mod_name].configs
+                    --     and omega.modules[sec_name][mod_name].configs[plugin]
+                    --     and type(
+                    --             omega.modules[sec_name][mod_name].configs[plugin]
+                    --         )
+                    --         == "function"
+                    -- then
+                    --     omega.plugin_configs[plugin] = function()
+                    --         omega.modules[sec_name][mod_name].configs[plugin]()
+                    --     end
+                    --     packer_spec["config"] = omega.plugin_configs[plugin]
+                    -- end
                 end
                 use(packer_spec)
             end
@@ -138,7 +157,7 @@ function modules.bootstrap_packer()
         if not has_packer then
             -- Packer Bootstrapping
             local packer_path = vim.fn.stdpath("data")
-                .. "/site/pack/packer/start/packer.nvim"
+                .. "/site/pack/packer/opt/packer.nvim"
             if vim.fn.empty(vim.fn.glob(packer_path)) > 0 then
                 vim.notify("Bootstrapping packer.nvim, please wait ...")
                 vim.fn.system({
