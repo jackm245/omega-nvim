@@ -58,16 +58,16 @@
 
 (
   (function_call
-    name: (identifier) @function
-    (#eq? @function "pairs")
+    name: (identifier) @function.builtin
+    (#eq? @function.builtin "pairs")
   )
   (#set! conceal "P")
 )
 
 (
   (function_call
-    name: (identifier) @function
-    (#eq? @function "ipairs")
+    name: (identifier) @function.builtin
+    (#eq? @function.builtin "ipairs")
   )
   (#set! conceal "I")
 )

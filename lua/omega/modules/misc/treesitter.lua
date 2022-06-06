@@ -121,6 +121,7 @@ ts_mod.configs = {
                 "rust",
                 "lua",
                 "python",
+                "luap",
                 "cpp",
                 "c",
                 "vim",

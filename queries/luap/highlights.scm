@@ -1,8 +1,28 @@
-(character)@string
-(set(range)@keyword)
-(negated_set(range)@keyword)
-(class)@keyword
-(one_or_more)@quantifier
-(zero_or_more)@quantifier
-(zero_or_one)@quantifier
-(shortest_zero_or_more)@quantifier
+(character) @character
+(".") @punctuation.delimiter
+
+[
+    (anchor_end)
+    "^"
+] @punctuation.special
+
+[
+    "["
+    "]"
+    "("
+    ")"
+] @punctuation.bracket
+
+[
+    (zero_or_more)
+    (shortest_zero_or_more)
+    (one_or_more)
+    (zero_or_one)
+] @operator
+
+(class) @keyword
+
+(balanced_match
+    first: (character) @parameter
+    last: (character) @parameter
+)
