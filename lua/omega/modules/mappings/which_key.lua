@@ -15,7 +15,7 @@ which_key.configs = {
                 spacing = 3, -- spacing between columns
             },
             window = {
-                border = require"omega.utils".border(),
+                border = require("omega.utils").border(),
                 margin = { 1, 0, 1, 0 }, -- top right bottom left
                 padding = { 0, 2, 0, 0 }, -- top right bottom left
                 winblend = 0,

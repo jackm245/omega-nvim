@@ -124,9 +124,9 @@ gitsigns.keybindings = function()
             },
         },
     }, {
-            mode = "n",
-            prefix = "<leader>",
-        })
+        mode = "n",
+        prefix = "<leader>",
+    })
 end
 
 return gitsigns
