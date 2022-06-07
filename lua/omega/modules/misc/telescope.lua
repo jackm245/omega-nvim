@@ -707,7 +707,9 @@ tele_mod.keybindings = function()
                 "Pick",
             },
             s = {
-                "<cmd>Telescope highlights<cr>",
+                function()
+                    require("telescope.builtin").highlights()
+                end,
                 "Search",
             },
         },
@@ -729,8 +731,18 @@ tele_mod.keybindings = function()
         },
         ["h"] = {
             name = " Help",
-            t = { "<cmd>Telescope builtin<cr>", "Telescope" },
-            c = { "<cmd>Telescope commands<cr>", "Commands" },
+            t = {
+                function()
+                    require("telescope.builtin").builtin()
+                end,
+                "Telescope",
+            },
+            c = {
+                function()
+                    require("telescope.builtin").commands()
+                end,
+                "Commands",
+            },
             h = {
                 function()
                     omega.modules.misc.telescope.api.help_tags()
