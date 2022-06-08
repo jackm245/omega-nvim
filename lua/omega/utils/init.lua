@@ -74,7 +74,27 @@ function utils.t(str)
 end
 
 --- Bootsrpats impatient
-function utils.bootstrap_impatient()
+function utils.bootstrap_plugins()
+    local has_which_key = pcall(require, "which-key")
+    if not has_which_key then
+        -- Which-key Bootstrapping
+        local wk_path = vim.fn.stdpath("data")
+            .. "/site/pack/packer/start/which-key.nvim"
+        if vim.fn.empty(vim.fn.glob(wk_path)) > 0 then
+            vim.notify("Bootstrapping which-key.nvim, please wait ...")
+            vim.fn.system({
+                "git",
+                "clone",
+                "--depth",
+                "1",
+                "https://github.com/max397574/which-key.nvim",
+                wk_path,
+            })
+        end
+
+        vim.cmd("packadd which-key.nvim")
+    end
+
     if not omega.config.use_impatient then
         return
     end

@@ -158,7 +158,7 @@ function modules.bootstrap_packer()
             -- Packer Bootstrapping
             local packer_path = vim.fn.stdpath("data")
                 .. "/site/pack/packer/opt/packer.nvim"
-            if vim.fn.empty(vim.fn.glob(packer_path)) > 0 then
+            if vim.fn.isdirectory(packer_path) == 0 then
                 vim.notify("Bootstrapping packer.nvim, please wait ...")
                 vim.fn.system({
                     "git",

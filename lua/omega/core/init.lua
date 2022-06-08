@@ -11,7 +11,7 @@ local modules = require("omega.core.modules")
 
 modules.bootstrap_packer()
 
-utils.bootstrap_impatient()
+utils.bootstrap_plugins()
 
 require("omega.core.settings")
 require("omega.core.autocommands")
