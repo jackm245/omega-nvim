@@ -26,6 +26,13 @@ aucmd({ "BufEnter", "BufWinEnter" }, {
     desc = "Open folds in neorg",
 })
 
+aucmd("FileType", {
+    pattern = "plaintex",
+    callback = function()
+        vim.bo.ft = "tex"
+    end,
+})
+
 aucmd({ "BufRead", "BufNewFile" }, {
     pattern = "*.norg",
     command = "setlocal filetype=norg",
