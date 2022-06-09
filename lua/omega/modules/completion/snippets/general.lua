@@ -53,6 +53,7 @@ local gitcommit_docs = [[
 docs(${1:scope}): ${2:title}
 
 ${0}]]
+local gitcommit_init = [[initial commit]]
 
 local gitcommit_refactor = [[
 refactor(${1:scope}): ${2:title}
@@ -332,6 +333,7 @@ ls.add_snippets(nil, {
     },
     gitcommit = {
         parse({ trig = "docs" }, gitcommit_docs),
+        parse({ trig = "init" }, gitcommit_init),
         parse({ trig = "feat" }, gitcommit_feat),
         parse({ trig = "refactor" }, gitcommit_refactor),
         parse({ trig = "revert" }, gitcommit_revert),
