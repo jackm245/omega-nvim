@@ -19,6 +19,7 @@ end
 
 ft_aucmd("COMMIT_EDITMSG", "gitcommit")
 ft_aucmd("*.cpp", "cpp")
+ft_aucmd("*.log", "log")
 
 aucmd({ "BufEnter", "BufWinEnter" }, {
     pattern = "neorg://*",
