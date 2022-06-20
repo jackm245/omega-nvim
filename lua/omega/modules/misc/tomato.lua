@@ -1,7 +1,7 @@
 local tomato = {}
 
 tomato.plugins = {
-    ["tomato.nvim"] = { "~/neovim_plugins/pomodoro.nvim" },
+    ["tomato.nvim"] = { "~/neovim_plugins/tomato.nvim" },
 }
 
 tomato.configs = {

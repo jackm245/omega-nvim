@@ -1,14 +1,14 @@
 local comment = {}
 
 comment.plugins = {
-    ["comment.nvim"] = {
+    ["Comment.nvim"] = {
         "numToStr/Comment.nvim",
         keys = { "<leader>c", "gb" },
     },
 }
 
 comment.configs = {
-    ["comment.nvim"] = function()
+    ["Comment.nvim"] = function()
         require("comment").setup({
             toggler = {
                 ---line-comment keymap

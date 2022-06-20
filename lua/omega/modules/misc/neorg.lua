@@ -6,7 +6,6 @@ neorg_mod.plugins = {
         -- "~/neovim_plugins/neorg",
         ft = "norg",
         requires = { "nvim-treesitter" },
-        -- commit = "2cda01f7fcd24881161d8ff7c21344da08facf5b",
     },
     ["neorg-telescope"] = { "~/neovim_plugins/neorg-telescope/", after = "neorg" },
     ["neorg-context"] = { "~/neovim_plugins/neorg-context/", after = "neorg" },

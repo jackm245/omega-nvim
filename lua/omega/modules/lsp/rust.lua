@@ -4,24 +4,6 @@ rust_lsp.plugins = {
     ["rust-tools.nvim"] = {
         "simrat39/rust-tools.nvim",
         ft = "rust",
-        requires = {
-            {
-                "mfussenegger/nvim-dap",
-                after = "rust-tools.nvim",
-                config = function()
-                    vim.cmd([[PackerLoad nvim-dap-ui]])
-                end,
-            },
-            {
-                "rcarriga/nvim-dap-ui",
-                config = function()
-                    require("dapui").setup({
-                        mappings = { toggle = "<tab>" },
-                    })
-                end,
-                opt = true,
-            },
-        },
     },
 }
 
