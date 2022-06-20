@@ -3,6 +3,9 @@ local modules = {}
 
 function modules.setup()
     local module_sections = {
+        ["langs"] = {
+            "log",
+        },
         ["ui"] = {
             -- "blankline", -- can't lazyload
             "bufferline",
@@ -30,7 +33,7 @@ function modules.setup()
         },
         ["misc"] = {
             "gitsigns",
-            "tomato",
+            -- "tomato",
             "help_files",
             "symbols_outline",
             "nvim-tree",
@@ -119,24 +122,10 @@ function modules.load()
                     and mod.configs[plugin]
                     and type(mod.configs[plugin]) == "function"
                 then
-                    packer_spec["config"] = mod.configs[plugin]
-                    -- if
-                    --     -- utils.recursive_available(
-                    --     --     omega.modules[sec_name][mod_name],
-                    --     --     { plugin, "configs" }
-                    --     -- ) and
-                    --     omega.modules[sec_name][mod_name].configs
-                    --     and omega.modules[sec_name][mod_name].configs[plugin]
-                    --     and type(
-                    --             omega.modules[sec_name][mod_name].configs[plugin]
-                    --         )
-                    --         == "function"
-                    -- then
-                    --     omega.plugin_configs[plugin] = function()
-                    --         omega.modules[sec_name][mod_name].configs[plugin]()
-                    --     end
-                    --     packer_spec["config"] = omega.plugin_configs[plugin]
-                    -- end
+                    omega.plugin_configs[plugin] = mod.configs[plugin]
+                    packer_spec["config"] = function(name)
+                        omega.plugin_configs[name]()
+                    end
                 end
                 use(packer_spec)
             end
