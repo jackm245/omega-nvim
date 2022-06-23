@@ -104,6 +104,7 @@ function modules.setup()
         profile = {
             enable = true,
         },
+        snapshot = "stable",
     })
 
     packer.reset()

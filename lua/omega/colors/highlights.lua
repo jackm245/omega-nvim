@@ -137,23 +137,19 @@ fg("DiagnosticError", red)
 fg("DiagnosticInfo", yellow)
 fg("DiagnosticHint", blue)
 
--- bg("SpellBad", black, { guisp = red })
 highlight("SpellBad", nil, nil, "undercurl", red)
--- Pmenu
--- bg("Pmenu", one_bg)
+if omega.config.cmp_theme == "no-border" then
+    fg_bg("Pmenu", colors.white, colors.darker_black)
+end
 bg("PmenuSbar", one_bg2)
 bg("PmenuSel", blue)
--- bg("PmenuThumb", nord_blue)
 
 -- misc
 fg("LineNr", grey)
 fg("NvimInternalError", red)
 fg("VertSplit", one_bg2)
--- fg("CmpBorderedWindow_FloatBorder", one_bg2)
--- fg("CmpBorderedWindow_FloatBorder", grey_fg)
 fg("CmpBorder", blue)
 bg("PmenuThumb", white)
--- fg("PmenuThumb", nord_blue)
 fg("WinSeparator", one_bg2)
 fg("CmpDocumentationWindowBorder", one_bg2)
 

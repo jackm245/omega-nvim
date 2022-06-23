@@ -2,7 +2,8 @@ local cmp_mod = {}
 
 cmp_mod.plugins = {
     ["nvim-cmp"] = {
-        "hrsh7th/nvim-cmp",
+        -- "hrsh7th/nvim-cmp",
+        "~/neovim_plugins/nvim-cmp",
         requires = { "nvim-autopairs" },
         event = { "InsertEnter", "CmdLineEnter" },
     },
@@ -55,25 +56,105 @@ cmp_mod.plugins = {
         after = "nvim-cmp",
     },
 }
+local cmp = require("cmp")
+local types = require("cmp.types")
+local luasnip = require("luasnip")
+local neogen = require("neogen")
+local str = require("cmp.utils.str")
+local kind = require("omega.modules.lsp.kind")
+
+local function get_abbr(vim_item, entry)
+    local word = entry:get_insert_text()
+    if
+        entry.completion_item.insertTextFormat
+        == types.lsp.InsertTextFormat.Snippet
+    then
+        word = vim.lsp.util.parse_snippet(word)
+    end
+    word = str.oneline(word)
+
+    -- concatenates the string
+    local max = 50
+    if string.len(word) >= max then
+        local before = string.sub(word, 1, math.floor((max - 3) / 2))
+        word = before .. "..."
+    end
+
+    if
+        entry.completion_item.insertTextFormat
+            == types.lsp.InsertTextFormat.Snippet
+        and string.sub(vim_item.abbr, -1, -1) == "~"
+    then
+        word = word .. "~"
+    end
+    return word
+end
+
+local function define_highlights()
+    local theme = require("omega.colors.base16").themes(vim.g.colors_name)
+    local kind_highlights = {
+        Class = nil,
+        Color = nil,
+        Constant = theme.base09,
+        Constructor = nil,
+        Enum = nil,
+        EnumMember = nil,
+        Event = nil,
+        Field = theme.base08,
+        File = nil,
+        Folder = nil,
+        Function = theme.base0D,
+        Interface = nil,
+        Keyword = theme.base0E,
+        Method = nil,
+        Module = nil,
+        Operator = nil,
+        Property = theme.base0A,
+        Reference = nil,
+        Snippet = theme.base0C,
+        Struct = nil,
+        Text = theme.base0B,
+        TypeParameter = nil,
+        Type = theme.base0A,
+        Unit = nil,
+        Value = nil,
+        Variable = theme.base0E,
+        Structure = theme.base0E,
+        Identifier = theme.base08,
+    }
+    local color_utils = require("omega.utils.colors")
+    for kind_name, highlight in pairs(kind_highlights) do
+        if highlight then
+            -- TODO: check TS<...>
+            if omega.config.cmp_theme == "border" then
+                vim.api.nvim_set_hl(0, ("CmpItemKind%s"):format(kind_name), {
+                    fg = highlight,
+                })
+            elseif omega.config.cmp_theme == "no-border" then
+                vim.api.nvim_set_hl(0, ("CmpItemKind%s"):format(kind_name), {
+                    fg = highlight,
+                    bg = color_utils.blend_colors(highlight, theme.base00, 0.15),
+                    -- fg = theme.base05,
+                    -- bg = highlight,
+                })
+                vim.api.nvim_set_hl(0, ("CmpItemKindMenu%s"):format(kind_name), {
+                    fg = highlight,
+                })
+            end
+        end
+    end
+end
 
 cmp_mod.configs = {
     ["nvim-cmp"] = function()
-        local cmp = require("cmp")
-        local types = require("cmp.types")
-        local luasnip = require("luasnip")
-        local neogen = require("neogen")
         vim.cmd([[PackerLoad nvim-autopairs]])
+        vim.cmd([[PackerLoad LuaSnip]])
+        define_highlights()
         local cmp_autopairs = require("nvim-autopairs.completion.cmp")
         cmp.event:on(
             "confirm_done",
             cmp_autopairs.on_confirm_done({ map_char = { tex = "" } })
         )
-
-        local ls_types = require("luasnip.util.types")
-
-        local str = require("cmp.utils.str")
-
-        local kind = require("omega.modules.lsp.kind")
 
         local function t(string)
             return vim.api.nvim_replace_termcodes(string, true, true, true)
@@ -89,19 +170,7 @@ cmp_mod.configs = {
             { "│", "CmpBorder" },
         }
 
-        cmp.setup({
-            window = {
-                completion = {
-                    border = border,
-                    -- scrollbar = "┃",
-                    scrollbar = "║",
-                },
-                documentation = {
-                    border = border,
-                    scrollbar = "║",
-                    -- scrollbar = "┃",
-                },
-            },
+        local config = {
             snippet = {
                 expand = function(args)
                     require("luasnip").lsp_expand(args.body)
@@ -113,7 +182,6 @@ cmp_mod.configs = {
                         cmp.scroll_docs(4)
                     elseif luasnip.choice_active() then
                         require("luasnip").change_choice(1)
-                        -- require("luasnip.extras.select_choice")()
                     else
                         fallback()
                     end
@@ -126,7 +194,6 @@ cmp_mod.configs = {
                         cmp.scroll_docs(-4)
                     elseif luasnip.choice_active() then
                         require("luasnip").change_choice(-1)
-                        -- choice_popup(require("luasnip").session.event_node)
                     else
                         fallback()
                     end
@@ -137,7 +204,6 @@ cmp_mod.configs = {
 
                 ["<c-j>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
-                        -- cmp.select_next_item()
                         cmp.select_next_item({
                             behavior = cmp.SelectBehavior.Insert,
                         })
@@ -155,7 +221,6 @@ cmp_mod.configs = {
 
                 ["<c-k>"] = cmp.mapping(function(fallback)
                     if cmp.visible() then
-                        -- cmp.select_prev_item()
                         cmp.select_prev_item({
                             behavior = cmp.SelectBehavior.Insert,
                         })
@@ -194,19 +259,11 @@ cmp_mod.configs = {
                         behavior = cmp.ConfirmBehavior.Insert,
                     }),
                 }),
-                -- ["<cr>"] = cmp.mapping({
-                --     i = cmp.mapping.confirm({
-                --         select = true,
-                --         behavior = cmp.ConfirmBehavior.Insert,
-                --     }),
-                --     c=
-                -- }),
                 ["<tab>"] = cmp.mapping(function()
                     if cmp.visible() then
                         cmp.select_next_item({
                             behavior = cmp.SelectBehavior.Insert,
                         })
-                        -- cmp.select_next_item()
                     end
                 end, {
                     "c",
@@ -271,9 +328,6 @@ cmp_mod.configs = {
                 if vim.bo.ft == "TelescopePrompt" then
                     return false
                 end
-                -- if vim.bo.ft == "dashboard" then
-                --     return false
-                -- end
                 if vim.bo.ft == "lua" then
                     return true
                 end
@@ -294,44 +348,34 @@ cmp_mod.configs = {
                 end
                 return true
             end,
-            formatting = {
+            sorting = {
+                comparators = cmp.config.compare.recently_used,
+            },
+            experimental = {
+                ghost_text = true,
+            },
+        }
+        if omega.config.cmp_theme == "border" then
+            config.window = {
+                completion = {
+                    border = border,
+                    scrollbar = "║",
+                },
+                documentation = {
+                    border = border,
+                    scrollbar = "║",
+                },
+            }
+            config.formatting = {
                 fields = {
-                    cmp.ItemField.Kind,
-                    cmp.ItemField.Abbr,
-                    cmp.ItemField.Menu,
+                    "kind",
+                    "abbr",
+                    "menu",
                 },
                 format = kind.cmp_format({
                     with_text = false,
                     before = function(entry, vim_item)
-                        -- Get the full snippet (and only keep first line)
-                        local word = entry:get_insert_text()
-                        if
-                            entry.completion_item.insertTextFormat
-                            == types.lsp.InsertTextFormat.Snippet
-                        then
-                            word = vim.lsp.util.parse_snippet(word)
-                        end
-                        word = str.oneline(word)
-
-                        -- concatenates the string
-                        local max = 50
-                        if string.len(word) >= max then
-                            local before = string.sub(
-                                word,
-                                1,
-                                math.floor((max - 3) / 2)
-                            )
-                            word = before .. "..."
-                        end
-
-                        if
-                            entry.completion_item.insertTextFormat
-                                == types.lsp.InsertTextFormat.Snippet
-                            and string.sub(vim_item.abbr, -1, -1) == "~"
-                        then
-                            word = word .. "~"
-                        end
-                        vim_item.abbr = word
+                        vim_item.abbr = get_abbr(vim_item, entry)
 
                         vim_item.dup = ({
                             buffer = 1,
@@ -342,14 +386,51 @@ cmp_mod.configs = {
                         return vim_item
                     end,
                 }),
-            },
-            sorting = {
-                comparators = cmp.config.compare.recently_used,
-            },
-            experimental = {
-                ghost_text = true,
-            },
-        })
+            }
+        elseif omega.config.cmp_theme == "no-border" then
+            config.window = {
+                completion = {
+                    winhighlight = "Normal:Pmenu,FloatBorder:CmpDocumentationBorder,Search:None",
+                    left_side_padding = 0,
+                    right_side_padding = 1,
+                    col_offset = 1,
+                },
+                documentation = {
+                    border = "rounded",
+                    winhighlight = "FloatBorder:CmpDocumentationBorder,Search:None",
+                    max_width = 80,
+                    col_offset = -1,
+                    max_height = 12,
+                },
+            }
+            config.formatting = {
+                fields = {
+                    -- "surround_start",
+                    "kind",
+                    "padding",
+                    -- "surround_end",
+                    "abbr",
+                    "padding",
+                    "menu",
+                },
+                format = function(entry, item)
+                    item.menu = item.kind
+                    item.menu_hl_group = ("CmpItemKindMenu%s"):format(item.kind)
+                    item.padding = " "
+                    item.kind = kind.presets.default[item.kind] or ""
+                    item.dup = vim.tbl_contains(
+                        { "path", "buffer" },
+                        entry.source.name
+                    )
+                    item.abbr = get_abbr(item, entry)
+                    item.test = "test"
+                    item.test_hl_group = "String"
+
+                    return item
+                end,
+            }
+        end
+        cmp.setup(config)
 
         cmp.setup.cmdline(":", {
             sources = {

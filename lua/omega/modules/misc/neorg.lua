@@ -2,9 +2,9 @@ local neorg_mod = {}
 
 neorg_mod.plugins = {
     ["neorg"] = {
-        "nvim-neorg/neorg",
-        -- "~/neovim_plugins/neorg",
-        ft = "norg",
+        -- "nvim-neorg/neorg",
+        "~/neovim_plugins/neorg",
+        -- ft = "norg",
         requires = { "nvim-treesitter" },
     },
     ["neorg-telescope"] = { "~/neovim_plugins/neorg-telescope/", after = "neorg" },
@@ -119,7 +119,6 @@ neorg_mod.configs = {
                 ["core.norg.dirman"] = {
                     config = {
                         workspaces = {
-                            startup = "~/startup.nvim",
                             example_ws = "~/neovim_plugins/example_workspaces/gtd/",
                             gtd = "~/gtd",
                         },
