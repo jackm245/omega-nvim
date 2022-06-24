@@ -33,6 +33,7 @@ function modules.setup()
         },
         ["misc"] = {
             "gitsigns",
+            "harpoon",
             -- "tomato",
             "help_files",
             "symbols_outline",
