@@ -454,6 +454,49 @@ heirline_mod.configs = {
             return sbar[i]
         end
 
+        local round_tomato = {
+            {
+                provider = function()
+                    return ""
+                end,
+                hl = function(_)
+                    return { fg = colors.dark_blue, bg = "none" }
+                end,
+            },
+            {
+                provider = function()
+                    return " "
+                end,
+                hl = function(_)
+                    return { fg = colors.black, bg = colors.dark_blue }
+                end,
+            },
+            {
+                provider = function()
+                    return ""
+                end,
+                hl = function(_)
+                    return { fg = colors.dark_blue, bg = colors.blue }
+                end,
+            },
+            {
+                provider = function()
+                    return require("tomato").get_time_left()
+                end,
+                hl = function()
+                    return { fg = colors.black, bg = colors.blue }
+                end,
+            },
+            {
+                provider = function()
+                    return ""
+                end,
+                hl = function(_)
+                    return { fg = colors.blue, bg = "none" }
+                end,
+            },
+        }
+
         local round_progress = {
             {
                 provider = function()
@@ -711,6 +754,8 @@ heirline_mod.configs = {
             space,
             round_mode_icon,
             space,
+            -- round_tomato,
+            -- space,
             round_progress,
             space,
             utils.make_flexible_component(6, word_count),
@@ -853,8 +898,18 @@ heirline_mod.configs = {
             },
         }
 
-        if omega.config.statusline == "round" then
+        if omega.config.statusline == "round_colored_bg" then
             require("heirline").setup(round_statuslines, winbar_line)
+        elseif omega.config.statusline == "round_dark_bg" then
+            require("heirline").setup(
+                require("omega.modules.ui.heirline.round_dark_bg"),
+                winbar_line
+            )
+        elseif omega.config.statusline == "round_blended" then
+            require("heirline").setup(
+                require("omega.modules.ui.heirline.round_blended"),
+                winbar_line
+            )
             -- require("heirline").setup(round_statuslines)
             -- elseif omega.config.statusline=="angled" then
             --     require("heirline").setup(angled_statuslines)
