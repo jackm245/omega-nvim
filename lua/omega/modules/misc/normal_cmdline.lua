@@ -160,8 +160,7 @@ local mappings = {
         -- `line` is now without current word
         -- `last_line` is with current word
         -- everything before word is removed
-        local text = full_line:sub(1, -(#last_line + 1))
-            .. full_line:sub(-#line, -1)
+        local text = full_line:sub(1, -(#last_line + 1)) .. full_line:sub(-#line, -1)
 
         if line == "" then
             text = full_line:sub(1, -(#last_line + 1))

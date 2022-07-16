@@ -97,12 +97,11 @@ local FileIcon = {
         local filename = self.filename
         local extension = vim.fn.fnamemodify(filename, ":e")
         if use_dev_icons then
-            self.icon, self.icon_color =
-                require("nvim-web-devicons").get_icon_color(
-                    filename,
-                    extension,
-                    { default = true }
-                )
+            self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(
+                filename,
+                extension,
+                { default = true }
+            )
         else
             self.icon = file_icons[extension] or ""
         end
@@ -124,9 +123,7 @@ local FileIcon = {
 
 local FileName = {
     provider = function(self)
-        local filename = vim.fn.pathshorten(
-            vim.fn.fnamemodify(self.filename, ":.")
-        )
+        local filename = vim.fn.pathshorten(vim.fn.fnamemodify(self.filename, ":."))
         if filename == "" then
             return ""
         end
@@ -489,22 +486,10 @@ local diagnostics = {
     },
 
     init = function(self)
-        self.errors = #vim.diagnostic.get(
-            0,
-            { severity = vim.diagnostic.severity.ERROR }
-        )
-        self.warnings = #vim.diagnostic.get(
-            0,
-            { severity = vim.diagnostic.severity.WARN }
-        )
-        self.hints = #vim.diagnostic.get(
-            0,
-            { severity = vim.diagnostic.severity.HINT }
-        )
-        self.info = #vim.diagnostic.get(
-            0,
-            { severity = vim.diagnostic.severity.INFO }
-        )
+        self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+        self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+        self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+        self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
     end,
 
     {
@@ -518,8 +503,7 @@ local diagnostics = {
     },
     {
         provider = function(self)
-            return self.warnings > 0
-                and (self.warn_icon .. self.warnings .. " ")
+            return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
         end,
         hl = {
             fg = utils.get_highlight("DiagnosticWarn").fg,

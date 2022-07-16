@@ -30,6 +30,7 @@ tele_mod.plugins = {
         "nvim-telescope/telescope-ui-select.nvim",
         opt = true,
         setup = function()
+            omega.ui_select = vim.ui.select
             vim.ui.select = function(items, opts, on_choice)
                 vim.cmd([[
                     PackerLoad telescope.nvim
@@ -80,11 +81,7 @@ tele_mod.configs = {
                 for ext, funcs in pairs(require("telescope").extensions) do
                     for func_name, func_obj in pairs(funcs) do
                         -- Only include exported functions whose name doesn't begin with an underscore
-                        if
-                            type(func_obj)
-                                == "function"
-                            and string.sub(func_name, 0, 1) ~= "_"
-                        then
+                        if type(func_obj) == "function" and string.sub(func_name, 0, 1) ~= "_" then
                             local debug_info = debug.getinfo(func_obj)
                             table.insert(objs, {
                                 filename = string.sub(debug_info.source, 2),
@@ -125,10 +122,7 @@ tele_mod.configs = {
 
                         if string.match(selection.text, " : ") then
                             -- Call appropriate function from extensions
-                            local split_string = vim.split(
-                                selection.text,
-                                " : "
-                            )
+                            local split_string = vim.split(selection.text, " : ")
                             local ext = split_string[1]
                             local func = split_string[2]
                             require("telescope").extensions[ext][func](opts)
@@ -254,10 +248,7 @@ tele_mod.configs = {
 
         local calc_tabline = function(max_lines)
             local tbln = (vim.o.showtabline == 2)
-                or (
-                    vim.o.showtabline == 1
-                    and #vim.api.nvim_list_tabpages() > 1
-                )
+                or (vim.o.showtabline == 1 and #vim.api.nvim_list_tabpages() > 1)
             if tbln then
                 max_lines = max_lines - 1
             end
@@ -272,19 +263,16 @@ tele_mod.configs = {
             return 1
         end
 
-        local calc_size_and_spacing =
-            function(cur_size, max_size, bs, w_num, b_num, s_num)
-                local spacing = s_num * (1 - bs) + b_num * bs
-                cur_size = math.min(cur_size, max_size)
-                cur_size = math.max(cur_size, w_num + spacing)
-                return cur_size, spacing
-            end
+        local calc_size_and_spacing = function(cur_size, max_size, bs, w_num, b_num, s_num)
+            local spacing = s_num * (1 - bs) + b_num * bs
+            cur_size = math.min(cur_size, max_size)
+            cur_size = math.max(cur_size, w_num + spacing)
+            return cur_size, spacing
+        end
 
         require("telescope.pickers.layout_strategies").custom_bottom =
             function(self, max_columns, max_lines, layout_config)
-                local initial_options = p_window.get_initial_window_options(
-                    self
-                )
+                local initial_options = p_window.get_initial_window_options(self)
                 local results = initial_options.results
                 local prompt = initial_options.prompt
                 local preview = initial_options.preview
@@ -342,20 +330,12 @@ tele_mod.configs = {
                 max_lines, tbln = calc_tabline(max_lines)
 
                 local height = if_nil(
-                    resolve.resolve_height(layout_config.height)(
-                        self,
-                        max_columns,
-                        max_lines
-                    ),
+                    resolve.resolve_height(layout_config.height)(self, max_columns, max_lines),
                     25
                 )
                 local width_opt = layout_config.width
 
-                local width = resolve.resolve_width(width_opt)(
-                    self,
-                    max_columns,
-                    max_lines
-                )
+                local width = resolve.resolve_width(width_opt)(self, max_columns, max_lines)
 
                 -- local height = 21
                 if
@@ -370,14 +350,7 @@ tele_mod.configs = {
                 local bs = get_border_size(self)
 
                 -- Cap over/undersized height
-                height, _ = calc_size_and_spacing(
-                    height,
-                    max_lines,
-                    bs,
-                    2,
-                    3,
-                    0
-                )
+                height, _ = calc_size_and_spacing(height, max_lines, bs, 2, 3, 0)
 
                 -- Height
                 prompt.height = 2
@@ -389,35 +362,20 @@ tele_mod.configs = {
 
                 preview.width = 0
                 prompt.width = max_columns - 2 * bs
-                if
-                    self.previewer
-                    and max_columns >= layout_config.preview_cutoff
-                then
+                if self.previewer and max_columns >= layout_config.preview_cutoff then
                     -- Cap over/undersized width (with preview)
-                    width, w_space = calc_size_and_spacing(
-                        max_columns,
-                        max_columns,
-                        bs,
-                        2,
-                        4,
-                        0
-                    )
+                    width, w_space = calc_size_and_spacing(max_columns, max_columns, bs, 2, 4, 0)
 
-                    preview.width = resolve.resolve_width(
-                        if_nil(layout_config.preview_width, 0.6)
-                    )(self, width, max_lines)
+                    preview.width = resolve.resolve_width(if_nil(layout_config.preview_width, 0.6))(
+                        self,
+                        width,
+                        max_lines
+                    )
                     results.width = width - preview.width - w_space
                     prompt.width = results.width
                     results.width = results.width
                 else
-                    width, w_space = calc_size_and_spacing(
-                        width,
-                        max_columns,
-                        bs,
-                        1,
-                        2,
-                        0
-                    )
+                    width, w_space = calc_size_and_spacing(width, max_columns, bs, 1, 2, 0)
                     preview.width = 0
                     results.width = width - preview.width - w_space
                     prompt.width = results.width
@@ -507,8 +465,7 @@ tele_mod.configs = {
             if opts.use_ft_detect == nil then
                 opts.use_ft_detect = true
             end
-            opts.use_ft_detect = opts.use_ft_detect == false and false
-                or bad_files(filepath)
+            opts.use_ft_detect = opts.use_ft_detect == false and false or bad_files(filepath)
             previewers.buffer_previewer_maker(filepath, bufnr, opts)
         end
         if omega.config.telescope_theme == "custom_bottom_no_borders" then
@@ -542,10 +499,8 @@ tele_mod.configs = {
                             ["<C-k>"] = actions.move_selection_previous,
                             ["<C-s>"] = live_grep_selected,
                             ["<C-o>"] = actions.select_vertical,
-                            ["<C-q>"] = actions.send_selected_to_qflist
-                                + actions.open_qflist,
-                            ["<C-a>"] = actions.send_to_qflist
-                                + actions.open_qflist,
+                            ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                            ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
                             ["<C-h>"] = "which_key",
                             ["<C-l>"] = actions_layout.toggle_preview,
                             -- ["<C-y>"] = set_prompt_to_entry_value,
@@ -561,10 +516,8 @@ tele_mod.configs = {
                             ["<C-k>"] = actions.move_selection_previous,
                             -- ["<C-y>"] = set_prompt_to_entry_value,
                             ["<C-o>"] = actions.select_vertical,
-                            ["<C-q>"] = actions.send_selected_to_qflist
-                                + actions.open_qflist,
-                            ["<C-a>"] = actions.send_to_qflist
-                                + actions.open_qflist,
+                            ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                            ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
                             ["<C-h>"] = "which_key",
                             ["<C-l>"] = actions_layout.toggle_preview,
                             ["<C-d>"] = actions.preview_scrolling_up,
@@ -630,10 +583,8 @@ tele_mod.configs = {
                             ["<C-k>"] = actions.move_selection_previous,
                             ["<C-s>"] = live_grep_selected,
                             ["<C-o>"] = actions.select_vertical,
-                            ["<C-q>"] = actions.send_selected_to_qflist
-                                + actions.open_qflist,
-                            ["<C-a>"] = actions.send_to_qflist
-                                + actions.open_qflist,
+                            ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                            ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
                             ["<C-h>"] = "which_key",
                             ["<C-l>"] = actions_layout.toggle_preview,
                             -- ["<C-y>"] = set_prompt_to_entry_value,
@@ -649,10 +600,8 @@ tele_mod.configs = {
                             ["<C-k>"] = actions.move_selection_previous,
                             -- ["<C-y>"] = set_prompt_to_entry_value,
                             ["<C-o>"] = actions.select_vertical,
-                            ["<C-q>"] = actions.send_selected_to_qflist
-                                + actions.open_qflist,
-                            ["<C-a>"] = actions.send_to_qflist
-                                + actions.open_qflist,
+                            ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                            ["<C-a>"] = actions.send_to_qflist + actions.open_qflist,
                             ["<C-h>"] = "which_key",
                             ["<C-l>"] = actions_layout.toggle_preview,
                             ["<C-d>"] = actions.preview_scrolling_up,
@@ -822,22 +771,9 @@ tele_mod.api = {
                 -- show current buffer content in previewer
                 previewer = previewers.new_buffer_previewer({
                     define_preview = function(self, entry)
-                        local lines = vim.api.nvim_buf_get_lines(
-                            bufnr,
-                            0,
-                            -1,
-                            false
-                        )
-                        vim.api.nvim_buf_set_lines(
-                            self.state.bufnr,
-                            0,
-                            -1,
-                            false,
-                            lines
-                        )
-                        local filetype = require("plenary.filetype").detect(
-                            bufname
-                        ) or "diff"
+                        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
+                        vim.api.nvim_buf_set_lines(self.state.bufnr, 0, -1, false, lines)
+                        local filetype = require("plenary.filetype").detect(bufname) or "diff"
 
                         require("telescope.previewers.utils").highlighter(
                             self.state.bufnr,
