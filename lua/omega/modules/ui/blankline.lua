@@ -5,11 +5,13 @@ blankline.plugins = {
         "lukas-reineke/indent-blankline.nvim",
         opt = true,
         setup = function()
-            vim.api.nvim_create_autocmd("FileType", {
+            vim.api.nvim_create_autocmd("BufEnter", {
                 callback = function()
-                    vim.cmd([[PackerLoad indent-blankline.nvim]])
+                    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+                    if lines ~= { "" } then
+                        require("packer").loader("indent-blankline.nvim")
+                    end
                 end,
-                once = true,
             })
         end,
     },
