@@ -10,6 +10,7 @@ vim.opt.splitright = true
 vim.opt.timeoutlen = 300
 vim.opt.shiftwidth = 4
 vim.opt.relativenumber = true
+vim.opt.guifont = "Operator Mono Lig"
 vim.opt.number = true
 vim.opt.termguicolors = true
 vim.opt.mouse = "nv"
@@ -30,6 +31,7 @@ vim.opt.formatoptions = vim.opt.formatoptions
     - "o" -- don't continue comments after o/O
     - "2" -- don't use indent of second line for rest of paragraph
 vim.opt.cmdheight = 0 -- height of cmd line
+vim.opt.jumpoptions:append("view")
 vim.opt.virtualedit = "block" -- allow visual mode to go over end of lines
 vim.opt.expandtab = true -- expand tabs to spaces
 vim.opt.showmode = false -- don't show mode (I've lualine)
