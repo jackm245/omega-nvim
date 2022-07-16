@@ -7,7 +7,7 @@ function modules.setup()
             "log",
         },
         ["ui"] = {
-            -- "blankline", -- can't lazyload
+            "blankline", -- can't lazyload
             "bufferline",
             "heirline",
             "devicons",
@@ -21,6 +21,7 @@ function modules.setup()
         },
         ["lsp"] = {
             "main",
+            "python",
             "swift",
             "lua",
             "rust",
@@ -32,7 +33,9 @@ function modules.setup()
             "annotations",
         },
         ["misc"] = {
+            "venn",
             "gitsigns",
+            "undotree",
             "harpoon",
             -- "tomato",
             "help_files",
@@ -147,8 +150,7 @@ function modules.bootstrap_packer()
         local has_packer = pcall(require, "packer")
         if not has_packer then
             -- Packer Bootstrapping
-            local packer_path = vim.fn.stdpath("data")
-                .. "/site/pack/packer/opt/packer.nvim"
+            local packer_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
             if vim.fn.isdirectory(packer_path) == 0 then
                 vim.notify("Bootstrapping packer.nvim, please wait ...")
                 vim.fn.system({
