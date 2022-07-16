@@ -34,11 +34,11 @@ aucmd("FileType", {
     end,
 })
 
-aucmd({ "BufRead", "BufNewFile" }, {
-    pattern = "*.norg",
-    command = "setlocal filetype=norg",
-    desc = "Set norg filetype",
-})
+-- aucmd({ "BufRead", "BufNewFile" }, {
+--     pattern = "*.norg",
+--     command = "setlocal filetype=norg",
+--     desc = "Set norg filetype",
+-- })
 
 local netrw = vim.api.nvim_create_augroup("netrw", { clear = true })
 aucmd({ "Filetype" }, {
@@ -93,10 +93,7 @@ aucmd({ "FileType" }, {
     desc = "Map q to close buffer",
 })
 
-aucmd(
-    "FocusGained",
-    { command = "checktime", desc = "Check if buffer was changed" }
-)
+aucmd("FocusGained", { command = "checktime", desc = "Check if buffer was changed" })
 
 aucmd({ "TextYankPost" }, {
     pattern = "*",
@@ -173,7 +170,10 @@ aucmd({ "BufNewFile", "BufRead", "BufWinEnter" }, {
 local in_mathzone = require("omega.utils").in_mathzone
 
 aucmd("CursorHold", {
-    pattern = "*.tex",
+    pattern = {
+        "*.tex",
+        -- "*.norg",
+    },
     callback = function()
         if in_mathzone() then
             require("nabla").popup()
@@ -185,14 +185,8 @@ aucmd("CursorHold", {
 aucmd("User", {
     pattern = "PackerCompileDone",
     callback = function()
-        vim.api.nvim_chan_send(
-            vim.v.stderr,
-            "\027]99;i=1:d=0;Packer.nvim\027\\"
-        )
-        vim.api.nvim_chan_send(
-            vim.v.stderr,
-            "\027]99;i=1:d=1:p=body;Compile finished\027\\"
-        )
+        vim.api.nvim_chan_send(vim.v.stderr, "\027]99;i=1:d=0;Packer.nvim\027\\")
+        vim.api.nvim_chan_send(vim.v.stderr, "\027]99;i=1:d=1:p=body;Compile finished\027\\")
     end,
     desc = "Send desktop notification",
 })
@@ -201,10 +195,7 @@ aucmd("DiagnosticChanged", {
     once = true,
     callback = function()
         vim.api.nvim_chan_send(vim.v.stderr, "\027]99;i=1:d=0;Lsp\027\\")
-        vim.api.nvim_chan_send(
-            vim.v.stderr,
-            "\027]99;i=1:d=1:p=body;Finished Loading\027\\"
-        )
+        vim.api.nvim_chan_send(vim.v.stderr, "\027]99;i=1:d=1:p=body;Finished Loading\027\\")
     end,
     desc = "Send desktop notification",
 })
@@ -213,10 +204,7 @@ aucmd("User", {
     once = true,
     callback = function()
         vim.api.nvim_chan_send(vim.v.stderr, "\027]99;i=1:d=0;Neorg\027\\")
-        vim.api.nvim_chan_send(
-            vim.v.stderr,
-            "\027]99;i=1:d=1:p=body;Finished Loading\027\\"
-        )
+        vim.api.nvim_chan_send(vim.v.stderr, "\027]99;i=1:d=1:p=body;Finished Loading\027\\")
     end,
     pattern = "NeorgStarted",
     desc = "Send desktop notification",
@@ -249,8 +237,8 @@ aucmd("BufEnter", {
     pattern = { "*.tex", "*.norg" },
     callback = function()
         vim.cmd([[
-            set spell
-            set spelllang=de,en
+            setlocal spell
+            setlocal spelllang=en
         ]])
     end,
 })
@@ -260,3 +248,10 @@ aucmd("BufEnter", {
 --         require("omega.core.data_save").set_data()
 --     end,
 -- })
+
+aucmd({ "TextChanged", "TextChangedI", "BufWinEnter" }, {
+    pattern = "*.norg",
+    callback = function()
+        vim.fn.matchadd("Search", "\\%81v.\\%>80v", -1)
+    end,
+})
