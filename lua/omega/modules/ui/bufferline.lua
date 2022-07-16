@@ -169,9 +169,7 @@ bufferline_mod.configs = {
                         local result = {}
                         -- TODO: readd
                         table.insert(result, {
-                            text = "%@Toggle_light@ "
-                                .. vim.g.toggle_icon
-                                .. " %X ",
+                            text = "%@Toggle_light@ " .. vim.g.toggle_icon .. " %X ",
                             guifg = colors.blue,
                             guibg = colors.light_grey,
                         })
@@ -201,8 +199,7 @@ bufferline_mod.configs = {
                             name = "tests",
                             icon = "",
                             matcher = function(buf)
-                                return buf.filename:match("_spec")
-                                    or buf.filename:match("test")
+                                return buf.filename:match("_spec") or buf.filename:match("test")
                             end,
                         },
                         {
@@ -213,10 +210,7 @@ bufferline_mod.configs = {
                             name = "docs",
                             matcher = function(buf)
                                 for _, ext in ipairs({ "md", "txt", "org", "norg", "wiki" }) do
-                                    if
-                                        ext
-                                        == vim.fn.fnamemodify(buf.path, ":e")
-                                    then
+                                    if ext == vim.fn.fnamemodify(buf.path, ":e") then
                                         return true
                                     end
                                 end
