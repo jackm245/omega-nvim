@@ -77,18 +77,10 @@ add_cmd("CodeActions", function()
     local line_diagnostics = vim.lsp.diagnostic.get_line_diagnostics()
     local parameters = vim.lsp.util.make_range_params()
     parameters.context = { diagnostics = line_diagnostics }
-    local all_responses = vim.lsp.buf_request_sync(
-        0,
-        "textDocument/codeAction",
-        parameters
-    )
+    local all_responses = vim.lsp.buf_request_sync(0, "textDocument/codeAction", parameters)
 
     if all_responses == nil or vim.tbl_isempty(all_responses) then
-        vim.api.nvim_notify(
-            "No code actions available",
-            vim.log.levels.WARN,
-            {}
-        )
+        vim.api.nvim_notify("No code actions available", vim.log.levels.WARN, {})
         return
     end
 
