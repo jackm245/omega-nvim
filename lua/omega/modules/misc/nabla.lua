@@ -6,7 +6,7 @@ nabla.plugins = {
         "~/neovim_plugins/nabla.nvim",
         ft = {
             "tex",
-            -- "norg",
+            "norg",
         },
     },
 }
