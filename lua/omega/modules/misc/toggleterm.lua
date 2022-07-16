@@ -40,11 +40,7 @@ local files = {
     applescript = "osascript " .. exp("%:t"),
     c = "gcc -o temp " .. exp("%:t") .. " && ./temp && rm ./temp",
     cpp = "clang++ -o temp " .. exp("%:t") .. " && ./temp && rm ./temp",
-    java = "javac "
-        .. exp("%:t")
-        .. " && java "
-        .. exp("%:t:r")
-        .. " && rm *.class",
+    java = "javac " .. exp("%:t") .. " && java " .. exp("%:t:r") .. " && rm *.class",
     rust = "cargo run",
     javascript = "node " .. exp("%:t"),
     typescript = "tsc " .. exp("%:t") .. " && node " .. exp("%:t:r") .. ".js",
@@ -91,18 +87,8 @@ toggleterm.keybindings = function()
         noremap = true,
         silent = true,
     })
-    vim.keymap.set(
-        "t",
-        "<c-g>",
-        "<cmd>ToggleTerm<CR>",
-        { noremap = true, silent = true }
-    )
-    vim.keymap.set(
-        "t",
-        "<c-t>",
-        "<cmd>ToggleTerm<CR>",
-        { noremap = true, silent = true }
-    )
+    vim.keymap.set("t", "<c-g>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
+    vim.keymap.set("t", "<c-t>", "<cmd>ToggleTerm<CR>", { noremap = true, silent = true })
 end
 
 return toggleterm

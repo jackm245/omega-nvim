@@ -76,8 +76,7 @@ function utils.bootstrap_plugins()
     local has_which_key = pcall(require, "which-key")
     if not has_which_key then
         -- Which-key Bootstrapping
-        local wk_path = vim.fn.stdpath("data")
-            .. "/site/pack/packer/start/which-key.nvim"
+        local wk_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/which-key.nvim"
         if vim.fn.empty(vim.fn.glob(wk_path)) > 0 then
             vim.notify("Bootstrapping which-key.nvim, please wait ...")
             vim.fn.system({
@@ -99,8 +98,7 @@ function utils.bootstrap_plugins()
     local has_impatient = pcall(require, "impatient")
     if not has_impatient then
         -- Packer Bootstrapping
-        local packer_path = vim.fn.stdpath("data")
-            .. "/site/pack/packer/start/impatient.nvim"
+        local packer_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/impatient.nvim"
         if vim.fn.empty(vim.fn.glob(packer_path)) > 0 then
             vim.notify("Bootstrapping impatient.nvim, please wait ...")
             vim.fn.system({
@@ -198,10 +196,7 @@ utils.in_mathzone = function()
                 if
                     names
                     and names[1]
-                    and MATH_ENVIRONMENTS[query.get_node_text(names[1], buf):gsub(
-                        "[%s*]",
-                        ""
-                    )]
+                    and MATH_ENVIRONMENTS[query.get_node_text(names[1], buf):gsub("[%s*]", "")]
                 then
                     return true
                 end
@@ -214,19 +209,9 @@ end
 
 --- Go to last place in file
 function utils.last_place()
-    if
-        vim.tbl_contains(
-            vim.api.nvim_list_bufs(),
-            vim.api.nvim_get_current_buf()
-        )
-    then
+    if vim.tbl_contains(vim.api.nvim_list_bufs(), vim.api.nvim_get_current_buf()) then
         -- check if filetype isn't one of the listed
-        if
-            not vim.tbl_contains(
-                { "gitcommit", "help", "packer", "toggleterm" },
-                vim.bo.ft
-            )
-        then
+        if not vim.tbl_contains({ "gitcommit", "help", "packer", "toggleterm" }, vim.bo.ft) then
             -- check if mark `"` is inside the current file (can be false if at end of file and stuff got deleted outside neovim)
             -- if it is go to it
             vim.cmd(
@@ -260,6 +245,15 @@ function utils.adjust_color(color, amount)
     return "#" .. first .. second .. third
 end
 
+--- Picks a random element of a table
+---@param table table
+---@return any Random-element
+function utils.random_element(table)
+    math.randomseed(os.clock())
+    local index = math.random() * #table
+    return table[math.floor(index) + 1]
+end
+
 --- Darkens a color by a certain value
 ---@param color string
 ---@param amount number
@@ -282,14 +276,10 @@ utils.get_themes = function()
     local Path = require("plenary.path")
 
     local themes = {}
-    local theme_dir = vim.fn.expand("~")
-        .. "/.config/neovim_configs/omega/lua/hl_themes"
+    local theme_dir = vim.fn.expand("~") .. "/.config/neovim_configs/omega/lua/hl_themes"
     local theme_files = require("plenary.scandir").scan_dir(theme_dir, {})
     for _, theme in ipairs(theme_files) do
-        table.insert(
-            themes,
-            (Path:new(theme):make_relative(theme_dir):gsub(".lua", ""))
-        )
+        table.insert(themes, (Path:new(theme):make_relative(theme_dir):gsub(".lua", "")))
     end
     return themes
 end

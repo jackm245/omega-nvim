@@ -77,8 +77,7 @@ ts_mod.plugins = {
 
 ts_mod.configs = {
     ["nvim-treesitter"] = function()
-        local parser_configs =
-            require("nvim-treesitter.parsers").get_parser_configs()
+        local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
         local colors = require("omega.colors").get()
 
         parser_configs.norg = {

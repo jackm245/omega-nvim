@@ -150,12 +150,7 @@ map(
     ":s///g<LEFT><LEFT><LEFT>",
     { noremap = true, desc = "Substitue on visual selection" }
 )
-map(
-    "i",
-    "<leader><leader>",
-    "<right>",
-    { noremap = true, silent = true, desc = "Move right" }
-)
+map("i", "<leader><leader>", "<right>", { noremap = true, silent = true, desc = "Move right" })
 map("i", "<leader>", " ", { noremap = true })
 map(
     "n",
@@ -163,31 +158,16 @@ map(
     ':lua vim.cmd(":vert :h "..vim.fn.expand("<cword>"))<CR>',
     { noremap = true, silent = true, desc = "Open helpfile of word under cursor" }
 )
-map(
-    "i",
-    "<m-cr>",
-    "<cr>",
-    { noremap = true, silent = true, desc = "Unmapped <cr>" }
-)
+map("i", "<m-cr>", "<cr>", { noremap = true, silent = true, desc = "Unmapped <cr>" })
 
-map(
-    "n",
-    "<c-j>",
-    ":wincmd j<CR>",
-    { noremap = true, silent = true, desc = "Move to split above" }
-)
+map("n", "<c-j>", ":wincmd j<CR>", { noremap = true, silent = true, desc = "Move to split above" })
 map(
     "n",
     "<c-h>",
     ":wincmd h<CR>",
     { noremap = true, silent = true, desc = "Move to split on left side" }
 )
-map(
-    "n",
-    "<c-k>",
-    ":wincmd k<CR>",
-    { noremap = true, silent = true, desc = "Move to split below" }
-)
+map("n", "<c-k>", ":wincmd k<CR>", { noremap = true, silent = true, desc = "Move to split below" })
 map(
     "n",
     "<c-l>",
@@ -227,9 +207,4 @@ map(
 map("i", "<C-U>", "<ESC>b~A", { noremap = true, silent = true })
 map("s", "t", "a<bs>t", { noremap = true })
 map("s", "f", "a<bs>f", { noremap = true })
-map(
-    "n",
-    "<leader><tab>",
-    "<c-^>",
-    { noremap = true, desc = "Go to alternate file" }
-)
+map("n", "<leader><tab>", "<c-^>", { noremap = true, desc = "Go to alternate file" })

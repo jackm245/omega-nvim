@@ -84,11 +84,7 @@ ls.add_snippets("tex", {
     ),
     s({ trig = "(%d+)/", regTrig = true }, {
         d(1, function(_, snip, _)
-            return sn(
-                nil,
-                { t("\\frac{" .. snip.captures[1] .. "}{"), i(1), t("}") },
-                i(0)
-            )
+            return sn(nil, { t("\\frac{" .. snip.captures[1] .. "}{"), i(1), t("}") }, i(0))
         end),
     }, {
         condition = function(_, _, _)

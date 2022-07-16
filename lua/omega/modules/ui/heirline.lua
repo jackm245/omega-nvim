@@ -125,14 +125,11 @@ heirline_mod.configs = {
                 local filename = self.filename
                 local extension = vim.fn.fnamemodify(filename, ":e")
                 if use_dev_icons then
-                    self.icon, self.icon_color =
-                        require(
-                            "nvim-web-devicons"
-                        ).get_icon_color(
-                            filename,
-                            extension,
-                            { default = true }
-                        )
+                    self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(
+                        filename,
+                        extension,
+                        { default = true }
+                    )
                 else
                     self.icon = file_icons[extension] or ""
                 end
@@ -154,9 +151,7 @@ heirline_mod.configs = {
 
         local FileName = {
             provider = function(self)
-                local filename = vim.fn.pathshorten(
-                    vim.fn.fnamemodify(self.filename, ":.")
-                )
+                local filename = vim.fn.pathshorten(vim.fn.fnamemodify(self.filename, ":."))
                 if filename == "" then
                     return ""
                 end
@@ -226,10 +221,7 @@ heirline_mod.configs = {
                     return { fg = colors.blue, bg = "none" }
                 end,
                 condition = function()
-                    return not vim.tbl_contains(
-                        vim.tbl_keys(file_icons),
-                        vim.bo.ft
-                    )
+                    return not vim.tbl_contains(vim.tbl_keys(file_icons), vim.bo.ft)
                 end,
             },
         }
@@ -246,11 +238,7 @@ heirline_mod.configs = {
                 provider = "%<",
             }
         )
-        RoundFileNameBlock = utilities.surround(
-            { "", "" },
-            colors.blue,
-            RoundFileNameBlock
-        )
+        RoundFileNameBlock = utilities.surround({ "", "" }, colors.blue, RoundFileNameBlock)
 
         RoundFileNameBlock[1]["condition"] = function()
             return not conditions.buffer_matches({
@@ -426,10 +414,7 @@ heirline_mod.configs = {
                     }
                 end,
                 provider = function(self)
-                    return "%2("
-                        .. self.mode_icons[self.mode:sub(1, 1)]
-                        .. "%)"
-                        .. " "
+                    return "%2(" .. self.mode_icons[self.mode:sub(1, 1)] .. "%)" .. " "
                 end,
             },
             {
@@ -559,42 +544,27 @@ heirline_mod.configs = {
             },
 
             init = function(self)
-                self.errors = #vim.diagnostic.get(
-                    0,
-                    { severity = vim.diagnostic.severity.ERROR }
-                )
-                self.warnings = #vim.diagnostic.get(
-                    0,
-                    { severity = vim.diagnostic.severity.WARN }
-                )
-                self.hints = #vim.diagnostic.get(
-                    0,
-                    { severity = vim.diagnostic.severity.HINT }
-                )
-                self.info = #vim.diagnostic.get(
-                    0,
-                    { severity = vim.diagnostic.severity.INFO }
-                )
+                self.errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+                self.warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+                self.hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
+                self.info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
             end,
 
             {
                 provider = function(self)
-                    return self.errors > 0
-                        and (self.error_icon .. self.errors .. " ")
+                    return self.errors > 0 and (self.error_icon .. self.errors .. " ")
                 end,
                 hl = { fg = utils.get_highlight("DiagnosticError").fg },
             },
             {
                 provider = function(self)
-                    return self.warnings > 0
-                        and (self.warn_icon .. self.warnings .. " ")
+                    return self.warnings > 0 and (self.warn_icon .. self.warnings .. " ")
                 end,
                 hl = { fg = utils.get_highlight("DiagnosticWarn").fg },
             },
             {
                 provider = function(self)
-                    return self.info > 0
-                        and (self.info_icon .. self.info .. " ")
+                    return self.info > 0 and (self.info_icon .. self.info .. " ")
                 end,
                 hl = { fg = utils.get_highlight("DiagnosticInfo").fg },
             },
@@ -681,8 +651,7 @@ heirline_mod.configs = {
                     self.mode = vim.fn.mode(1)
                 end,
                 provider = function()
-                    return string.rep(" ", 5 - #tostring(word_counter()))
-                        .. ""
+                    return string.rep(" ", 5 - #tostring(word_counter())) .. ""
                 end,
                 hl = function(self)
                     local mode = self.mode:sub(1, 1)
@@ -719,11 +688,7 @@ heirline_mod.configs = {
             },
         }
 
-        RoundWorkDir = utilities.surround(
-            { "", "" },
-            colors.vibrant_green,
-            RoundWorkDir
-        )
+        RoundWorkDir = utilities.surround({ "", "" }, colors.vibrant_green, RoundWorkDir)
 
         local inactive_statusline = {
             condition = function()
@@ -801,14 +766,11 @@ heirline_mod.configs = {
                 local filename = self.filename
                 local extension = vim.fn.fnamemodify(filename, ":e")
                 if use_dev_icons then
-                    self.icon, self.icon_color =
-                        require(
-                            "nvim-web-devicons"
-                        ).get_icon_color(
-                            filename,
-                            extension,
-                            { default = true }
-                        )
+                    self.icon, self.icon_color = require("nvim-web-devicons").get_icon_color(
+                        filename,
+                        extension,
+                        { default = true }
+                    )
                 else
                     self.icon = file_icons[extension] or ""
                 end
@@ -817,10 +779,7 @@ heirline_mod.configs = {
                 if vim.api.nvim_buf_get_name == "" then
                     return false
                 end
-                if
-                    vim.api.nvim_eval_statusline("%f", {})["str"]
-                    == "[No Name]"
-                then
+                if vim.api.nvim_eval_statusline("%f", {})["str"] == "[No Name]" then
                     return false
                 end
                 return true
@@ -857,9 +816,7 @@ heirline_mod.configs = {
                     self.mode = vim.fn.mode(1)
                 end,
                 provider = function(self)
-                    local filename = vim.fn.pathshorten(
-                        vim.fn.fnamemodify(self.filename, ":.")
-                    )
+                    local filename = vim.fn.pathshorten(vim.fn.fnamemodify(self.filename, ":."))
                     if filename == "" then
                         return ""
                     end

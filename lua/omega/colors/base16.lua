@@ -271,10 +271,7 @@ return setmetatable({
     end,
     apply_theme = apply_base16_theme,
     theme_from_array = function(array)
-        assert(
-            #array == 16,
-            "base16.theme_from_array: The array length must be 16"
-        )
+        assert(#array == 16, "base16.theme_from_array: The array length must be 16")
         local result = {}
         for i, value in ipairs(array) do
             assert(

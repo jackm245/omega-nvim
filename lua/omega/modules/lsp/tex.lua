@@ -2,8 +2,7 @@ local tex_conf = {}
 
 tex_conf.config = function()
     local tex_preview_settings = {}
-    local forward_search_executable =
-        "/Applications/Skim.app/Contents/SharedSupport/displayline"
+    local forward_search_executable = "/Applications/Skim.app/Contents/SharedSupport/displayline"
 
     local sumatrapdf_args = {
         "-reuse-instance",
@@ -18,10 +17,7 @@ tex_conf.config = function()
     local qpdfview_args = { "--unique", "%p#src:%f:%l:1" }
     local skim_args = { "%l", "%p", "%f" }
 
-    if
-        forward_search_executable
-        == "C:/Users/{User}/AppData/Local/SumatraPDF/SumatraPDF.exe"
-    then
+    if forward_search_executable == "C:/Users/{User}/AppData/Local/SumatraPDF/SumatraPDF.exe" then
         tex_preview_settings = sumatrapdf_args
     elseif forward_search_executable == "evince-synctex" then
         tex_preview_settings = evince_args
