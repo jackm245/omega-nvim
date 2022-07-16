@@ -56,68 +56,35 @@ cmp_mod.plugins = {
         after = "nvim-cmp",
     },
 }
-local cmp = require("cmp")
-local types = require("cmp.types")
-local luasnip = require("luasnip")
-local neogen = require("neogen")
-local str = require("cmp.utils.str")
-local kind = require("omega.modules.lsp.kind")
-
-local function get_abbr(vim_item, entry)
-    local word = entry:get_insert_text()
-    if
-        entry.completion_item.insertTextFormat
-        == types.lsp.InsertTextFormat.Snippet
-    then
-        word = vim.lsp.util.parse_snippet(word)
-    end
-    word = str.oneline(word)
-
-    -- concatenates the string
-    local max = 50
-    if string.len(word) >= max then
-        local before = string.sub(word, 1, math.floor((max - 3) / 2))
-        word = before .. "..."
-    end
-
-    if
-        entry.completion_item.insertTextFormat
-            == types.lsp.InsertTextFormat.Snippet
-        and string.sub(vim_item.abbr, -1, -1) == "~"
-    then
-        word = word .. "~"
-    end
-    return word
-end
 
 local function define_highlights()
     local theme = require("omega.colors.base16").themes(vim.g.colors_name)
     local kind_highlights = {
-        Class = nil,
-        Color = nil,
+        Class = theme.base08,
+        Color = theme.base08,
         Constant = theme.base09,
-        Constructor = nil,
-        Enum = nil,
-        EnumMember = nil,
-        Event = nil,
+        Constructor = theme.base08,
+        Enum = theme.base08,
+        EnumMember = theme.base08,
+        Event = theme.base0D,
         Field = theme.base08,
-        File = nil,
-        Folder = nil,
+        File = theme.base09,
+        Folder = theme.base09,
         Function = theme.base0D,
-        Interface = nil,
+        Interface = theme.base0D,
         Keyword = theme.base0E,
-        Method = nil,
-        Module = nil,
-        Operator = nil,
+        Method = theme.base08,
+        Module = theme.base08,
+        Operator = theme.base08,
         Property = theme.base0A,
-        Reference = nil,
+        Reference = theme.base08,
         Snippet = theme.base0C,
-        Struct = nil,
+        Struct = theme.base08,
         Text = theme.base0B,
-        TypeParameter = nil,
+        TypeParameter = theme.base08,
         Type = theme.base0A,
-        Unit = nil,
-        Value = nil,
+        Unit = theme.base08,
+        Value = theme.base08,
         Variable = theme.base0E,
         Structure = theme.base0E,
         Identifier = theme.base08,
@@ -140,6 +107,9 @@ local function define_highlights()
                 vim.api.nvim_set_hl(0, ("CmpItemKindMenu%s"):format(kind_name), {
                     fg = highlight,
                 })
+                vim.api.nvim_set_hl(0, ("CmpItemKindBlock%s"):format(kind_name), {
+                    fg = color_utils.blend_colors(highlight, theme.base00, 0.15),
+                })
             end
         end
     end
@@ -147,14 +117,41 @@ end
 
 cmp_mod.configs = {
     ["nvim-cmp"] = function()
+        local cmp = require("cmp")
+        local types = require("cmp.types")
+        local luasnip = require("luasnip")
+        local neogen = require("neogen")
+        local str = require("cmp.utils.str")
+        local kind = require("omega.modules.lsp.kind")
+
+        local function get_abbr(vim_item, entry)
+            local word = entry:get_insert_text()
+            if entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet then
+                word = vim.lsp.util.parse_snippet(word)
+            end
+            word = str.oneline(word)
+
+            -- concatenates the string
+            local max = 50
+            if string.len(word) >= max then
+                local before = string.sub(word, 1, math.floor((max - 3) / 2))
+                word = before .. "..."
+            end
+
+            if
+                entry.completion_item.insertTextFormat
+                    == types.lsp.InsertTextFormat.Snippet
+                and string.sub(vim_item.abbr, -1, -1) == "~"
+            then
+                word = word .. "~"
+            end
+            return word
+        end
         vim.cmd([[PackerLoad nvim-autopairs]])
         vim.cmd([[PackerLoad LuaSnip]])
         define_highlights()
         local cmp_autopairs = require("nvim-autopairs.completion.cmp")
-        cmp.event:on(
-            "confirm_done",
-            cmp_autopairs.on_confirm_done({ map_char = { tex = "" } })
-        )
+        cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
 
         local function t(string)
             return vim.api.nvim_replace_termcodes(string, true, true, true)
@@ -227,10 +224,7 @@ cmp_mod.configs = {
                     elseif luasnip.jumpable(-1) then
                         luasnip.jump(-1)
                     elseif neogen.jumpable(-1) then
-                        vim.fn.feedkeys(
-                            t("<cmd>lua require('neogen').jump_prev()<CR>"),
-                            ""
-                        )
+                        vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_prev()<CR>"), "")
                     else
                         fallback()
                     end
@@ -239,10 +233,7 @@ cmp_mod.configs = {
                     "s",
                 }),
 
-                ["<c-space>"] = cmp.mapping(
-                    cmp.mapping.complete(),
-                    { "i", "c" }
-                ),
+                ["<c-space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
 
                 ["<C-e>"] = cmp.mapping({
                     i = cmp.mapping.abort(),
@@ -281,10 +272,7 @@ cmp_mod.configs = {
                     if luasnip.choice_active() then
                         require("luasnip").change_choice(1)
                     elseif neogen.jumpable() then
-                        vim.fn.feedkeys(
-                            t("<cmd>lua require('neogen').jump_next()<CR>"),
-                            ""
-                        )
+                        vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_next()<CR>"), "")
                     else
                         fallback()
                     end
@@ -296,10 +284,7 @@ cmp_mod.configs = {
                     if luasnip.choice_active() then
                         require("luasnip").change_choice(-1)
                     elseif neogen.jumpable(-1) then
-                        vim.fn.feedkeys(
-                            t("<cmd>lua require('neogen').jump_prev()<CR>"),
-                            ""
-                        )
+                        vim.fn.feedkeys(t("<cmd>lua require('neogen').jump_prev()<CR>"), "")
                     else
                         fallback()
                     end
@@ -331,9 +316,7 @@ cmp_mod.configs = {
                 if vim.bo.ft == "lua" then
                     return true
                 end
-                local lnum, col =
-                    vim.fn.line("."),
-                    math.min(vim.fn.col("."), #vim.fn.getline("."))
+                local lnum, col = vim.fn.line("."), math.min(vim.fn.col("."), #vim.fn.getline("."))
                 for _, syn_id in ipairs(vim.fn.synstack(lnum, col)) do
                     syn_id = vim.fn.synIDtrans(syn_id) -- Resolve :highlight links
                     if vim.fn.synIDattr(syn_id, "name") == "Comment" then
@@ -407,21 +390,23 @@ cmp_mod.configs = {
                 fields = {
                     -- "surround_start",
                     "kind",
+                    "surround_end",
                     "padding",
-                    -- "surround_end",
                     "abbr",
                     "padding",
                     "menu",
                 },
                 format = function(entry, item)
                     item.menu = item.kind
+                    item.surround_start = "▐"
+                    -- item.surround_end = "▌"
+                    item.surround_end = ""
+                    item.surround_start_hl_group = ("CmpItemKindBlock%s"):format(item.kind)
+                    item.surround_end_hl_group = ("CmpItemKindBlock%s"):format(item.kind)
                     item.menu_hl_group = ("CmpItemKindMenu%s"):format(item.kind)
                     item.padding = " "
                     item.kind = kind.presets.default[item.kind] or ""
-                    item.dup = vim.tbl_contains(
-                        { "path", "buffer" },
-                        entry.source.name
-                    )
+                    item.dup = vim.tbl_contains({ "path", "buffer" }, entry.source.name)
                     item.abbr = get_abbr(item, entry)
                     item.test = "test"
                     item.test_hl_group = "String"
