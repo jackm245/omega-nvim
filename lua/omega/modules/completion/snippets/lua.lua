@@ -167,4 +167,9 @@ ls.add_snippets("lua", {
         i(2, "1"),
         i(0),
     }),
+    s("ps", {
+        t("print("),
+        i(1, "<text>"),
+        t(")"),
+    }),
 })

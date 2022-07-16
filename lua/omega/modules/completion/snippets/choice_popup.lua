@@ -1,6 +1,4 @@
-local current_nsid = vim.api.nvim_create_namespace(
-    "LuaSnipChoiceListSelections"
-)
+local current_nsid = vim.api.nvim_create_namespace("LuaSnipChoiceListSelections")
 local current_win = nil
 local choice_popup_timer = nil
 
@@ -57,11 +55,7 @@ function _G.choice_popup(choiceNode)
         if err then
             return
         end
-        vim.api.nvim_buf_del_extmark(
-            current_win.buf,
-            current_nsid,
-            current_win.extmark
-        )
+        vim.api.nvim_buf_del_extmark(current_win.buf, current_nsid, current_win.extmark)
     end
     win_is_open = true
     local create_win = window_for_choiceNode(choiceNode)
@@ -97,12 +91,7 @@ function _G.update_choice_popup(choiceNode)
         current_win = {}
         return
     end
-    err, _ = pcall(
-        vim.api.nvim_buf_del_extmark,
-        current_win.buf,
-        current_nsid,
-        current_win.extmark
-    )
+    err, _ = pcall(vim.api.nvim_buf_del_extmark, current_win.buf, current_nsid, current_win.extmark)
     if err then
         return
     end
@@ -125,12 +114,7 @@ function _G.choice_popup_close()
     if err then
         return
     end
-    err, _ = pcall(
-        vim.api.nvim_buf_del_extmark,
-        current_win.buf,
-        current_nsid,
-        current_win.extmark
-    )
+    err, _ = pcall(vim.api.nvim_buf_del_extmark, current_win.buf, current_nsid, current_win.extmark)
     if err then
         return
     end

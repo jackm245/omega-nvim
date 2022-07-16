@@ -96,10 +96,7 @@ local function jdocsnip(args, _, old_state)
             else
                 inode = i(insert)
             end
-            vim.list_extend(
-                nodes,
-                { t({ " * @param " .. arg .. " " }), inode, t({ "", "" }) }
-            )
+            vim.list_extend(nodes, { t({ " * @param " .. arg .. " " }), inode, t({ "", "" }) })
             param_nodes["arg" .. arg] = inode
 
             insert = insert + 1
@@ -114,10 +111,7 @@ local function jdocsnip(args, _, old_state)
             inode = i(insert)
         end
 
-        vim.list_extend(
-            nodes,
-            { t({ " * ", " * @return " }), inode, t({ "", "" }) }
-        )
+        vim.list_extend(nodes, { t({ " * ", " * @return " }), inode, t({ "", "" }) })
         param_nodes.ret = inode
         insert = insert + 1
     end
@@ -130,10 +124,7 @@ local function jdocsnip(args, _, old_state)
         else
             ins = i(insert)
         end
-        vim.list_extend(
-            nodes,
-            { t({ " * ", " * @throws " .. exc .. " " }), ins, t({ "", "" }) }
-        )
+        vim.list_extend(nodes, { t({ " * ", " * @throws " .. exc .. " " }), ins, t({ "", "" }) })
         param_nodes.ex = ins
         insert = insert + 1
     end
@@ -183,10 +174,7 @@ local function cppdocsnip(args, _, old_state)
             else
                 inode = i(insert)
             end
-            vim.list_extend(
-                nodes,
-                { t({ " * @param " .. arg .. " " }), inode, t({ "", "" }) }
-            )
+            vim.list_extend(nodes, { t({ " * @param " .. arg .. " " }), inode, t({ "", "" }) })
             param_nodes["arg" .. arg] = inode
 
             insert = insert + 1
@@ -201,10 +189,7 @@ local function cppdocsnip(args, _, old_state)
             inode = i(insert)
         end
 
-        vim.list_extend(
-            nodes,
-            { t({ " * ", " * @return " }), inode, t({ "", "" }) }
-        )
+        vim.list_extend(nodes, { t({ " * ", " * @return " }), inode, t({ "", "" }) })
         param_nodes.ret = inode
         insert = insert + 1
     end
@@ -217,10 +202,7 @@ local function cppdocsnip(args, _, old_state)
         else
             ins = i(insert)
         end
-        vim.list_extend(
-            nodes,
-            { t({ " * ", " * @throws " .. exc .. " " }), ins, t({ "", "" }) }
-        )
+        vim.list_extend(nodes, { t({ " * ", " * @throws " .. exc .. " " }), ins, t({ "", "" }) })
         param_nodes.ex = ins
         insert = insert + 1
     end
@@ -247,10 +229,7 @@ ls.add_snippets(nil, {
         ),
         s({ trig = "date" }, {
             f(function()
-                return string.format(
-                    string.gsub(vim.bo.commentstring, "%%s", " %%s"),
-                    os.date()
-                )
+                return string.format(string.gsub(vim.bo.commentstring, "%%s", " %%s"), os.date())
             end, {}),
         }),
         s({ trig = "Ctime" }, {
