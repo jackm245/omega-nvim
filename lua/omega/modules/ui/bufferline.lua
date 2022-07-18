@@ -45,20 +45,17 @@ bufferline_mod.configs = {
                 background = {
                     guifg = colors.grey_fg,
                     guibg = colors.black2,
-                    -- guibg = colors.black,
                 },
 
                 -- buffers
                 buffer_selected = {
                     guifg = colors.white,
                     guibg = colors.grey_fg,
-                    -- guibg = colors.black,
                     gui = "bold,italic",
                 },
 
                 duplicate_selected = {
                     guifg = colors.white,
-                    -- guibg = colors.black,
                     guibg = colors.grey_fg,
                     gui = "bold,italic",
                 },
@@ -69,17 +66,14 @@ bufferline_mod.configs = {
                 },
                 buffer_visible = {
                     guifg = colors.white,
-                    -- guibg = colors.black2,
                     guibg = colors.black2,
                 },
 
                 buffer = {
                     guifg = colors.white,
-                    -- guibg = colors.black2,
                     guibg = colors.black2,
                 },
 
-                -- for diagnostics = "nvim_lsp"
                 error = {
                     guifg = colors.light_grey,
                     guibg = colors.black2,
@@ -89,7 +83,6 @@ bufferline_mod.configs = {
                     guibg = colors.black2,
                 },
 
-                -- close buttons
                 close_button = {
                     guifg = colors.light_grey,
                     guibg = colors.black2,
@@ -111,7 +104,6 @@ bufferline_mod.configs = {
                     guibg = colors.black,
                 },
 
-                -- modified
                 modified = {
                     guifg = colors.red,
                     guibg = colors.black2,
@@ -125,7 +117,6 @@ bufferline_mod.configs = {
                     guibg = colors.grey_fg,
                 },
 
-                -- separators
                 separator = {
                     guifg = colors.darker_black,
                     guibg = colors.black2,
@@ -139,7 +130,6 @@ bufferline_mod.configs = {
                     guibg = colors.grey_fg,
                 },
 
-                -- tabs
                 tab = {
                     guifg = colors.light_grey,
                     guibg = colors.one_bg3,
@@ -161,7 +151,6 @@ bufferline_mod.configs = {
                 offsets = {
                     {
                         filetype = "NvimTree",
-                        -- text = "",
                         padding = 1,
                         highlight = "NvimTreeNormal",
                         text_align = "left",
@@ -182,28 +171,11 @@ bufferline_mod.configs = {
                             guibg = colors.grey,
                         })
 
-                        -- table.insert(result, {
-                        --     text = "%@Switch_theme@  %X ",
-                        --     guifg = colors.dark_purple,
-                        --     guibg = colors.light_grey,
-                        -- })
-
                         table.insert(result, {
                             text = "%@Close_buf@ X %X",
                             guibg = colors.red,
                             guifg = colors.black,
                         })
-                        -- table.insert(result, {
-                        --     text = "%@Close_buf@  %X",
-                        --     guibg = colors.red,
-                        --     guifg = colors.black,
-                        -- })
-                        -- table.insert(result, {
-                        --     text = "▍%X",
-                        --     guifg = colors.red,
-                        --     guibg=colors.black
-                        -- })
-
                         return result
                     end,
                 },
@@ -239,7 +211,6 @@ bufferline_mod.configs = {
                 },
             },
         })
-        -- return bufline
     end,
 }
 
