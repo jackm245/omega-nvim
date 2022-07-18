@@ -176,11 +176,10 @@ bufferline_mod.configs = {
                 custom_areas = {
                     right = function()
                         local result = {}
-                        -- TODO: readd
                         table.insert(result, {
-                            text = "%@Toggle_light@ " .. vim.g.toggle_icon .. " %X ",
-                            guifg = colors.blue,
-                            guibg = colors.light_grey,
+                            text = "%@Toggle_light@ " .. vim.g.toggle_icon .. "%X ",
+                            guifg = colors.white,
+                            guibg = colors.grey,
                         })
 
                         -- table.insert(result, {
@@ -190,9 +189,20 @@ bufferline_mod.configs = {
                         -- })
 
                         table.insert(result, {
-                            text = "%@Close_buf@  %X",
-                            guifg = colors.red,
+                            text = "%@Close_buf@ X %X",
+                            guibg = colors.red,
+                            guifg = colors.black,
                         })
+                        -- table.insert(result, {
+                        --     text = "%@Close_buf@  %X",
+                        --     guibg = colors.red,
+                        --     guifg = colors.black,
+                        -- })
+                        -- table.insert(result, {
+                        --     text = "▍%X",
+                        --     guifg = colors.red,
+                        --     guibg=colors.black
+                        -- })
 
                         return result
                     end,
