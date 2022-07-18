@@ -14,6 +14,6 @@ return {
     base0B = "#a6d189", -- green
     base0C = "#f4b8e4", -- pink
     base0D = "#8caaee", -- blue
-    base0E = "#ca9ee6", -- pink
+    base0E = "#c6a0f6", -- pink
     base0F = "#8caaee", -- blue
 }
