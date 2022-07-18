@@ -158,6 +158,15 @@ bufferline_mod.configs = {
                 },
             },
             options = {
+                offsets = {
+                    {
+                        filetype = "NvimTree",
+                        -- text = "",
+                        padding = 1,
+                        highlight = "NvimTreeNormal",
+                        text_align = "left",
+                    },
+                },
                 close_icon = "",
                 show_close_icon = false,
                 separator_style = "slant",
