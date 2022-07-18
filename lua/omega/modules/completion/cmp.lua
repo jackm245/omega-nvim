@@ -373,6 +373,16 @@ cmp_mod.configs = {
         elseif omega.config.cmp_theme == "no-border" then
             config.window = {
                 completion = {
+                    border = {
+                        { "▄", "CmpBorder" },
+                        { "▄", "CmpBorder" },
+                        { "▄", "CmpBorder" },
+                        { "█", "CmpBorder" },
+                        { "▀", "CmpBorder" },
+                        { "▀", "CmpBorder" },
+                        { "▀", "CmpBorder" },
+                        { "█", "CmpBorder" },
+                    },
                     winhighlight = "Normal:Pmenu,FloatBorder:CmpDocumentationBorder,Search:None",
                     left_side_padding = 0,
                     right_side_padding = 1,
@@ -390,7 +400,6 @@ cmp_mod.configs = {
                 fields = {
                     -- "surround_start",
                     "kind",
-                    "surround_end",
                     "padding",
                     "abbr",
                     "padding",
@@ -399,8 +408,6 @@ cmp_mod.configs = {
                 format = function(entry, item)
                     item.menu = item.kind
                     item.surround_start = "▐"
-                    -- item.surround_end = "▌"
-                    item.surround_end = ""
                     item.surround_start_hl_group = ("CmpItemKindBlock%s"):format(item.kind)
                     item.surround_end_hl_group = ("CmpItemKindBlock%s"):format(item.kind)
                     item.menu_hl_group = ("CmpItemKindMenu%s"):format(item.kind)

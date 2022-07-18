@@ -148,7 +148,12 @@ bg("PmenuSel", blue)
 fg("LineNr", grey)
 fg("NvimInternalError", red)
 fg("VertSplit", one_bg2)
-fg("CmpBorder", blue)
+if omega.config.cmp_theme == "border" then
+    fg("CmpBorder", blue)
+elseif omega.config.cmp_theme == "no-border" then
+    fg_bg("CmpBorder", colors.darker_black, colors.black)
+end
+
 bg("PmenuThumb", white)
 fg("WinSeparator", one_bg2)
 fg("CmpDocumentationWindowBorder", one_bg2)
