@@ -9,19 +9,25 @@ heirline_mod.plugins = {
 
 heirline_mod.configs = {
     ["heirline.nvim"] = function()
+        local color_utils = require("omega.utils.colors")
         vim.api.nvim_create_autocmd("User", {
             pattern = "HeirlineInitWinbar",
             callback = function(args)
                 local buf = args.buf
                 if
-                    vim.tbl_contains(
-                        { "terminal", "prompt", "nofile", "help", "quickfix" },
-                        vim.bo[buf].buftype
-                    )
-                    or vim.tbl_contains(
-                        { "gitcommit", "fugitive", "toggleterm" },
-                        vim.bo[buf].filetype
-                    )
+                    vim.tbl_contains({
+                        "terminal",
+                        "prompt",
+                        "nofile",
+                        "help",
+                        "quickfix",
+                    }, vim.bo[buf].buftype)
+                    or vim.tbl_contains({
+                        "gitcommit",
+                        "fugitive",
+                        "toggleterm",
+                        "NvimTree",
+                    }, vim.bo[buf].filetype)
                     or not vim.bo[buf].buflisted
                 then
                     vim.opt_local.winbar = nil
@@ -779,6 +785,7 @@ heirline_mod.configs = {
                 if vim.api.nvim_buf_get_name == "" then
                     return false
                 end
+
                 if vim.api.nvim_eval_statusline("%f", {})["str"] == "[No Name]" then
                     return false
                 end
@@ -789,7 +796,11 @@ heirline_mod.configs = {
                     return ""
                 end,
                 hl = function()
-                    return { fg = colors.grey }
+                    return conditions.is_active()
+                            and { fg = colors.grey }
+                        or {
+                            fg = color_utils.blend_colors(colors.grey, colors.black, 0.3),
+                        }
                 end,
             },
             {
@@ -803,7 +814,10 @@ heirline_mod.configs = {
                     else
                         return conditions.is_active()
                                 and { fg = colors.green, bg = colors.grey }
-                            or { fg = colors.onebg, bg = colors.grey }
+                            or {
+                                fg = color_utils.blend_colors(colors.green, colors.black, 0.3),
+                                bg = color_utils.blend_colors(colors.grey, colors.black, 0.3),
+                            }
                     end
                 end,
                 -- condition = function()
@@ -825,7 +839,10 @@ heirline_mod.configs = {
                 hl = function()
                     return conditions.is_active()
                             and { fg = colors.green, bg = colors.grey }
-                        or { fg = colors.onebg, bg = colors.grey }
+                        or {
+                            fg = color_utils.blend_colors(colors.green, colors.black, 0.3),
+                            bg = color_utils.blend_colors(colors.grey, colors.black, 0.3),
+                        }
                 end,
             },
             {
@@ -834,7 +851,12 @@ heirline_mod.configs = {
                 end,
                 provider = "",
                 hl = function()
-                    return { fg = colors.red, bg = colors.grey }
+                    return conditions.is_active()
+                            and { fg = colors.red, bg = colors.grey }
+                        or {
+                            fg = color_utils.blend_colors(colors.red, colors.black, 0.3),
+                            bg = color_utils.blend_colors(colors.grey, colors.black, 0.3),
+                        }
                 end,
                 on_click = {
                     callback = function(_, winid)
@@ -850,7 +872,11 @@ heirline_mod.configs = {
                     return ""
                 end,
                 hl = function()
-                    return { fg = colors.grey }
+                    return conditions.is_active()
+                            and { fg = colors.grey }
+                        or {
+                            fg = color_utils.blend_colors(colors.grey, colors.black, 0.3),
+                        }
                 end,
             },
         }
