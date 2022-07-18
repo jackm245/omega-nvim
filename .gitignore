@@ -1,5 +1,5 @@
 xd
-test
+test*
 /.DS_Store
 lua/.DS_Store
 /root/.DS_Store
@@ -7,3 +7,5 @@ spell/
 sessions/
 todo.norg
 startuptimes
+smallest_filemanager.lua
+unicode_chars
