@@ -5,7 +5,7 @@ authors: max
 categories:
 created: 2022-06-25
 version: 0.0.11
-tangle: ./init.lua
+tangle: ../init.lua
 @end
 
 * Impatient
@@ -13,7 +13,8 @@ tangle: ./init.lua
   require("impatient").enable_profile()
   @end
   Set up *impatient*.
-  This is done as early as possible. If you don't yet have installed the plugins you should comment this line out.
+  This is done as early as possible. If you don't yet have installed the plugins
+  you should comment this line out.
 
 * Profiler
   @code lua
