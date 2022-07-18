@@ -10,10 +10,21 @@ nvim_tree.plugins = {
 
 nvim_tree.configs = {
     ["nvim-tree.lua"] = function()
+        vim.api.nvim_create_autocmd("BufEnter", {
+            nested = true,
+            callback = function()
+                if
+                    #vim.api.nvim_list_wins() == 1
+                    and vim.api.nvim_buf_get_name(0):match("NvimTree_") ~= nil
+                then
+                    vim.cmd("quit")
+                end
+            end,
+        })
         require("nvim-tree").setup({
             filters = {
-                dotfiles = false,
-                exclude = { "custom" },
+                dotfiles = true,
+                exclude = {},
             },
             -- disable_netrw = true,
             -- hijack_netrw = true,
@@ -23,7 +34,7 @@ nvim_tree.configs = {
             hijack_unnamed_buffer_when_opening = false,
             -- update_cwd = true,
             update_focused_file = {
-                enable = true,
+                enable = false,
                 update_cwd = false,
             },
             view = {
@@ -32,7 +43,7 @@ nvim_tree.configs = {
                 hide_root_folder = true,
             },
             git = {
-                enable = false,
+                enable = true,
                 ignore = true,
             },
             actions = {
@@ -41,6 +52,11 @@ nvim_tree.configs = {
                 },
             },
             renderer = {
+                icons = {
+                    show = {
+                        git = false,
+                    },
+                },
                 indent_markers = {
                     enable = false,
                 },
