@@ -6,7 +6,7 @@ local space = { provider = " " }
 local colors = require("omega.colors").get()
 local color_utils = require("omega.utils.colors")
 
-local background_color = colors.onebg
+local background_color = colors.one_bg
 
 local use_dev_icons = false
 
