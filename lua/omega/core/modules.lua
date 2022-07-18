@@ -1,5 +1,4 @@
 local modules = {}
--- local utils = require("omega.utils")
 
 function modules.setup()
     local module_sections = {
@@ -82,7 +81,7 @@ function modules.setup()
     packer.init({
         compile_path = vim.fn.stdpath("data") .. "/plugin/packer_compiled.lua",
         git = {
-            clone_timeout = 300, -- 5 mins
+            clone_timeout = 300,
             subcommands = {
                 -- Prevent packer from downloading all branches metadata to reduce cloning cost
                 -- for heavy size plugins like plenary (removed the '--no-single-branch' git flag)
@@ -116,8 +115,8 @@ function modules.load()
     if not omega.config.use_impatient then
         omega.modules.core.omega.plugins["impatient.nvim"] = nil
     end
-    for sec_name, section in pairs(omega.modules) do
-        for mod_name, mod in pairs(section) do
+    for _, section in pairs(omega.modules) do
+        for _, mod in pairs(section) do
             for plugin, packer_spec in pairs(mod.plugins) do
                 if
                     mod.configs
@@ -133,8 +132,8 @@ function modules.load()
             end
         end
     end
-    for sec_name, section in pairs(omega.modules) do
-        for mod_name, mod in pairs(section) do
+    for _, section in pairs(omega.modules) do
+        for _, mod in pairs(section) do
             if mod.keybindings then
                 mod.keybindings()
             end

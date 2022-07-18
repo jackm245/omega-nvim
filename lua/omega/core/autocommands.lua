@@ -34,12 +34,6 @@ aucmd("FileType", {
     end,
 })
 
--- aucmd({ "BufRead", "BufNewFile" }, {
---     pattern = "*.norg",
---     command = "setlocal filetype=norg",
---     desc = "Set norg filetype",
--- })
-
 local netrw = vim.api.nvim_create_augroup("netrw", { clear = true })
 aucmd({ "Filetype" }, {
     pattern = "netrw",
@@ -103,20 +97,6 @@ aucmd({ "TextYankPost" }, {
     group = vim.api.nvim_create_augroup("highlight_yank", {}),
     desc = "Highlight yanked text",
 })
-
--- vim.cmd([[
---   augroup nvim-luadev
---     autocmd!
---     function! SetLuaDevOptions()
---       nmap <buffer> <C-c><C-c> <Plug>(Luadev-RunLine)
---       vmap <buffer> <C-c><C-c> <Plug>(Luadev-Run)
---       nmap <buffer> <C-c><C-k> <Plug>(Luadev-RunWord)
---       map  <buffer> <C-x><C-p> <Plug>(Luadev-Complete)
---       set filetype=lua
---     endfunction
---     autocmd BufEnter \[nvim-lua\] call SetLuaDevOptions()
---   augroup end
--- ]])
 
 aucmd({ "BufNewFile", "BufRead", "BufWinEnter" }, {
     pattern = "*.tex",
@@ -243,15 +223,9 @@ aucmd("BufEnter", {
     end,
 })
 
--- aucmd("VimLeavePre", {
---     callback = function()
---         require("omega.core.data_save").set_data()
---     end,
--- })
-
 aucmd({ "TextChanged", "TextChangedI", "BufWinEnter" }, {
     pattern = "*.norg",
     callback = function()
-        vim.fn.matchadd("Search", "\\%81v.\\%>80v", -1)
+        vim.fn.matchadd("Search", "\\%101v.\\%>100v", -1)
     end,
 })

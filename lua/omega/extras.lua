@@ -1,3 +1,4 @@
+---@diagnostic disable: need-check-nil
 local extras = {}
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
@@ -28,13 +29,10 @@ local files = {
         .. "&& rm "
         .. vim.fn.stdpath("data")
         .. "/temp",
-    -- java = "javac "
-    --     .. vim.fn.stdpath("data").."/temp"
-    --     .. " && java "
-    --     .. vim.fn.stdpath("data").."/temp"
-    --     .. " && rm *.class",
     rust = "cargo run",
+    ---@diagnostic disable-next-line: missing-parameter
     javascript = "node " .. exp("%:t"),
+    ---@diagnostic disable-next-line: missing-parameter
     typescript = "tsc " .. exp("%:t") .. " && node " .. exp("%:t:r") .. ".js",
 }
 local scratch_buf
