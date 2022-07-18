@@ -37,7 +37,7 @@ return {
     purple = "#c882e7",
     dark_purple = "#af69ce",
     teal = "#519ABA",
-    orange = "#fca2aa",
+    orange = "#d19a66",
     cyan = "#a3b8ef",
     statusline_bg = "#22262e",
     lightbg = "#2d3139",
