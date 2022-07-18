@@ -212,7 +212,6 @@ RoundFileNameBlock = utils.insert(
     FileIconSurroundF,
     FileIcon,
     FileIconSurroundB,
-    -- FileNameSurround,
     FileName,
     unpack(FileFlags),
     {
@@ -445,49 +444,6 @@ local function progress_bar()
     return sbar[i]
 end
 
-local round_tomato = {
-    {
-        provider = function()
-            return ""
-        end,
-        hl = function(_)
-            return { fg = colors.dark_blue, bg = "none" }
-        end,
-    },
-    {
-        provider = function()
-            return " "
-        end,
-        hl = function(_)
-            return { fg = colors.black, bg = colors.dark_blue }
-        end,
-    },
-    {
-        provider = function()
-            return ""
-        end,
-        hl = function(_)
-            return { fg = colors.dark_blue, bg = colors.blue }
-        end,
-    },
-    {
-        provider = function()
-            return require("tomato").get_time_left()
-        end,
-        hl = function()
-            return { fg = colors.black, bg = colors.blue }
-        end,
-    },
-    {
-        provider = function()
-            return ""
-        end,
-        hl = function(_)
-            return { fg = colors.blue, bg = "none" }
-        end,
-    },
-}
-
 local round_progress = {
     {
         provider = function()
@@ -522,7 +478,6 @@ local round_progress = {
     },
     {
         provider = function()
-            -- return "%3(%P%) " .. progress_bar() .. " "
             return " " .. progress_bar() .. " "
         end,
         hl = function()
@@ -552,8 +507,6 @@ local diagnostics = {
     on_click = {
         callback = function()
             require("trouble").toggle({ mode = "document_diagnostics" })
-            -- or
-            -- vim.diagnostic.setqflist()
         end,
         name = "heirline_diagnostics",
     },
@@ -638,7 +591,6 @@ local coords = {
     {
         provider = function()
             return "  "
-            -- return "  "
         end,
         hl = {
             fg = colors.orange,
@@ -713,7 +665,6 @@ local word_count = {
             self.mode = vim.fn.mode(1)
         end,
         provider = function()
-            -- return ""
             return "█"
         end,
         hl = function(self)
@@ -748,20 +699,15 @@ local default_statusline = {
     RoundFileNameBlock,
     space,
     git,
-    -- utils.make_flexible_component(1, option_value),
     space,
     lsp_progress,
     diagnostics,
     space,
     align,
-    -- utils.make_flexible_component(2, dyn_help_available),
-    -- space,
     utils.make_flexible_component(4, coords),
     space,
     round_mode_icon,
     space,
-    -- round_tomato,
-    -- space,
     round_progress,
     space,
     utils.make_flexible_component(6, word_count),

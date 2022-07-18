@@ -3,7 +3,6 @@ local heirline_mod = {}
 heirline_mod.plugins = {
     ["heirline.nvim"] = {
         "rebelot/heirline.nvim",
-        -- commit = "6e9aaa8d4c193ba1bd828a1260d2ef9b2eff2513",
     },
 }
 
@@ -445,49 +444,6 @@ heirline_mod.configs = {
             return sbar[i]
         end
 
-        local round_tomato = {
-            {
-                provider = function()
-                    return ""
-                end,
-                hl = function(_)
-                    return { fg = colors.dark_blue, bg = "none" }
-                end,
-            },
-            {
-                provider = function()
-                    return " "
-                end,
-                hl = function(_)
-                    return { fg = colors.black, bg = colors.dark_blue }
-                end,
-            },
-            {
-                provider = function()
-                    return ""
-                end,
-                hl = function(_)
-                    return { fg = colors.dark_blue, bg = colors.blue }
-                end,
-            },
-            {
-                provider = function()
-                    return require("tomato").get_time_left()
-                end,
-                hl = function()
-                    return { fg = colors.black, bg = colors.blue }
-                end,
-            },
-            {
-                provider = function()
-                    return ""
-                end,
-                hl = function(_)
-                    return { fg = colors.blue, bg = "none" }
-                end,
-            },
-        }
-
         local round_progress = {
             {
                 provider = function()
@@ -713,20 +669,15 @@ heirline_mod.configs = {
             RoundFileNameBlock,
             space,
             git,
-            -- utils.make_flexible_component(1, option_value),
             space,
             lsp_progress,
             diagnostics,
             space,
             align,
-            -- utils.make_flexible_component(2, dyn_help_available),
-            -- space,
             utils.make_flexible_component(4, coords),
             space,
             round_mode_icon,
             space,
-            -- round_tomato,
-            -- space,
             round_progress,
             space,
             utils.make_flexible_component(6, word_count),
@@ -806,7 +757,6 @@ heirline_mod.configs = {
             {
                 provider = function(self)
                     return self.icon
-                    -- return self.icon
                 end,
                 hl = function(self)
                     if use_dev_icons then
@@ -820,9 +770,6 @@ heirline_mod.configs = {
                             }
                     end
                 end,
-                -- condition = function()
-                --     return vim.tbl_contains(vim.tbl_keys(file_icons), vim.bo.ft)
-                -- end,
             },
             {
                 init = function(self)
@@ -846,7 +793,7 @@ heirline_mod.configs = {
                 end,
             },
             {
-                condition = function(self)
+                condition = function()
                     return not vim.bo.modified
                 end,
                 provider = "",
@@ -893,9 +840,6 @@ heirline_mod.configs = {
                 require("omega.modules.ui.heirline.round_blended"),
                 winbar_line
             )
-            -- require("heirline").setup(round_statuslines)
-            -- elseif omega.config.statusline=="angled" then
-            --     require("heirline").setup(angled_statuslines)
         end
     end,
 }
