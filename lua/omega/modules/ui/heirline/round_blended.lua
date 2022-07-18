@@ -232,6 +232,12 @@ RoundFileNameBlock = utils.insert(
         end,
     }
 )
+RoundFileNameBlock.condition = function()
+    return not conditions.buffer_matches({
+        buftype = { "nofile", "hidden" },
+        filetype = { "NvimTree" },
+    })
+end
 
 local git = {
     on_click = {
