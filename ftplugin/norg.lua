@@ -62,3 +62,19 @@ wk.register({
     prefix = ",",
     mode = "n",
 })
+
+omega.plugin_configs["nvim-surround"]()
+require("nvim-surround").buffer_setup({
+    delimiters = {
+        separators = {
+            ["/"] = { "/", "/" },
+            ["*"] = { "*", "*" },
+            ["_"] = { "_", "_" },
+            ["-"] = { "-", "-" },
+        },
+    },
+    highlight_motion = {
+        duration = 300,
+    },
+    move_cursor = false,
+})
