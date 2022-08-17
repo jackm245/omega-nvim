@@ -45,6 +45,7 @@ tele_mod.plugins = {
 
 tele_mod.configs = {
     ["telescope.nvim"] = function()
+        require"packer".loader("nvim-treesitter")
         local actions = require("telescope.actions")
         local flatten = vim.tbl_flatten
         local action_state = require("telescope.actions.state")
@@ -705,6 +706,7 @@ tele_mod.keybindings = function()
             end,
             " File Browser",
         },
+        [","] = { "<cmd>Telescope buffers<cr>", "﩯Buffers" },
 
         i = {
             e = { "<cmd>Telescope emoji<cr>", "Emoji" },
