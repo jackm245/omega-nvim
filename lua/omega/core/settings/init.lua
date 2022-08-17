@@ -3,7 +3,6 @@ require("omega.core.settings.disable_builtin")
 
 -- use lua filetype detection
 vim.g.do_filetype_lua = 1
-vim.g.did_load_filetypes = 0
 
 vim.opt.splitbelow = true
 vim.opt.splitright = true
