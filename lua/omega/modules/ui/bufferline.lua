@@ -43,108 +43,111 @@ bufferline_mod.configs = {
         require("bufferline").setup({
             highlights = {
                 background = {
-                    guifg = colors.grey_fg,
-                    guibg = colors.black2,
+                    fg = colors.grey_fg,
+                    bg = colors.black2,
                 },
 
                 -- buffers
                 buffer_selected = {
-                    guifg = colors.white,
-                    guibg = colors.grey_fg,
-                    gui = "bold,italic",
+                    fg = colors.white,
+                    bg = colors.grey_fg,
+                    bold = true,
+                    italic = true,
                 },
 
                 duplicate_selected = {
-                    guifg = colors.white,
-                    guibg = colors.grey_fg,
-                    gui = "bold,italic",
+                    fg = colors.white,
+                    bg = colors.grey_fg,
+                    bold = true,
+                    italic = true,
                 },
                 duplicate_visible = {
-                    guifg = colors.white,
-                    guibg = colors.black2,
-                    gui = "bold,italic",
+                    fg = colors.white,
+                    bg = colors.black2,
+                    bold = true,
+                    italic = true,
                 },
                 buffer_visible = {
-                    guifg = colors.white,
-                    guibg = colors.black2,
+                    fg = colors.white,
+                    bg = colors.black2,
                 },
 
                 buffer = {
-                    guifg = colors.white,
-                    guibg = colors.black2,
+                    fg = colors.white,
+                    bg = colors.black2,
                 },
 
                 error = {
-                    guifg = colors.light_grey,
-                    guibg = colors.black2,
+                    fg = colors.light_grey,
+                    bg = colors.black2,
                 },
                 error_diagnostic = {
-                    guifg = colors.light_grey,
-                    guibg = colors.black2,
+                    fg = colors.light_grey,
+                    bg = colors.black2,
                 },
 
                 close_button = {
-                    guifg = colors.light_grey,
-                    guibg = colors.black2,
+                    fg = colors.light_grey,
+                    bg = colors.black2,
                 },
                 close_button_visible = {
-                    guifg = colors.light_grey,
-                    guibg = colors.black2,
+                    fg = colors.light_grey,
+                    bg = colors.black2,
                 },
                 close_button_selected = {
-                    guifg = colors.red,
-                    guibg = colors.grey_fg,
+                    fg = colors.red,
+                    bg = colors.grey_fg,
                 },
                 fill = {
-                    guifg = colors.grey_fg,
-                    guibg = colors.darker_black,
+                    fg = colors.grey_fg,
+                    bg = colors.darker_black,
                 },
                 indicator_selected = {
-                    guifg = colors.black2,
-                    guibg = colors.black,
+                    fg = colors.black2,
+                    bg = colors.black,
                 },
 
                 modified = {
-                    guifg = colors.red,
-                    guibg = colors.black2,
+                    fg = colors.red,
+                    bg = colors.black2,
                 },
                 modified_visible = {
-                    guifg = colors.red,
-                    guibg = colors.black2,
+                    fg = colors.red,
+                    bg = colors.black2,
                 },
                 modified_selected = {
-                    guifg = colors.green,
-                    guibg = colors.grey_fg,
+                    fg = colors.green,
+                    bg = colors.grey_fg,
                 },
 
                 separator = {
-                    guifg = colors.darker_black,
-                    guibg = colors.black2,
+                    fg = colors.darker_black,
+                    bg = colors.black2,
                 },
                 separator_visible = {
-                    guifg = colors.darker_black,
-                    guibg = colors.black2,
+                    fg = colors.darker_black,
+                    bg = colors.black2,
                 },
                 separator_selected = {
-                    guifg = colors.darker_black,
-                    guibg = colors.grey_fg,
+                    fg = colors.darker_black,
+                    bg = colors.grey_fg,
                 },
 
                 tab = {
-                    guifg = colors.light_grey,
-                    guibg = colors.one_bg3,
+                    fg = colors.light_grey,
+                    bg = colors.one_bg3,
                 },
                 duplicate = {
-                    guifg = colors.light_grey,
-                    guibg = colors.black2,
+                    fg = colors.light_grey,
+                    bg = colors.black2,
                 },
                 tab_selected = {
-                    guifg = colors.black2,
-                    guibg = colors.nord_blue,
+                    fg = colors.black2,
+                    bg = colors.nord_blue,
                 },
                 tab_close = {
-                    guifg = colors.red,
-                    guibg = colors.darker_black,
+                    fg = colors.red,
+                    bg = colors.darker_black,
                 },
             },
             options = {
@@ -167,14 +170,14 @@ bufferline_mod.configs = {
                         local result = {}
                         table.insert(result, {
                             text = "%@Toggle_light@ " .. vim.g.toggle_icon .. "%X ",
-                            guifg = colors.white,
-                            guibg = colors.grey,
+                            fg = colors.white,
+                            bg = colors.grey,
                         })
 
                         table.insert(result, {
                             text = "%@Close_buf@ X %X",
-                            guibg = colors.red,
-                            guifg = colors.black,
+                            bg = colors.red,
+                            fg = colors.black,
                         })
                         return result
                     end,
@@ -186,7 +189,7 @@ bufferline_mod.configs = {
                     items = {
                         groups.builtin.ungrouped,
                         {
-                            highlight = { guisp = colors.pink, gui = "underline" },
+                            highlight = { sp = colors.pink, underline = true },
                             name = "tests",
                             icon = "",
                             matcher = function(buf)
@@ -195,8 +198,8 @@ bufferline_mod.configs = {
                         },
                         {
                             highlight = {
-                                guisp = colors.cyan,
-                                gui = "underline",
+                                sp = colors.cyan,
+                                underline = true,
                             },
                             name = "docs",
                             matcher = function(buf)
