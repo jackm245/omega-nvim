@@ -7,6 +7,20 @@ blankline.plugins = {
         setup = function()
             vim.api.nvim_create_autocmd("BufEnter", {
                 callback = function()
+                    if vim.bo.ft=="" then return end
+                    if
+                        vim.tbl_contains({
+                            "help",
+                            "startify",
+                            "dashboard",
+                            "packer",
+                            "neogitstatus",
+                            "NvimTree",
+                            "Trouble",
+                        }, vim.bo.ft)
+                    then
+                        return
+                    end
                     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
                     if lines ~= { "" } then
                         require("packer").loader("indent-blankline.nvim")

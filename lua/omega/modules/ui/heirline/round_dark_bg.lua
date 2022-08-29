@@ -19,6 +19,8 @@ end
 
 local file_icons = {
     typescript = " ",
+    json = " ",
+    jsonc = " ",
     tex = "ﭨ ",
     ts = " ",
     python = " ",

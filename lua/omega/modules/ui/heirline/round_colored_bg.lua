@@ -1,14 +1,10 @@
+local use_dev_icons = false
+local colors = require("omega.colors").get()
 local conditions = require("heirline.conditions")
 local utilities = require("heirline.utils")
 local utils = require("heirline.utils")
 local align = { provider = "%=" }
 local space = { provider = " " }
-local colors = require("omega.colors").get()
-local color_utils = require("omega.utils.colors")
-
-local background_color = colors.one_bg
-
-local use_dev_icons = false
 
 local function word_counter()
     local wc = vim.api.nvim_eval("wordcount()")
@@ -54,19 +50,19 @@ local file_icons = {
 }
 
 local mode_colors = {
-    n = colors.red,
-    i = colors.green,
-    v = colors.purple,
-    V = colors.purple,
+    n = vim.g.terminal_color_1,
+    i = vim.g.terminal_color_2,
+    v = vim.g.terminal_color_5,
+    V = vim.g.terminal_color_5,
     ["^V"] = colors.blue,
-    c = colors.red,
-    s = colors.yellow,
-    S = colors.yellow,
+    c = colors.blue,
+    s = vim.g.terminal_color_3,
+    S = vim.g.terminal_color_3,
     ["^S"] = colors.yellow,
     R = colors.purple,
-    r = colors.purple,
-    ["!"] = colors.purple,
-    t = colors.purple,
+    r = vim.g.terminal_color_4,
+    ["!"] = vim.g.terminal_color_1,
+    t = vim.g.terminal_color_1,
 }
 
 local FileNameBlock = {
@@ -116,10 +112,7 @@ local FileIcon = {
         if use_dev_icons then
             return { fg = self.icon_color }
         else
-            return {
-                fg = colors.blue,
-                bg = color_utils.blend_colors(colors.blue, background_color, 0.15),
-            }
+            return { fg = colors.black, bg = colors.dark_blue }
         end
     end,
     condition = function()
@@ -136,7 +129,7 @@ local FileName = {
         return filename .. " "
     end,
     hl = function()
-        return { fg = colors.blue, bg = background_color }
+        return { fg = colors.black }
     end,
 }
 
@@ -148,7 +141,7 @@ local FileFlags = {
             end
         end,
         hl = function()
-            return { fg = colors.blue, bg = background_color }
+            return { fg = colors.black }
         end,
     },
     {
@@ -169,14 +162,11 @@ local FileIconSurroundF = {
         provider = function()
             return ""
         end,
-        hl = function()
-            if vim.tbl_contains(vim.tbl_keys(file_icons), vim.bo.ft) then
-                return {
-                    fg = color_utils.blend_colors(colors.blue, background_color, 0.15),
-                }
-            else
-                return { fg = background_color }
-            end
+        hl = function(_)
+            return { fg = colors.dark_blue, bg = "none" }
+        end,
+        condition = function()
+            return vim.tbl_contains(vim.tbl_keys(file_icons), vim.bo.ft)
         end,
     },
 }
@@ -186,10 +176,7 @@ local FileIconSurroundB = {
             return " "
         end,
         hl = function(_)
-            return {
-                bg = background_color,
-                fg = color_utils.blend_colors(colors.blue, background_color, 0.15),
-            }
+            return { bg = colors.blue, fg = colors.dark_blue }
         end,
         condition = function()
             return vim.tbl_contains(vim.tbl_keys(file_icons), vim.bo.ft)
@@ -215,26 +202,28 @@ RoundFileNameBlock = utils.insert(
     FileIconSurroundF,
     FileIcon,
     FileIconSurroundB,
+    FileNameSurround,
     FileName,
     unpack(FileFlags),
     {
         provider = "%<",
-    },
-    {
-        provider = function()
-            return " "
-        end,
-        hl = function(_)
-            return {
-                fg = background_color,
-            }
-        end,
     }
 )
-RoundFileNameBlock.condition = function()
+RoundFileNameBlock = utilities.surround({ "", "" }, colors.blue, RoundFileNameBlock)
+
+RoundFileNameBlock[1]["condition"] = function()
     return not conditions.buffer_matches({
-        buftype = { "nofile", "hidden" },
-        filetype = { "NvimTree" },
+        filetype = { "dashboard" },
+    })
+end
+RoundFileNameBlock[2]["condition"] = function()
+    return not conditions.buffer_matches({
+        filetype = { "dashboard" },
+    })
+end
+RoundFileNameBlock[3]["condition"] = function()
+    return not conditions.buffer_matches({
+        filetype = { "dashboard" },
     })
 end
 
@@ -294,20 +283,14 @@ local RoundWorkDir = {
             return "  "
         end,
         hl = function(_)
-            return {
-                fg = colors.green,
-                bg = color_utils.blend_colors(colors.green, background_color, 0.15),
-            }
+            return { fg = colors.black, bg = colors.dark_green }
         end,
     },
     {
         provider = function()
             return ""
         end,
-        hl = {
-            bg = background_color,
-            fg = color_utils.blend_colors(colors.green, background_color, 0.15),
-        },
+        hl = { fg = colors.dark_green, bg = colors.vibrant_green },
     },
     {
         provider = function()
@@ -317,7 +300,7 @@ local RoundWorkDir = {
             local trail = cwd:sub(-1) == "/" and "" or "/"
             return " " .. cwd .. trail
         end,
-        hl = { bg = background_color, fg = colors.green },
+        hl = { bg = colors.vibrant_green, fg = colors.black },
     },
 }
 
@@ -331,13 +314,7 @@ local round_mode_icon = {
         end,
         hl = function(self)
             local mode = self.mode:sub(1, 1)
-            return {
-                fg = color_utils.blend_colors(
-                    mode_colors[mode] or colors.blue,
-                    background_color,
-                    0.15
-                ),
-            }
+            return { fg = mode_colors[mode] or colors.blue }
         end,
     },
     {
@@ -403,15 +380,10 @@ local round_mode_icon = {
         hl = function(self)
             local mode = self.mode:sub(1, 1)
             return {
-                bg = color_utils.blend_colors(
-                    mode_colors[mode] or colors.blue,
-                    background_color,
-                    0.15
-                ),
-                fg = mode_colors[mode] or colors.blue,
+                bg = mode_colors[mode] or colors.blue,
+                fg = colors.black,
             }
         end,
-
         provider = function(self)
             return "%2(" .. self.mode_icons[self.mode:sub(1, 1)] .. "%)" .. " "
         end,
@@ -425,13 +397,7 @@ local round_mode_icon = {
         end,
         hl = function(self)
             local mode = self.mode:sub(1, 1)
-            return {
-                fg = color_utils.blend_colors(
-                    mode_colors[mode] or colors.blue,
-                    background_color,
-                    0.15
-                ),
-            }
+            return { fg = mode_colors[mode] or colors.blue }
         end,
     },
 }
@@ -450,38 +416,30 @@ local round_progress = {
             return ""
         end,
         hl = function(_)
-            return {
-                fg = color_utils.blend_colors(colors.purple, background_color, 0.15),
-                bg = "none",
-            }
+            return { fg = colors.dark_purple, bg = "none" }
         end,
     },
     {
         provider = function()
             return "%3(%P%)"
         end,
-        hl = {
-            bg = color_utils.blend_colors(colors.purple, background_color, 0.15),
-            fg = colors.purple,
-        },
+        hl = { bg = colors.dark_purple, fg = colors.black },
     },
     {
         provider = function()
             return ""
         end,
         hl = function(_)
-            return {
-                fg = color_utils.blend_colors(colors.purple, background_color, 0.15),
-                bg = background_color,
-            }
+            return { fg = colors.dark_purple, bg = colors.purple }
         end,
     },
     {
         provider = function()
+            -- return "%3(%P%) " .. progress_bar() .. " "
             return " " .. progress_bar() .. " "
         end,
         hl = function()
-            return { bg = background_color, fg = colors.purple }
+            return { bg = colors.purple, fg = colors.black }
         end,
     },
     {
@@ -489,7 +447,7 @@ local round_progress = {
             return ""
         end,
         hl = function(_)
-            return { fg = background_color, bg = "none" }
+            return { fg = colors.purple, bg = "none" }
         end,
     },
 }
@@ -507,6 +465,8 @@ local diagnostics = {
     on_click = {
         callback = function()
             require("trouble").toggle({ mode = "document_diagnostics" })
+            -- or
+            -- vim.diagnostic.setqflist()
         end,
         name = "heirline_diagnostics",
     },
@@ -584,41 +544,33 @@ local coords = {
         provider = function()
             return ""
         end,
-        hl = {
-            fg = color_utils.blend_colors(colors.orange, background_color, 0.15),
-        },
+        hl = { fg = colors.orange },
     },
     {
         provider = function()
             return "  "
         end,
-        hl = {
-            fg = colors.orange,
-            bg = color_utils.blend_colors(colors.orange, background_color, 0.15),
-        },
+        hl = { fg = colors.black, bg = colors.orange },
     },
     {
         provider = function()
             return ""
         end,
-        hl = {
-            fg = color_utils.blend_colors(colors.orange, background_color, 0.15),
-            bg = background_color,
-        },
+        hl = { fg = colors.orange, bg = colors.yellow },
     },
     {
         provider = function()
             return "%4(%l%):%2c"
         end,
         hl = function()
-            return { fg = colors.orange, bg = background_color }
+            return { fg = colors.black, bg = colors.yellow }
         end,
     },
     {
         provider = function()
             return ""
         end,
-        hl = { fg = background_color },
+        hl = { fg = colors.yellow },
     },
 }
 local word_count = {
@@ -631,13 +583,7 @@ local word_count = {
         end,
         hl = function(self)
             local mode = self.mode:sub(1, 1)
-            return {
-                fg = color_utils.blend_colors(
-                    mode_colors[mode] or colors.blue,
-                    background_color,
-                    0.15
-                ),
-            }
+            return { fg = mode_colors[mode] or colors.blue }
         end,
     },
     {
@@ -650,12 +596,8 @@ local word_count = {
         hl = function(self)
             local mode = self.mode:sub(1, 1)
             return {
-                bg = color_utils.blend_colors(
-                    mode_colors[mode] or colors.blue,
-                    background_color,
-                    0.15
-                ),
-                fg = mode_colors[mode] or colors.blue,
+                bg = mode_colors[mode] or colors.blue,
+                fg = colors.black,
             }
         end,
         condition = conditions.is_active(),
@@ -665,22 +607,16 @@ local word_count = {
             self.mode = vim.fn.mode(1)
         end,
         provider = function()
-            return "█"
+            return ""
         end,
         hl = function(self)
             local mode = self.mode:sub(1, 1)
-            return {
-                fg = color_utils.blend_colors(
-                    mode_colors[mode] or colors.blue,
-                    background_color,
-                    0.15
-                ),
-            }
+            return { fg = mode_colors[mode] or colors.blue }
         end,
     },
 }
 
-RoundWorkDir = utilities.surround({ "", "" }, background_color, RoundWorkDir)
+RoundWorkDir = utilities.surround({ "", "" }, colors.vibrant_green, RoundWorkDir)
 
 local inactive_statusline = {
     condition = function()
@@ -738,7 +674,7 @@ local startup_nvim_statusline = {
     align,
 }
 
-return {
+local round_statuslines = {
     init = utils.pick_child_on_condition,
 
     startup_nvim_statusline,
@@ -746,3 +682,5 @@ return {
     inactive_statusline,
     default_statusline,
 }
+
+return round_statuslines
