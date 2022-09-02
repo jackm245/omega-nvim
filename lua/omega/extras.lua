@@ -7,6 +7,7 @@ local action_state = require("telescope.actions.state")
 local exp = vim.fn.expand
 local utils = require("omega.utils")
 
+-- Commands to execute file types
 local files = {
     python = "python3 -i " .. vim.fn.stdpath("data") .. "/temp",
     lua = "lua " .. vim.fn.stdpath("data") .. "/temp",
