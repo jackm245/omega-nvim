@@ -675,7 +675,7 @@ local startup_nvim_statusline = {
 }
 
 local round_statuslines = {
-    init = utils.pick_child_on_condition,
+    fallthrough = false,
 
     startup_nvim_statusline,
     help_file_line,

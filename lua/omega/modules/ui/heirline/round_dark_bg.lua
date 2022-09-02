@@ -643,7 +643,7 @@ local startup_nvim_statusline = {
 }
 
 return {
-    init = utils.pick_child_on_condition,
+    fallthrough = false,
     startup_nvim_statusline,
     help_file_line,
     inactive_statusline,
