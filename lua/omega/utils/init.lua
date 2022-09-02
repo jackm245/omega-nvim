@@ -1,6 +1,7 @@
 --- Utils for omega-nvim
 local utils = {}
 
+-- view messages in a buffer
 function utils.view_messages()
     local buf = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_buf_set_option(buf, "bufhidden", "wipe")
