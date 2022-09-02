@@ -2,9 +2,9 @@ local cmp_mod = {}
 
 cmp_mod.plugins = {
     ["nvim-cmp"] = {
-        -- "hrsh7th/nvim-cmp",
         "~/neovim_plugins/nvim-cmp",
         requires = { "nvim-autopairs" },
+        ft = { "norg" },
         event = { "InsertEnter", "CmdLineEnter" },
     },
     ["cmp_luasnip"] = {
@@ -295,14 +295,16 @@ cmp_mod.configs = {
             },
 
             sources = {
-                { name = "buffer", priority = 7, keyword_length = 4 },
+                -- { name = "buffer", priority = 7, keyword_length = 4 },
                 { name = "path", priority = 5 },
                 { name = "emoji", priority = 3 },
                 { name = "greek", priority = 1 },
                 { name = "calc", priority = 4 },
-                { name = "cmdline", priority = 4 },
+
+                -- { name = "cmdline", priority = 4 },
                 -- { name = "copilot", priority = 8 },
                 -- { name = "cmp_tabnine", priority = 8 },
+
                 { name = "nvim_lsp", priority = 9 },
                 { name = "luasnip", priority = 8 },
                 { name = "neorg", priority = 6 },
@@ -398,7 +400,6 @@ cmp_mod.configs = {
             }
             config.formatting = {
                 fields = {
-                    -- "surround_start",
                     "kind",
                     "padding",
                     "abbr",
@@ -407,16 +408,19 @@ cmp_mod.configs = {
                 },
                 format = function(entry, item)
                     item.menu = item.kind
-                    item.surround_start = "▐"
-                    item.surround_start_hl_group = ("CmpItemKindBlock%s"):format(item.kind)
-                    item.surround_end_hl_group = ("CmpItemKindBlock%s"):format(item.kind)
                     item.menu_hl_group = ("CmpItemKindMenu%s"):format(item.kind)
                     item.padding = " "
                     item.kind = kind.presets.default[item.kind] or ""
-                    item.dup = vim.tbl_contains({ "path", "buffer" }, entry.source.name)
+                    item.dup = ({
+                        buffer = 1,
+                        path = 1,
+                        nvim_lsp = 0,
+                    })[entry.source.name] or 0
+                    if item.abbr == "" then
+                        item.dup = 1
+                    end
+
                     item.abbr = get_abbr(item, entry)
-                    item.test = "test"
-                    item.test_hl_group = "String"
 
                     return item
                 end,
@@ -426,12 +430,17 @@ cmp_mod.configs = {
 
         cmp.setup.cmdline(":", {
             sources = {
-                { name = "cmdline", group_index = 1 },
+                { name = "cmdline", group_index = 1, max_item_count = 5 },
                 -- { name = "cmdline" },
-                { name = "cmdline_history", group_index = 2 },
+                { name = "cmdline_history", group_index = 2, max_item_count = 5 },
             },
-            view = {
-                entries = { name = "wildmenu", separator = " | " },
+            formatting = {
+                fields = { "abbr" },
+                format = function(entry, item)
+                    item.abbr = get_abbr(item, entry)
+                    item.abbr_hl_group = "Function"
+                    return item
+                end,
             },
         })
 
@@ -440,24 +449,15 @@ cmp_mod.configs = {
                 { name = "cmdline_history" },
                 { name = "buffer" },
             },
-            view = {
-                entries = { name = "wildmenu", separator = " | " },
+            formatting = {
+                fields = { "abbr" },
+                format = function(entry, item)
+                    item.abbr = get_abbr(item, entry)
+                    item.abbr_hl_group = "Function"
+                    return item
+                end,
             },
         })
-        vim.cmd([[PackerLoad neorg]])
-        local neorg = require("neorg")
-
-        local function load_completion()
-            neorg.modules.load_module("core.norg.completion", nil, {
-                engine = "nvim-cmp",
-            })
-        end
-
-        if neorg.is_loaded() then
-            load_completion()
-        else
-            neorg.callbacks.on_event("core.started", load_completion)
-        end
 
         vim.cmd([[hi NormalFloat guibg=none]])
     end,

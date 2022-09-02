@@ -4,6 +4,12 @@ surround.plugins = {
     ["nvim-surround"] = {
         "kylechui/nvim-surround",
         keys = { "ys", "ds", "cs" },
+        setup = function()
+            vim.keymap.set("x", "S", function()
+                require("packer").loader("nvim-surround")
+                require("nvim-surround").visual_surround()
+            end, {})
+        end,
         module = "nvim-surround",
     },
 }
@@ -18,43 +24,48 @@ surround.configs = {
             return result
         end
         require("nvim-surround").setup({
-            delimiters = {
-                invalid_key_behavior = function()
-                    vim.api.nvim_err_writeln(
-                        "Error: Invalid character! Configure this message in "
-                            .. 'require("nvim-surround").setup()'
-                    )
-                end,
-                pairs = {
-                    ["("] = { "( ", " )" },
-                    [")"] = { "(", ")" },
-                    ["{"] = { "{ ", " }" },
-                    ["}"] = { "{", "}" },
-                    ["<"] = { "< ", " >" },
-                    [">"] = { "<", ">" },
-                    ["["] = { "[ ", " ]" },
-                    ["]"] = { "[", "]" },
-                    ["i"] = function()
+            surrounds = {
+                ["("] = { add = { "( ", " )" } },
+                [")"] = { add = { "(", ")" } },
+                ["{"] = { add = { "{ ", " }" } },
+                [""] = { add = { "{", "}" } },
+                ["<"] = { add = { "< ", " >" } },
+                [">"] = { add = { "<", ">" } },
+                ["["] = { add = { "[ ", " ]" } },
+                ["]"] = { add = { "[", "]" } },
+                ["i"] = {
+                    add = function()
                         local left_delimiter = get_input("Enter the left delimiter: ")
                         if left_delimiter then
                             local right_delimiter = get_input("Enter the right delimiter: ")
                             if right_delimiter then
-                                return { left_delimiter, right_delimiter }
+                                return { { left_delimiter }, { right_delimiter } }
                             end
                         end
                     end,
-                    ["f"] = function()
+                },
+                ["f"] = {
+                    add = function()
                         local result = get_input("Enter the function name: ")
                         if result then
-                            return { result .. "(", ")" }
+                            return { { result .. "(" }, { ")" } }
                         end
                     end,
+                    find = "[%w_]+%b()",
+                    delete = "^([%w_]+%()().-(%))()$",
+                    change = {
+                        target = "^([%w_]+)().-()()$",
+                        replacement = function()
+                            local result = get_input("Enter the function name: ")
+                            if result then
+                                return { { result }, { "" } }
+                            end
+                        end,
+                    },
                 },
-                separators = {
-                    ["'"] = { "'", "'" },
-                    ['"'] = { '"', '"' },
-                    ["`"] = { "`", "`" },
-                },
+                ["'"] = { add = { "'", "'" } },
+                ['"'] = { add = { '"', '"' } },
+                ["`"] = { add = { "`", "`" } },
                 HTML = {
                     ["t"] = "type",
                     ["T"] = "whole",
@@ -68,7 +79,7 @@ surround.configs = {
                     ["s"] = { "}", "]", ")", ">", '"', "'", "`" },
                 },
             },
-            highlight_motion = {
+            highlight = {
                 duration = 300,
             },
             move_cursor = false,

@@ -9,10 +9,7 @@ symbols_outline.plugins = {
 
 symbols_outline.configs = {
     ["symbols-outline.nvim"] = function()
-        vim.g.symbols_outline = {
-            highlight_hovered_item = false,
-            width = 65,
-        }
+        require("symbols-outline").setup({ highlight_hovered_item = true })
 
         vim.api.nvim_set_hl(
             0,

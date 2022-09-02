@@ -50,7 +50,7 @@ function utils.MarkdownPreview()
 end
 
 --- Retunrs a border
----@return dict<string, string> border char, highlight
+---@return table<string, string> border char, highlight
 function utils.border()
     return {
         { "╭", "FloatBorder" },

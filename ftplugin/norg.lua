@@ -65,15 +65,13 @@ wk.register({
 
 omega.plugin_configs["nvim-surround"]()
 require("nvim-surround").buffer_setup({
-    delimiters = {
-        separators = {
-            ["/"] = { "/", "/" },
-            ["*"] = { "*", "*" },
-            ["_"] = { "_", "_" },
-            ["-"] = { "-", "-" },
-        },
+    surrounds = {
+        ["/"] = { add = { "/", "/" } },
+        ["*"] = { add = { "*", "*" } },
+        ["_"] = { add = { "_", "_" } },
+        ["-"] = { add = { "-", "-" } },
     },
-    highlight_motion = {
+    highlight = {
         duration = 300,
     },
     move_cursor = false,

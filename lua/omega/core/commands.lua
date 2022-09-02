@@ -101,3 +101,43 @@ add_cmd("ViewColors", function()
 end, {
     desc = "View colors",
 })
+
+local function colorschemes()
+    vim.pretty_print(require("omega.utils").get_themes())
+    -- return require("omega.utils").get_themes()
+    return {
+        "catppuccin_frappe",
+        "catppuccin_macchiato",
+        "doom_one",
+        "everforest",
+        "everforest_light",
+        "gruvbuddy",
+        "horizon",
+        "lapce",
+        "onedark",
+        "tokyodark",
+    }
+end
+
+add_cmd("Colorschemelocal", function(args)
+    local old_theme = vim.g.colors_name
+    require("omega.colors").init(args.args)
+    local ns = vim.api.nvim_create_namespace("local_theme")
+    local colors = vim.api.nvim__get_hl_defs(0)
+    for k, v in pairs(colors) do
+        pcall(vim.api.nvim_set_hl, ns, k, v)
+    end
+    require("omega.colors").init(old_theme)
+    vim.api.nvim_win_set_hl_ns(0, ns)
+end, {
+    nargs = "?",
+    complete = colorschemes,
+})
+
+add_cmd("CleanWriting", function()
+    vim.cmd([[
+        iunmap <leader><leader>
+        iunmap <leader><tab>
+        iunmap <leader>
+    ]])
+end, {})

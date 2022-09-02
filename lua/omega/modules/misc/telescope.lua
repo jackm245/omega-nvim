@@ -4,6 +4,7 @@ tele_mod.plugins = {
     ["telescope.nvim"] = {
         "nvim-telescope/telescope.nvim",
         cmd = "Telescope",
+        commit = "d793de0f12d874c463e81edabee741b802c1a37a",
         module = {
             "telescope",
             "omega.modules.misc.telescope",
@@ -45,7 +46,7 @@ tele_mod.plugins = {
 
 tele_mod.configs = {
     ["telescope.nvim"] = function()
-        require"packer".loader("nvim-treesitter")
+        require("packer").loader("nvim-treesitter")
         local actions = require("telescope.actions")
         local flatten = vim.tbl_flatten
         local action_state = require("telescope.actions.state")
@@ -193,8 +194,6 @@ tele_mod.configs = {
             end
             actions.close(prompt_bufnr)
             local live_grepper = finders.new_job(function(prompt)
-                -- TODO: Probably could add some options for smart case and whatever else rg offers.
-
                 if not prompt or prompt == "" then
                     return nil
                 end

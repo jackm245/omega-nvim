@@ -9,3 +9,8 @@ todo.norg
 startuptimes
 smallest_filemanager.lua
 unicode_chars
+lua/omega/modules/lsp/python.lua
+data.lua
+notes.norg
+operatorfunc.lua
+flexible_heirline.lua

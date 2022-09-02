@@ -1,9 +1,11 @@
 local ts_mod = {}
 local ts_filetypes = {
     "markdown",
+    "typescript",
     "rust",
     "lua",
     "python",
+    "tex",
     "cpp",
     "c",
     "vim",
@@ -12,6 +14,7 @@ local ts_filetypes = {
     "help",
     "vim",
     "norg",
+    "zig",
 }
 
 ts_mod.plugins = {
@@ -44,10 +47,12 @@ ts_mod.plugins = {
                             "c",
                             "vim",
                             "latex",
+                            "typescript",
                             "java",
                             "help",
                             "vim",
                             "norg",
+                            "tex",
                         }, vim.bo.ft)
                     then
                         require("packer").loader("nvim-treesitter")
@@ -61,10 +66,10 @@ ts_mod.plugins = {
         "p00f/nvim-ts-rainbow",
         after = "nvim-treesitter",
     },
-    ["nvim-treesitter-context"] = {
-        "nvim-treesitter/nvim-treesitter-context",
-        after = "nvim-treesitter",
-    },
+    -- ["nvim-treesitter-context"] = {
+    --     "nvim-treesitter/nvim-treesitter-context",
+    --     after = "nvim-treesitter",
+    -- },
     ["playground"] = {
         "nvim-treesitter/playground",
         cmd = { "TSPlaygroundToggle", "TSHighlightCapturesUnderCursor" },
@@ -117,6 +122,7 @@ ts_mod.configs = {
         require("nvim-treesitter.configs").setup({
             ensure_installed = {
                 "markdown",
+                "typescript",
                 "rust",
                 "lua",
                 "python",
@@ -132,6 +138,7 @@ ts_mod.configs = {
                 "comment",
                 "norg_meta",
                 "norg_table",
+                "zig",
             },
             highlight = {
                 enable = true,

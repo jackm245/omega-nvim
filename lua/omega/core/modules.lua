@@ -43,6 +43,7 @@ function modules.setup()
             "harpoon",
             "help_files",
             "holo",
+            "image",
             "insert_utils",
             "lightspeed",
             "mkdir",

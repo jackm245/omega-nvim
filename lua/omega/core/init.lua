@@ -19,4 +19,3 @@ modules.setup()
 modules.load()
 
 require("omega.core.mappings")
-require("omega.utils.types")

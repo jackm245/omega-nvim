@@ -14,6 +14,7 @@ lua_lsp.configs = {
             vim.fn.expand("~") .. "/lua-language-server/bin/lua-language-server",
         }
         local function on_attach(client, bufnr)
+            require("omega.modules.lsp.inlay_hints").setup_autocmd()
             require("omega.modules.lsp.on_attach").setup(client, bufnr)
         end
 
@@ -34,7 +35,17 @@ lua_lsp.configs = {
                             "neorg",
                         },
                     },
+                    hint = {
+                        enable = true,
+                        paramType = true,
+                        setType = true,
+                        paramName = true,
+                        arrayIndex = {
+                            Enable = true,
+                        },
+                    },
                     workspace = {
+                        -- library = vim.fn.stdpath("config") .. "lua/omega/types",
                         maxPreload = 100000,
                         preloadFileSize = 1000,
                     },

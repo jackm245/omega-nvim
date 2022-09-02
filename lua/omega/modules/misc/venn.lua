@@ -4,7 +4,7 @@ local venn = {}
 venn.plugins = {
     ["venn.nvim"] = {
         "jbyuki/venn.nvim",
-        cmd = "VBox",
+        cmd = {"VBox","VBoxH","VBoxD","VBoxHO","VBoxDO",},
     },
 }
 

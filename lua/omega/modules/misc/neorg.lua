@@ -5,7 +5,7 @@ neorg_mod.plugins = {
         "nvim-neorg/neorg",
         -- "~/neovim_plugins/neorg",
         ft = "norg",
-        requires = { "nvim-treesitter" },
+        requires = { "nvim-treesitter","nvim-cmp" },
         setup = function()
             vim.filetype.add({
                 extension = {
@@ -48,6 +48,8 @@ neorg_mod.configs = {
     end,
     ["neorg"] = function()
         require("packer").loader("nvim-treesitter")
+        require("packer").loader("nvim-cmp")
+        omega.plugin_configs["nvim-cmp"]()
         require("packer").loader("nabla.nvim")
         local neorg_callbacks = require("neorg.callbacks")
 
@@ -56,13 +58,26 @@ neorg_mod.configs = {
                 ["core.defaults"] = {},
                 ["core.norg.esupports.metagen"] = {
                     config = {
-                        type = "auto",
+                        type = "none",
                     },
                 },
                 ["core.looking-glass"] = {},
                 -- ["core.cheatsheet"] = {},
+                ["core.norg.completion"] = {
+                    config = {
+                        engine = "nvim-cmp",
+                    },
+                },
                 ["core.norg.concealer"] = {
                     config = {
+                        dim_code_blocks = {
+                            enabled = true,
+                            width = "content",
+                            padding = {
+                                right = 2,
+                            },
+                            conceal = true,
+                        },
                         markup_preset = "conceal",
                         icon_preset = "diamond",
                         icons = {
@@ -104,10 +119,10 @@ neorg_mod.configs = {
                                 },
 
                                 level_3 = {
-                                    icon = "  ◆",
+                                    icon = "   ❖",
                                 },
                                 level_4 = {
-                                    icon = "   ❖",
+                                    icon = "  ◆",
                                 },
                                 level_5 = {
                                     icon = "    ⟡",

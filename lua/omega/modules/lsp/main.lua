@@ -12,6 +12,7 @@ lsp_mod.plugins = {
             "python",
             "html",
             "typescript",
+            "zig",
             "css",
             "nix",
             "rust",
@@ -20,14 +21,6 @@ lsp_mod.plugins = {
             "vim",
             "lua",
         },
-        -- setup = function()
-        -- vim.defer_fn(function()
-        --     require("packer").loader("nvim-lspconfig")
-        --     if vim.bo.ft ~= "packer" then
-        --         vim.cmd("silent! e %")
-        --     end
-        -- end, 0)
-        -- end,
     },
 
     ["lsp_signature.nvim"] = {
@@ -64,6 +57,7 @@ lsp_mod.configs = {
         require("packer").loader("lua-dev.nvim")
         vim.api.nvim_set_hl(0, "DiagnosticHeader", { link = "Special" })
         vim.api.nvim_create_autocmd("CursorHold", {
+            group = vim.api.nvim_create_augroup("lsp_float", {}),
             callback = function()
                 vim.diagnostic.open_float()
             end,
@@ -82,7 +76,6 @@ lsp_mod.configs = {
             vim.fn.sign_define("DiagnosticSign" .. sign, {
                 text = icon,
                 texthl = "Diagnostic" .. sign,
-                linehl = false,
                 numhl = "Diagnostic" .. sign,
             })
         end
@@ -155,6 +148,7 @@ lsp_mod.configs = {
             texlab = require("omega.modules.lsp.tex").config(),
             intelephense = {},
             vimls = {},
+            zls = { cmd = { vim.fn.expand("~") .. "/zls/zig-out/bin/zls" } },
         }
         for server, config in pairs(servers) do
             lspconfig[server].setup(vim.tbl_deep_extend("force", {
