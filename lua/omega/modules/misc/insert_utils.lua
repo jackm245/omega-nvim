@@ -1,10 +1,10 @@
-local insert = {}
+local insert_utils = {}
 
-insert.plugins = {
+insert_utils.plugins = {
     ["jeskape.nvim"] = { "Krafi2/jeskape.nvim", event = "InsertEnter" },
 }
 
-insert.configs = {
+insert_utils.configs = {
     ["jeskape.nvim"] = function()
         require("jeskape").setup({
             mappings = {
@@ -21,4 +21,4 @@ insert.configs = {
     end,
 }
 
-return insert
+return insert_utils
