@@ -133,11 +133,3 @@ end, {
     nargs = "?",
     complete = colorschemes,
 })
-
-add_cmd("CleanWriting", function()
-    vim.cmd([[
-        iunmap <leader><leader>
-        iunmap <leader><tab>
-        iunmap <leader>
-    ]])
-end, {})
