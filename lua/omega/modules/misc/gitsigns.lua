@@ -6,7 +6,7 @@ gitsigns.plugins = {
         "lewis6991/gitsigns.nvim",
         opt = true,
         setup = function()
-            vim.api.nvim_create_autocmd({ "BufAdd", "VimEnter" }, {
+            vim.api.nvim_create_autocmd({"BufEnter"}, {
                 -- vim.api.nvim_create_autocmd({ "BufAdd" }, {
                 callback = function()
                     local function onexit(code, _)
