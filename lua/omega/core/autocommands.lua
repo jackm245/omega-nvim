@@ -1,6 +1,6 @@
 local aucmd = vim.api.nvim_create_autocmd
 
-vim.api.nvim_create_autocmd({ "BufRead" }, {
+aucmd({ "BufRead" }, {
     pattern = "*",
     callback = function()
         require("omega.utils").last_place()
@@ -20,6 +20,8 @@ end
 ft_aucmd("COMMIT_EDITMSG", "gitcommit")
 ft_aucmd("*.cpp", "cpp")
 ft_aucmd("*.log", "log")
+ft_aucmd("*.conf", "conf")
+ft_aucmd("tsconfig.json", "jsonc")
 
 aucmd({ "BufEnter", "BufWinEnter" }, {
     pattern = "neorg://*",
@@ -60,17 +62,17 @@ aucmd({ "Filetype" }, {
     group = netrw,
 })
 
--- show cursor line only in active window
-aucmd({ "InsertLeave", "WinEnter", "CmdlineLeave" }, {
-    pattern = "*",
-    command = "set cursorline",
-    desc = "Enable cursorline",
-})
-aucmd({ "InsertEnter", "WinLeave", "CmdlineEnter" }, {
-    pattern = "*",
-    command = "set nocursorline",
-    desc = "Disable cursorline",
-})
+-- -- show cursor line only in active window
+-- aucmd({ "InsertLeave", "WinEnter", "CmdlineLeave" }, {
+--     pattern = "*",
+--     command = "set cursorline",
+--     desc = "Enable cursorline",
+-- })
+-- aucmd({ "InsertEnter", "WinLeave", "CmdlineEnter" }, {
+--     pattern = "*",
+--     command = "set nocursorline",
+--     desc = "Disable cursorline",
+-- })
 
 -- windows to close with "q"
 aucmd({ "FileType" }, {
@@ -218,7 +220,7 @@ aucmd("BufEnter", {
     callback = function()
         vim.cmd([[
             setlocal spell
-            setlocal spelllang=en
+            " setlocal spelllang=en
         ]])
     end,
 })
@@ -227,5 +229,33 @@ aucmd({ "TextChanged", "TextChangedI", "BufWinEnter" }, {
     pattern = "*.norg",
     callback = function()
         vim.fn.matchadd("Search", "\\%101v.\\%>100v", -1)
+    end,
+})
+
+aucmd("InsertCharPre", {
+    callback = function()
+        if vim.v.char == " " then
+            vim.keymap.set("i", "<tab>", function()
+                vim.api.nvim_input("<bs>")
+                vim.defer_fn(function()
+                    require("luasnip").expand_or_jump()
+                end, 1)
+            end, {
+                noremap = true,
+                silent = true,
+            })
+            vim.defer_fn(function()
+                vim.keymap.del("i", "<tab>")
+            end, vim.o.timeoutlen)
+            vim.keymap.set("i", " ", function()
+                vim.api.nvim_input("<bs><right>")
+            end, {
+                noremap = true,
+                silent = true,
+            })
+            vim.defer_fn(function()
+                vim.keymap.del("i", " ")
+            end, vim.o.timeoutlen)
+        end
     end,
 })

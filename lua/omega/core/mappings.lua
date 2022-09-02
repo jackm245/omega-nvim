@@ -129,13 +129,6 @@ map(
     { noremap = true, silent = true, desc = "Clear highlight from search" }
 )
 
-map("i", "<leader><tab>", function()
-    require("luasnip").expand_or_jump()
-end, {
-    noremap = true,
-    silent = true,
-    desc = "Expand snippet or jump",
-})
 map("s", "<leader><tab>", function()
     require("luasnip").expand_or_jump()
 end, {
@@ -150,8 +143,6 @@ map(
     ":s///g<LEFT><LEFT><LEFT>",
     { noremap = true, desc = "Substitue on visual selection" }
 )
-map("i", "<leader><leader>", "<right>", { noremap = true, silent = true, desc = "Move right" })
-map("i", "<leader>", " ", { noremap = true })
 map(
     "n",
     "<C-f>",
@@ -208,3 +199,7 @@ map("i", "<C-U>", "<ESC>b~A", { noremap = true, silent = true })
 map("s", "t", "a<bs>t", { noremap = true })
 map("s", "f", "a<bs>f", { noremap = true })
 map("n", "<leader><tab>", "<c-^>", { noremap = true, desc = "Go to alternate file" })
+-- inner field
+map("o", "iF", ":<c-u>normal! T=vt,<cr>", { noremap = true, silent = true })
+-- outer field
+map("o", "aF", ":<c-u>normal! T=vf,<cr>", { noremap = true, silent = true })
