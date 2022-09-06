@@ -203,3 +203,5 @@ map("n", "<leader><tab>", "<c-^>", { noremap = true, desc = "Go to alternate fil
 map("o", "iF", ":<c-u>normal! T=vt,<cr>", { noremap = true, silent = true })
 -- outer field
 map("o", "aF", ":<c-u>normal! T=vf,<cr>", { noremap = true, silent = true })
+
+map("i", "<c-s>", "<c-g>u<Esc>[s1z=`]a<c-g>u", { noremap = true, silent = true })
