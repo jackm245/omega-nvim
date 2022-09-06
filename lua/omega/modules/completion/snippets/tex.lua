@@ -19,6 +19,7 @@ local tex_template = [[
 \usepackage{pdfpages}
 \usepackage{transparent}
 \usepackage{xcolor}
+\usepackage{caption}
 
 \usepackage{textcomp}
 \usepackage[german]{babel}
@@ -36,7 +37,9 @@ local tex_template = [[
 
 $0
 \addcontentsline{toc}{section}{Unnumbered Section}
-\end{document}]]
+\end{document}
+% vim:spelllang=de
+]]
 
 local tex_section = [[
 \section{$1}]]
