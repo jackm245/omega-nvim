@@ -5,7 +5,7 @@ neorg_mod.plugins = {
         "nvim-neorg/neorg",
         -- "~/neovim_plugins/neorg",
         ft = "norg",
-        requires = { "nvim-treesitter","nvim-cmp" },
+        requires = { "nvim-treesitter", "nvim-cmp" },
         setup = function()
             vim.filetype.add({
                 extension = {
@@ -14,17 +14,17 @@ neorg_mod.plugins = {
             })
 
             -- If the file we have entered has a .norg extension
-            if vim.fn.expand("%:e") == "norg" then
-                vim.cmd([[PackerLoad neorg]])
-                -- Then boot up the environment
-                require("neorg").org_file_entered(false)
-            else
-                -- Else listen for a BufRead event and fire up the Neorg environment
-                vim.cmd([[
-			autocmd BufAdd *.norg ++once :lua require('neorg').org_file_entered(false)
-			command! -nargs=* NeorgStart delcommand NeorgStart | lua require('neorg').org_file_entered(true, <q-args>)
-		]])
-            end
+            -- if vim.fn.expand("%:e") == "norg" then
+            -- vim.cmd([[PackerLoad neorg]])
+            -- Then boot up the environment
+            --               require("neorg").org_file_entered(false)
+            --           else
+            --               -- Else listen for a BufRead event and fire up the Neorg environment
+            --               vim.cmd([[
+            -- 	autocmd BufAdd *.norg ++once :lua require('neorg').org_file_entered(false)
+            -- 	command! -nargs=* NeorgStart delcommand NeorgStart | lua require('neorg').org_file_entered(true, <q-args>)
+            -- ]])
+            --           end
         end,
     },
     ["neorg-telescope"] = { "~/neovim_plugins/neorg-telescope/", after = "neorg" },
