@@ -205,6 +205,22 @@ fg("LspDiagnosticsVirtualTextHint", purple)
 
 -- ]]
 
+fg("NotifyERRORBorder", red)
+fg("NotifyERRORIcon", red)
+fg("NotifyERRORTitle", red)
+fg("NotifyWARNBorder", orange)
+fg("NotifyWARNIcon", orange)
+fg("NotifyWARNTitle", orange)
+fg("NotifyINFOBorder", green)
+fg("NotifyINFOIcon", green)
+fg("NotifyINFOTitle", green)
+fg("NotifyDEBUGBorder", grey)
+fg("NotifyDEBUGIcon", grey)
+fg("NotifyDEBUGTitle", grey)
+fg("NotifyTRACEBorder", purple)
+fg("NotifyTRACEIcon", purple)
+fg("NotifyTRACETitle", purple)
+
 -- NvimTree
 fg("NvimTreeEmptyFolderName", blue)
 fg("NvimTreeEndOfBuffer", darker_black)
