@@ -828,6 +828,7 @@ tele_mod.api = {
             PackerLoad nvim-luaref
             PackerLoad help_files
             PackerLoad luv-vimdocs
+            PackerLoad crefvim
         ]])
         local builtin = require("telescope.builtin")
         local opts = {
