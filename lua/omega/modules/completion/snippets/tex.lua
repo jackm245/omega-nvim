@@ -26,6 +26,7 @@ local tex_template = [[
 \usepackage{amsmath, amssymb}
 \usepackage{graphicx}
 \usepackage{tikz}
+\usetikzlibrary{shapes,positioning}
 \usepackage{wrapfig}
 
 \title{$1}
