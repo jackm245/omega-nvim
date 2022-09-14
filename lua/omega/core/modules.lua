@@ -51,6 +51,7 @@ function modules.setup()
             "neorg",
             "nvim-tree",
             "paperplanes",
+            "sj",
             "surround",
             "symbols_outline",
             "telescope",
