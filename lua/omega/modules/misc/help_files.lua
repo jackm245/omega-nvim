@@ -14,6 +14,10 @@ help_file.plugins = {
         "~/neovim_plugins/help_files/",
         cmd = { "Telescope", "h" },
     },
+    ["crefvim"] = {
+        "~/neovim_plugins/crefvim/",
+        cmd = { "Telescope", "h" },
+    },
 }
 
 return help_file
