@@ -195,6 +195,8 @@ map(
     { noremap = true, expr = true, desc = "Add k with count to jumplist" }
 )
 
+map("v", "P", '"_dp', { noremap = true, silent = true })
+
 map("i", "<C-U>", "<ESC>b~A", { noremap = true, silent = true })
 map("s", "t", "a<bs>t", { noremap = true })
 map("s", "f", "a<bs>f", { noremap = true })
