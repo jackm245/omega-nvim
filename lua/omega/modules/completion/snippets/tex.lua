@@ -19,7 +19,7 @@ local tex_template = [[
 \usepackage{pdfpages}
 \usepackage{transparent}
 \usepackage{xcolor}
-\usepackage{caption}
+\usepackage[labelfont=bf]{caption}
 
 \usepackage{textcomp}
 \usepackage[german]{babel}
