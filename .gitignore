@@ -14,3 +14,5 @@ data.lua
 notes.norg
 operatorfunc.lua
 flexible_heirline.lua
+ffi.lua
+queries.lua
