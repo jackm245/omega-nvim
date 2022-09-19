@@ -25,9 +25,9 @@ sj.configs = {
                 SjWarning = { bold = false },
             },
         })
-        vim.keymap.set("n", "/", function()
-            require("sj").run()
-        end, {})
+        -- vim.keymap.set("n", "/", function()
+        --     require("sj").run()
+        -- end, {})
     end,
 }
 
