@@ -62,6 +62,7 @@ function modules.setup()
             "trouble",
             "undotree",
             "venn",
+            "windows",
         },
     }
     for section, sec_modules in pairs(module_sections) do
