@@ -64,6 +64,9 @@ function modules.setup()
             "venn",
             "windows",
         },
+        ["games"] = {
+            "vimbegood",
+        },
     }
     for section, sec_modules in pairs(module_sections) do
         omega.modules[section] = {}
