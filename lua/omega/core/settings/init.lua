@@ -29,7 +29,7 @@ vim.opt.formatoptions = vim.opt.formatoptions
     - "a" -- no autoformatting
     - "o" -- don't continue comments after o/O
     - "2" -- don't use indent of second line for rest of paragraph
-vim.o.cmdheight = 0 -- height of cmd line
+vim.o.cmdheight = 1 -- height of cmd line
 vim.opt.jumpoptions:append("view")
 vim.o.virtualedit = "block" -- allow visual mode to go over end of lines
 vim.o.expandtab = true -- expand tabs to spaces
