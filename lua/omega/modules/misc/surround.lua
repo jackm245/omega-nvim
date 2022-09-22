@@ -33,6 +33,19 @@ surround.configs = {
                 [">"] = { add = { "<", ">" } },
                 ["["] = { add = { "[ ", " ]" } },
                 ["]"] = { add = { "[", "]" } },
+                ["\\"] = {
+                    add = function()
+                        local input = get_input("Enter environment name: ")
+                        if input then
+                            local aliases={
+                                ["bold"]="textbf",
+                                ["italic"]="textit",
+                            }
+                            input = aliases[input] or input
+                            return { { "\\" .. input .. "{" }, { "}" } }
+                        end
+                    end,
+                },
                 ["i"] = {
                     add = function()
                         local left_delimiter = get_input("Enter the left delimiter: ")
@@ -84,6 +97,7 @@ surround.configs = {
             },
             move_cursor = false,
         })
+        vim.api.nvim_set_hl(0, "NvimSurroundHighlight", { link = "CurSearch" })
     end,
 }
 
