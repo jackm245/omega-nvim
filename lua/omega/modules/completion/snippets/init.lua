@@ -103,6 +103,7 @@ snippets_mod.configs = {
             end,
         })
         require("omega.modules.completion.snippets.choice_popup")
+        require("omega.modules.completion.snippets.dynamic_node_external_update")
         require("omega.modules.completion.snippets.lua")
         require("omega.modules.completion.snippets.general")
         require("omega.modules.completion.snippets.tex")
