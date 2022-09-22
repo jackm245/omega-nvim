@@ -145,3 +145,10 @@ ls.add_snippets("tex", {
 }, {
     type = "autosnippets",
 })
+ls.add_snippets("tex", {
+    s({ trig = "*", wordTrig = false }, { t("{\\cdot"), t("}"), i(0) }, {
+        condition = function()
+            return in_mathzone()
+        end,
+    }),
+}, {})
