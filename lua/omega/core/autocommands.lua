@@ -248,6 +248,19 @@ aucmd("InsertCharPre", {
             vim.defer_fn(function()
                 pcall(vim.keymap.del, "i", "<tab>")
             end, vim.o.timeoutlen)
+            vim.keymap.set("i", "<s-tab>", function()
+                pcall(vim.keymap.del, "i", "<s-tab>")
+                vim.api.nvim_input("<bs>")
+                vim.defer_fn(function()
+                    require("luasnip").expand_or_jump()
+                end, 1)
+            end, {
+                noremap = true,
+                silent = true,
+            })
+            vim.defer_fn(function()
+                pcall(vim.keymap.del, "i", "<s-tab>")
+            end, vim.o.timeoutlen)
             vim.keymap.set("i", " ", function()
                 pcall(vim.keymap.del, "i", " ")
                 vim.api.nvim_input("<bs><right>")
