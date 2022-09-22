@@ -197,7 +197,8 @@ map(
 
 map("v", "<leader>p", '"_dP', { noremap = true, silent = true })
 
-map("i", "<C-U>", "<ESC>b~A", { noremap = true, silent = true })
+map("i", "<C-U>", "<ESC>b~hea", { noremap = true, silent = true })
+map("i", "<C-h>", "<esc>blgulhea", { noremap = true, silent = true })
 map("s", "t", "a<bs>t", { noremap = true })
 map("s", "f", "a<bs>f", { noremap = true })
 map("n", "<leader><tab>", "<c-^>", { noremap = true, desc = "Go to alternate file" })
@@ -206,4 +207,4 @@ map("o", "iF", ":<c-u>normal! T=vt,<cr>", { noremap = true, silent = true })
 -- outer field
 map("o", "aF", ":<c-u>normal! T=vf,<cr>", { noremap = true, silent = true })
 
-map("i", "<c-s>", "<c-g>u<Esc>[s1z=`]a<c-g>u", { noremap = true, silent = true })
+map("i", "<c-l>", "<c-g>u<Esc>[s1z=`]a<c-g>u", { noremap = true, silent = true })
