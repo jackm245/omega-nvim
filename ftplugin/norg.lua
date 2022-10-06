@@ -22,12 +22,6 @@ wk.register({
     mode = "n",
 })
 
-vim.cmd([[hi link NeorgMarkupVerbatim Comment]])
--- vim.api.nvim_create_autocmd("BufWritePre", {
---     callback = function()
---         vim.cmd([[execute "normal! mmgg=G'm"]])
---     end,
--- })
 wk.register({
     m = {
         name = "+Mode",
