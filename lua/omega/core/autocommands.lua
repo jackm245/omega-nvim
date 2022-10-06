@@ -169,6 +169,7 @@ aucmd("User", {
     callback = function()
         vim.api.nvim_chan_send(vim.v.stderr, "\027]99;i=1:d=0;Packer.nvim\027\\")
         vim.api.nvim_chan_send(vim.v.stderr, "\027]99;i=1:d=1:p=body;Compile finished\027\\")
+        vim.notify("Packer compiled", vim.log.levels.INFO, {})
     end,
     desc = "Send desktop notification",
 })
@@ -215,6 +216,15 @@ aucmd("CmdLineEnter", {
     desc = "Set up normal_cmdline",
 })
 
+aucmd("BufEnter", {
+    pattern = { "*" },
+    callback = function()
+        vim.cmd([[
+            setlocal nospell
+            " setlocal spelllang=en
+        ]])
+    end,
+})
 aucmd("BufEnter", {
     pattern = { "*.tex", "*.norg" },
     callback = function()

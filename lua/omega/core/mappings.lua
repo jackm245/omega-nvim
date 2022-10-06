@@ -208,3 +208,8 @@ map("o", "iF", ":<c-u>normal! T=vt,<cr>", { noremap = true, silent = true })
 map("o", "aF", ":<c-u>normal! T=vf,<cr>", { noremap = true, silent = true })
 
 map("i", "<c-l>", "<c-g>u<Esc>[s1z=`]a<c-g>u", { noremap = true, silent = true })
+-- Get rid of some weird delay
+map("n", "dd", "ddjk", { noremap = true, silent = true })
+map("n", "cc", "cc<left>", { noremap = true, silent = true })
+
+map("n", "gcl", "~<left>i", { noremap = true, silent = true })
