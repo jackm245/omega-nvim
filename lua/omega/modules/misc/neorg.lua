@@ -2,30 +2,9 @@ local neorg_mod = {}
 
 neorg_mod.plugins = {
     ["neorg"] = {
-        "nvim-neorg/neorg",
-        -- "~/neovim_plugins/neorg",
-        ft = "norg",
-        requires = { "nvim-treesitter", "nvim-cmp" },
-        setup = function()
-            vim.filetype.add({
-                extension = {
-                    norg = "norg",
-                },
-            })
-
-            -- If the file we have entered has a .norg extension
-            -- if vim.fn.expand("%:e") == "norg" then
-            -- vim.cmd([[PackerLoad neorg]])
-            -- Then boot up the environment
-            --               require("neorg").org_file_entered(false)
-            --           else
-            --               -- Else listen for a BufRead event and fire up the Neorg environment
-            --               vim.cmd([[
-            -- 	autocmd BufAdd *.norg ++once :lua require('neorg').org_file_entered(false)
-            -- 	command! -nargs=* NeorgStart delcommand NeorgStart | lua require('neorg').org_file_entered(true, <q-args>)
-            -- ]])
-            --           end
-        end,
+        -- "nvim-neorg/neorg",
+        "~/neovim_plugins/neorg",
+        requires = { "nvim-treesitter" },
     },
     ["neorg-telescope"] = { "~/neovim_plugins/neorg-telescope/", after = "neorg" },
     ["neorg-context"] = { "~/neovim_plugins/neorg-context/", after = "neorg" },
@@ -47,9 +26,6 @@ neorg_mod.configs = {
         neorg.modules.load_module("external.zettelkasten", nil, {})
     end,
     ["neorg"] = function()
-        require("packer").loader("nvim-treesitter")
-        require("packer").loader("nvim-cmp")
-        omega.plugin_configs["nvim-cmp"]()
         require("packer").loader("nabla.nvim")
         local neorg_callbacks = require("neorg.callbacks")
 
@@ -187,6 +163,7 @@ neorg_mod.configs = {
                         extensions = "all",
                     },
                 },
+                ["core.norg.esupports.promo"] = {},
             },
             logger = {
                 level = "warn",

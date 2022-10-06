@@ -5,7 +5,7 @@ surround.plugins = {
         "kylechui/nvim-surround",
         keys = { "ys", "ds", "cs" },
         setup = function()
-            vim.keymap.set("x", "S", function()
+            vim.keymap.set("v", "S", function()
                 require("packer").loader("nvim-surround")
                 require("nvim-surround").visual_surround()
             end, {})
@@ -37,9 +37,9 @@ surround.configs = {
                     add = function()
                         local input = get_input("Enter environment name: ")
                         if input then
-                            local aliases={
-                                ["bold"]="textbf",
-                                ["italic"]="textit",
+                            local aliases = {
+                                ["bold"] = "textbf",
+                                ["italic"] = "textit",
                             }
                             input = aliases[input] or input
                             return { { "\\" .. input .. "{" }, { "}" } }

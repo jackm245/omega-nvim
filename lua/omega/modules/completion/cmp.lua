@@ -4,7 +4,7 @@ cmp_mod.plugins = {
     ["nvim-cmp"] = {
         "~/neovim_plugins/nvim-cmp",
         requires = { "nvim-autopairs" },
-        ft = { "norg" },
+        -- ft = { "norg" },
         event = { "InsertEnter", "CmdLineEnter" },
     },
     ["cmp_luasnip"] = {
@@ -139,8 +139,7 @@ cmp_mod.configs = {
             end
 
             if
-                entry.completion_item.insertTextFormat
-                    == types.lsp.InsertTextFormat.Snippet
+                entry.completion_item.insertTextFormat == types.lsp.InsertTextFormat.Snippet
                 and string.sub(vim_item.abbr, -1, -1) == "~"
             then
                 word = word .. "~"

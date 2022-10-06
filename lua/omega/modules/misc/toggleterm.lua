@@ -14,7 +14,7 @@ toggleterm.configs = {
             hide_numbers = true,
             start_in_insert = true,
             insert_mappings = true,
-            open_mapping = [[<c-t>]],
+            -- open_mapping = [[<c-t>]],
             shade_terminals = true,
             shading_factor = "3",
             persist_size = true,
@@ -80,6 +80,12 @@ toggleterm.keybindings = function()
     }, {
         prefix = "<leader>",
         mode = "n",
+    })
+    vim.keymap.set("n", "<c-t>", function()
+        require("toggleterm.terminal").Terminal:new({ close_on_exit = true }):toggle()
+    end, {
+        noremap = true,
+        silent = true,
     })
     vim.keymap.set("n", "<c-g>", function()
         toggle_lazygit()

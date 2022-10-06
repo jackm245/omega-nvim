@@ -56,6 +56,8 @@ lua_lsp.configs = {
         local lua_dev_plugins = {
             "selection_popup",
             "plenary.nvim",
+            "neorg",
+            "nvim-treesitter",
         }
         local runtime_path_completion = true
         if not runtime_path_completion then
