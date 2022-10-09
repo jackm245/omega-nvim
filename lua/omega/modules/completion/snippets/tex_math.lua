@@ -33,15 +33,6 @@ ls.add_snippets("tex", {
         end)
     ),
     s(
-        "->",
-        f(function()
-            if not in_mathzone() then
-                return "->"
-            end
-            return "\\implies"
-        end)
-    ),
-    s(
         { trig = "sr", wordTrig = false },
         f(function()
             if not in_mathzone() then
@@ -68,35 +59,21 @@ ls.add_snippets("tex", {
             return "^{c}"
         end)
     ),
-    s(
-        { trig = "ss", wordTrig = false },
-        d(1, function()
-            if not in_mathzone() then
-                return sn(nil, { t({ "ss" }) })
-            end
-            return sn(nil, {
-                t({ "^{" }),
-                i(1),
-                t({ "}" }),
-                i(0),
-            })
-        end)
-    ),
     s({ trig = "(%d+)/", regTrig = true }, {
         d(1, function(_, snip, _)
             return sn(nil, { t("\\frac{" .. snip.captures[1] .. "}{"), i(1), t("}") }, i(0))
         end),
     }, {
-        condition = function(_, _, _)
+        condition = function()
             return in_mathzone()
         end,
     }),
     s({ trig = "(%u%u)vec", regTrig = true }, {
         d(1, function(_, snip, _)
-            return sn(nil, { t("\\vec{" .. snip.captures[1] .. "}") }, i(0))
+            return sn(nil, { t("\\overrightarrow{" .. snip.captures[1] .. "}") }, i(0))
         end),
     }, {
-        condition = function(_, _, _)
+        condition = function()
             return in_mathzone()
         end,
     }),
@@ -105,7 +82,7 @@ ls.add_snippets("tex", {
             return sn(nil, { t("\\vec{" .. snip.captures[1] .. "}") }, i(0))
         end),
     }, {
-        condition = function(_, _, _)
+        condition = function()
             return in_mathzone()
         end,
     }),
@@ -127,11 +104,6 @@ ls.add_snippets("tex", {
             return in_mathzone()
         end,
     }),
-    s({ trig = "vec" }, { t("\\vec{"), i(1), t("}"), i(0) }, {
-        condition = function()
-            return in_mathzone()
-        end,
-    }),
     s({ trig = "hat" }, { t("\\hat{"), i(1), t("}"), i(0) }, {
         condition = function()
             return in_mathzone()
@@ -147,6 +119,112 @@ ls.add_snippets("tex", {
 })
 ls.add_snippets("tex", {
     s({ trig = "*", wordTrig = false }, { t("{\\cdot"), t("}"), i(0) }, {
+        condition = function()
+            return in_mathzone()
+        end,
+    }),
+    s(
+        { trig = "ss", wordTrig = false },
+        d(1, function()
+            if not in_mathzone() then
+                return sn(nil, { t({ "ss" }) })
+            end
+            return sn(nil, {
+                t({ "^{" }),
+                i(1),
+                t({ "}" }),
+                i(0),
+            })
+        end)
+    ),
+    s("bdm", {
+        t([=[\boldmath{$]=]),
+        i(1),
+        t([[$}]]),
+        i(0),
+    }),
+    s("RR", {
+        t([=[\mathbb{]=]),
+        i(i, "R"),
+        t([=[}]=]),
+        i(0),
+    }, {
+        condition = function()
+            return in_mathzone()
+        end,
+    }),
+    -- System of equations
+    s("==", {
+        t({ [=[\left[]=], "" }),
+        t({ [[\begin{aligned}]], "" }),
+        i(1),
+        t({ [[&=]] }),
+        i(2),
+        t({ [[\\]], "" }),
+        i(3),
+        t({ [[&=]] }),
+        i(4),
+        t({ "", [[\end{aligned}]], "" }),
+        t({ [=[\right]]=] }),
+    }),
+    s("<>", {
+        t([[\Longleftrightarrow]]),
+    }),
+    s("->", {
+        t([[\implies]]),
+    }),
+    s({ trig = "vec" }, {
+        c(1, {
+            sn(nil, {
+                t("\\vec{"),
+                i(1),
+                t("}"),
+                i(0),
+            }),
+            sn(nil, {
+                t({ [[\begin{pmatrix}]], "" }),
+                i(1, "a"),
+                t({ [[_x\\]], "" }),
+                f(function(arg)
+                    return arg[1]
+                end, 1),
+                t({ [[_y]], "" }),
+                t({ [[\end{pmatrix}]] }),
+            }),
+            sn(nil, {
+                t({ [[\begin{pmatrix}]], "" }),
+                i(1, "a"),
+                t({ [[\\]], "" }),
+                i(2, "a"),
+                t({ "", "" }),
+                t({ [[\end{pmatrix}]] }),
+            }),
+            sn(nil, {
+                t({ [[\begin{pmatrix}]], "" }),
+                i(1, "a"),
+                t({ [[_x\\]], "" }),
+                f(function(arg)
+                    return arg[1]
+                end, 1),
+                t({ [[_y\\]], "" }),
+                f(function(arg)
+                    return arg[1]
+                end, 1),
+                t({ [[_z]], "" }),
+                t({ [[\end{pmatrix}]] }),
+            }),
+            sn(nil, {
+                t({ [[\begin{pmatrix}]], "" }),
+                i(1, "a"),
+                t({ [[\\]], "" }),
+                i(2, "a"),
+                t({ [[\\]], "" }),
+                i(3, "a"),
+                t({ "", "" }),
+                t({ [[\end{pmatrix}]] }),
+            }),
+        }),
+    }, {
         condition = function()
             return in_mathzone()
         end,

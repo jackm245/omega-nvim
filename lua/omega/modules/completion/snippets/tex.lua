@@ -177,6 +177,12 @@ ls.add_snippets("tex", {
         t({ "", "\\end{itemize}" }),
         i(0),
     }),
+    s("//", {
+        t([[\textit{]]),
+        i(1),
+        t([[}]]),
+        i(0),
+    }),
     parse({ trig = "beg" }, tex_begin),
     parse({ trig = "item" }, tex_itemize),
     -- parse({ trig = "table" }, tex_table),
