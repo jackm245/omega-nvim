@@ -187,6 +187,9 @@ utils.in_mathzone = function()
         local buf = vim.api.nvim_get_current_buf()
         local node = get_node_at_cursor()
         while node do
+            if node:type() == "text" and node:parent():type() == "math_environment" then
+                return true
+            end
             if MATH_NODES[node:type()] then
                 return true
             end
