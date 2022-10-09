@@ -20,6 +20,9 @@ local function window_for_choiceNode(choiceNode)
         vim.list_extend(buf_text, text)
     end
 
+    if #buf_text > 4 then
+        return nil
+    end
     vim.api.nvim_buf_set_text(buf, 0, 0, 0, 0, buf_text)
     local w, h = vim.lsp.util._make_floating_popup_size(buf_text)
 
@@ -59,6 +62,9 @@ function _G.choice_popup(choiceNode)
     end
     win_is_open = true
     local create_win = window_for_choiceNode(choiceNode)
+    if not create_win then
+        return
+    end
     current_win = {
         win_id = create_win.win_id,
         prev = current_win,
