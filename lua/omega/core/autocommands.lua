@@ -242,6 +242,13 @@ aucmd({ "TextChanged", "TextChangedI", "BufWinEnter" }, {
     end,
 })
 
+aucmd("BufEnter", {
+    pattern = "*.t",
+    callback = function()
+        vim.bo.ft = "tangle"
+    end,
+})
+
 aucmd("InsertCharPre", {
     callback = function()
         if vim.v.char == " " then

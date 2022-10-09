@@ -20,6 +20,7 @@ lsp_mod.plugins = {
             "tex",
             "vim",
             "lua",
+            "tangle",
         },
     },
 
@@ -79,14 +80,10 @@ lsp_mod.configs = {
                 numhl = "Diagnostic" .. sign,
             })
         end
-        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
-            vim.lsp.handlers.hover,
-            { border = utils.border() }
-        )
-        vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-            vim.lsp.handlers.signature_help,
-            { border = utils.border() }
-        )
+        vim.lsp.handlers["textDocument/hover"] =
+            vim.lsp.with(vim.lsp.handlers.hover, { border = utils.border() })
+        vim.lsp.handlers["textDocument/signatureHelp"] =
+            vim.lsp.with(vim.lsp.handlers.signature_help, { border = utils.border() })
         local lspconfig = require("lspconfig")
         local configs = require("lspconfig.configs")
 
