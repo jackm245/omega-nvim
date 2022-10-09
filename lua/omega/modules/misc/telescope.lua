@@ -3,8 +3,7 @@ local tele_mod = {}
 tele_mod.plugins = {
     ["telescope.nvim"] = {
         "nvim-telescope/telescope.nvim",
-        cmd = "Telescope",
-        commit = "d793de0f12d874c463e81edabee741b802c1a37a",
+        cmd = { "Telescope" },
         module = {
             "telescope",
             "omega.modules.misc.telescope",
@@ -94,48 +93,50 @@ tele_mod.configs = {
                 end
             end
 
-            pickers.new(opts, {
-                prompt_title = title,
-                finder = finders.new_table({
-                    results = objs,
-                    entry_maker = function(entry)
-                        return {
-                            value = entry,
-                            text = entry.text,
-                            display = entry.text,
-                            ordinal = entry.text,
-                            filename = entry.filename,
-                        }
+            pickers
+                .new(opts, {
+                    prompt_title = title,
+                    finder = finders.new_table({
+                        results = objs,
+                        entry_maker = function(entry)
+                            return {
+                                value = entry,
+                                text = entry.text,
+                                display = entry.text,
+                                ordinal = entry.text,
+                                filename = entry.filename,
+                            }
+                        end,
+                    }),
+                    previewer = previewers.builtin.new(opts),
+                    sorter = conf.generic_sorter(opts),
+                    attach_mappings = function(_)
+                        actions.select_default:replace(function(_)
+                            local selection = action_state.get_selected_entry()
+                            if not selection then
+                                print("[telescope] Nothing currently selected")
+                                return
+                            end
+
+                            -- we do this to avoid any surprises
+                            opts.include_extensions = nil
+                            opts.cwd = cwd
+
+                            if string.match(selection.text, " : ") then
+                                -- Call appropriate function from extensions
+                                local split_string = vim.split(selection.text, " : ")
+                                local ext = split_string[1]
+                                local func = split_string[2]
+                                require("telescope").extensions[ext][func](opts)
+                            else
+                                -- Call appropriate telescope builtin
+                                require("telescope.builtin")[selection.text](opts)
+                            end
+                        end)
+                        return true
                     end,
-                }),
-                previewer = previewers.builtin.new(opts),
-                sorter = conf.generic_sorter(opts),
-                attach_mappings = function(_)
-                    actions.select_default:replace(function(_)
-                        local selection = action_state.get_selected_entry()
-                        if not selection then
-                            print("[telescope] Nothing currently selected")
-                            return
-                        end
-
-                        -- we do this to avoid any surprises
-                        opts.include_extensions = nil
-                        opts.cwd = cwd
-
-                        if string.match(selection.text, " : ") then
-                            -- Call appropriate function from extensions
-                            local split_string = vim.split(selection.text, " : ")
-                            local ext = split_string[1]
-                            local func = split_string[2]
-                            require("telescope").extensions[ext][func](opts)
-                        else
-                            -- Call appropriate telescope builtin
-                            require("telescope.builtin")[selection.text](opts)
-                        end
-                    end)
-                    return true
-                end,
-            }):find()
+                })
+                :find()
         end
 
         local picker_selection_as_cwd = function(prompt_bufnr)
@@ -217,18 +218,18 @@ tele_mod.configs = {
                     prompt,
                     search_list,
                 })
-            end, make_entry.gen_from_vimgrep(
-                opts
-            ), opts.max_results, opts.cwd)
+            end, make_entry.gen_from_vimgrep(opts), opts.max_results, opts.cwd)
 
-            pickers.new(opts, {
-                prompt_title = "Live Grep",
-                finder = live_grepper,
-                previewer = conf.grep_previewer(opts),
-                -- TODO: It would be cool to use `--json` output for this
-                -- and then we could get the highlight positions directly.
-                sorter = sorters.highlighter_only(opts),
-            }):find()
+            pickers
+                .new(opts, {
+                    prompt_title = "Live Grep",
+                    finder = live_grepper,
+                    previewer = conf.grep_previewer(opts),
+                    -- TODO: It would be cool to use `--json` output for this
+                    -- and then we could get the highlight positions directly.
+                    sorter = sorters.highlighter_only(opts),
+                })
+                :find()
         end
 
         vim.cmd([[
@@ -339,8 +340,7 @@ tele_mod.configs = {
 
                 -- local height = 21
                 if
-                    type(layout_config.height)
-                        == "table"
+                    type(layout_config.height) == "table"
                     and type(layout_config.height.padding) == "number"
                 then
                     height = math.floor((max_lines + height) / 2)
@@ -644,80 +644,90 @@ tele_mod.configs = {
     end,
 }
 
-tele_mod.keybindings = function()
-    local wk = require("which-key")
-    wk.register({
-        C = {
-            name = " Colors",
-            p = {
-                function()
-                    omega.modules.misc.telescope.api.colorscheme_switcher()
-                end,
-                "Pick",
+tele_mod.keybindings = {
+    {
+        {
+            C = {
+                name = " Colors",
+                p = {
+                    function()
+                        omega.modules.misc.telescope.api.colorscheme_switcher()
+                    end,
+                    "Pick",
+                },
+                s = {
+                    function()
+                        require("telescope.builtin").highlights()
+                    end,
+                    "Search",
+                },
             },
-            s = {
-                function()
-                    require("telescope.builtin").highlights()
-                end,
-                "Search",
-            },
-        },
 
-        f = {
-            name = " Find",
             f = {
-                function()
-                    omega.modules.misc.telescope.api.find_files()
-                end,
-                "File",
+                name = " Find",
+                f = {
+                    function()
+                        omega.modules.misc.telescope.api.find_files()
+                    end,
+                    "File",
+                },
             },
-        },
-        ["/"] = {
-            function()
-                omega.modules.misc.telescope.api.live_grep()
-            end,
-            " Live Grep",
-        },
-        ["h"] = {
-            name = " Help",
-            t = {
+            ["/"] = {
                 function()
-                    require("telescope.builtin").builtin()
+                    omega.modules.misc.telescope.api.live_grep()
                 end,
-                "Telescope",
+                " Live Grep",
             },
-            c = {
+            ["h"] = {
+                name = " Help",
+                t = {
+                    function()
+                        require("telescope.builtin").builtin()
+                    end,
+                    "Telescope",
+                },
+                c = {
+                    function()
+                        require("telescope.builtin").commands()
+                    end,
+                    "Commands",
+                },
+                h = {
+                    function()
+                        omega.modules.misc.telescope.api.help_tags()
+                    end,
+                    "Tags",
+                },
+            },
+            ["."] = {
                 function()
-                    require("telescope.builtin").commands()
+                    omega.modules.misc.telescope.api.file_browser()
                 end,
-                "Commands",
+                " File Browser",
             },
-            h = {
-                function()
-                    omega.modules.misc.telescope.api.help_tags()
-                end,
-                "Tags",
-            },
-        },
-        ["."] = {
-            function()
-                omega.modules.misc.telescope.api.file_browser()
-            end,
-            " File Browser",
-        },
-        [","] = { "<cmd>Telescope buffers<cr>", "﩯Buffers" },
+            [","] = { "<cmd>Telescope buffers<cr>", "﩯Buffers" },
 
-        i = {
-            e = { "<cmd>Telescope emoji<cr>", "Emoji" },
+            i = {
+                e = { "<cmd>Telescope emoji<cr>", "Emoji" },
+            },
         },
-    }, {
-        prefix = "<leader>",
-        mode = "n",
-    })
-    vim.keymap.set("n", "<c-s>", function()
-        omega.modules.misc.telescope.api.buffer_fuzzy()
-    end)
-end
+        {
+            prefix = "<leader>",
+            mode = "n",
+        },
+    },
+    {
+        {
+            ["<c-s>"] = function()
+                omega.modules.misc.telescope.api.buffer_fuzzy()
+            end,
+        },
+        {
+            prefix = "",
+            mode = "n",
+        },
+    },
+}
 
 tele_mod.api = {
     ["colorscheme_switcher"] = function()
@@ -726,7 +736,6 @@ tele_mod.api = {
         local finders = require("telescope.finders")
 
         local action_state = require("telescope.actions.state")
-        local themes = require("telescope.themes")
         local tele_utils = require("telescope.utils")
         local previewers = require("telescope.previewers")
         local utils = require("omega.utils")
@@ -785,19 +794,21 @@ tele_mod.api = {
                 })
             end
 
-            pickers.new(opts, {
-                prompt_title = "~ Colorscheme Picker ~",
-                results_title = "~ Colorschemes ~",
-                -- layout_strategy = "custom_bottom",
-                finder = finders.new_table(opts.data),
-                sorter = conf.generic_sorter(opts),
-                previewer = previewer,
-                attach_mappings = function(_, map)
-                    map("i", "<CR>", change_theme)
-                    map("n", "<CR>", change_theme)
-                    return true
-                end,
-            }):find()
+            pickers
+                .new(opts, {
+                    prompt_title = "~ Colorscheme Picker ~",
+                    results_title = "~ Colorschemes ~",
+                    -- layout_strategy = "custom_bottom",
+                    finder = finders.new_table(opts.data),
+                    sorter = conf.generic_sorter(opts),
+                    previewer = previewer,
+                    attach_mappings = function(_, map)
+                        map("i", "<CR>", change_theme)
+                        map("n", "<CR>", change_theme)
+                        return true
+                    end,
+                })
+                :find()
         end
         local opts = {
             data = utils.get_themes(),
