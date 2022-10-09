@@ -1,4 +1,31 @@
 local modules = {}
+local set_keybindings
+set_keybindings = function(bindings, prefix, mode)
+    for key, binding in pairs(bindings) do
+        if key == "name" then
+        elseif vim.tbl_contains({ "function", "string" }, type(binding)) then
+            vim.keymap.set(mode, prefix .. key, binding, {})
+        elseif
+            type(binding) == "table"
+            and #binding == 2
+            and (vim.tbl_contains({ "function", "string" }, type(binding[1])))
+            and type(binding[2]) == "string"
+        then
+            vim.keymap.set(mode, prefix .. key, binding[1], {})
+        elseif type(binding) == "table" then
+            set_keybindings(binding, prefix .. key, mode)
+        end
+    end
+end
+
+local function parse_keybindings(keybindings)
+    if not keybindings then
+        return
+    end
+    for _, keybind_table in ipairs(keybindings) do
+        set_keybindings(keybind_table[1], keybind_table[2]["prefix"], keybind_table[2]["mode"])
+    end
+end
 
 function modules.setup()
     local module_sections = {
@@ -10,6 +37,7 @@ function modules.setup()
             "bufferline",
             "devicons",
             "heirline",
+            -- "noice",
             "notify",
         },
         ["mappings"] = {
@@ -20,6 +48,7 @@ function modules.setup()
         },
         ["lsp"] = {
             "lua",
+            "ntangle",
             "main",
             "python",
             "rust",
@@ -140,7 +169,9 @@ function modules.load()
     end
     for _, section in pairs(omega.modules) do
         for _, mod in pairs(section) do
-            if mod.keybindings then
+            if mod.keybindings and type(mod.keybindings) == "table" then
+                parse_keybindings(mod.keybindings)
+            elseif mod.keybindings and type(mod.keybindings) == "function" then
                 mod.keybindings()
             end
         end

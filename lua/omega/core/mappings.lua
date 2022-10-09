@@ -213,3 +213,5 @@ map("n", "dd", "ddjk", { noremap = true, silent = true })
 map("n", "cc", "cc<left>", { noremap = true, silent = true })
 
 map("n", "gcl", "~<left>i", { noremap = true, silent = true })
+
+map("i", " ", "<left>", { noremap = true })
