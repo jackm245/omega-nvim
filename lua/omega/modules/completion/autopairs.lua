@@ -19,7 +19,7 @@ autopairs.configs = {
         require("nvim-autopairs").setup({
             ignored_next_char = "",
             -- map_c_w = true,
-            disable_filetype = { "norg" },
+            -- disable_filetype = { "norg" },
         })
         npairs.add_rule(Rule("$", "$", "tex"))
     end,
