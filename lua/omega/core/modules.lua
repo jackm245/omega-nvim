@@ -29,9 +29,6 @@ end
 
 function modules.setup()
     local module_sections = {
-        ["langs"] = {
-            "log",
-        },
         ["ui"] = {
             "blankline",
             "bufferline",
@@ -46,9 +43,10 @@ function modules.setup()
         ["core"] = {
             "omega",
         },
-        ["lsp"] = {
+        ["langs"] = {
             "lua",
-            "ntangle",
+            "log",
+            -- "ntangle",
             "main",
             "python",
             "rust",

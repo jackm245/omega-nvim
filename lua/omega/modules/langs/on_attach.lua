@@ -19,7 +19,7 @@ local function lsp_highlight_document(client, bufnr)
 end
 
 function on_attach.setup(client, bufnr)
-    require("omega.modules.lsp.inlay_hints").setup_autocmd()
+    require("omega.modules.langs.inlay_hints").setup_autocmd()
     local opts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set("n", "g0", vim.lsp.buf.document_symbol, opts)
     vim.keymap.set("n", "g0", vim.lsp.buf.document_symbol, opts)
@@ -48,7 +48,7 @@ function on_attach.setup(client, bufnr)
     require("which-key").register({
         s = {
             name = " Search",
-            c = { "<cmd>lua vim.lsp.buf.range_code_action()<CR>", "Code Action" },
+            c = { "<cmd>lua vim.lsp.buf.code_action()<CR>", "Code Action" },
         },
     }, {
         mode = "v",

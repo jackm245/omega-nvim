@@ -40,6 +40,15 @@ formatter.configs = {
                         }
                     end,
                 },
+                cpp = {
+                    function()
+                        return {
+                            exe = "uncrustify",
+                            args = { "-q", "-l cpp" },
+                            stdin = true,
+                        }
+                    end,
+                },
             },
         })
     end,

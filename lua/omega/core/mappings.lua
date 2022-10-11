@@ -50,7 +50,7 @@ wk.register({
         f = {
             function()
                 ---@diagnostic disable-next-line: undefined-field
-                require("nabla").popup()
+                require("nabla").toggle_virt()
             end,
             "Formulas",
         },
@@ -197,7 +197,9 @@ map(
 
 map("v", "<leader>p", '"_dP', { noremap = true, silent = true })
 
+-- change case of word
 map("i", "<C-U>", "<ESC>b~hea", { noremap = true, silent = true })
+-- change case of second letter of word
 map("i", "<C-h>", "<esc>blgulhea", { noremap = true, silent = true })
 map("s", "t", "a<bs>t", { noremap = true })
 map("s", "f", "a<bs>f", { noremap = true })
@@ -212,6 +214,6 @@ map("i", "<c-l>", "<c-g>u<Esc>[s1z=`]a<c-g>u", { noremap = true, silent = true }
 map("n", "dd", "ddjk", { noremap = true, silent = true })
 map("n", "cc", "cc<left>", { noremap = true, silent = true })
 
-map("n", "gcl", "~<left>i", { noremap = true, silent = true })
+map("n", "Gcl", "~<left>i", { noremap = true, silent = true })
 
 map("i", " ", "<left>", { noremap = true })

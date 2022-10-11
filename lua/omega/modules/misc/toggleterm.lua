@@ -36,6 +36,7 @@ local exp = vim.fn.expand
 
 local files = {
     python = "python3 -i " .. exp("%:t"),
+    julia = "julia " .. exp("%:t"),
     lua = "lua " .. exp("%:t"),
     applescript = "osascript " .. exp("%:t"),
     c = "gcc -o temp " .. exp("%:t") .. " && ./temp && rm ./temp",

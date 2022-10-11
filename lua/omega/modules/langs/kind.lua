@@ -27,7 +27,7 @@ local kind_presets = {
         -- Snippet = "  ",
         -- Snippet = " >",
         Snippet = "  ",
-        Struct = " ",
+        Struct = "  ",
         Text = "  ",
         TypeParameter = "",
         Unit = " 塞",
@@ -86,10 +86,10 @@ function lspkind.init(opts)
 
     local symbol_map = kind_presets[preset]
     lspkind.symbol_map = (
-            opts
-            and opts["symbol_map"]
-            and vim.tbl_extend("force", symbol_map, opts["symbol_map"])
-        ) or symbol_map
+        opts
+        and opts["symbol_map"]
+        and vim.tbl_extend("force", symbol_map, opts["symbol_map"])
+    ) or symbol_map
 
     local symbols = {}
     local len = kind_len

@@ -1,8 +1,8 @@
 -- https://github.com/tiagovla/.dotfiles/blob/master/neovim/.config/nvim/lua/lsp/inlay_hints/core.lua
 -- https://github.com/simrat39/rust-tools.nvim
 local M = {}
-local utils = require("omega.modules.lsp.inlay_hints.utils")
-local config = require("omega.modules.lsp.inlay_hints.config")
+local utils = require("omega.modules.langs.inlay_hints.utils")
+local config = require("omega.modules.langs.inlay_hints.config")
 
 function M.setup_autocmd()
     local events = "BufEnter,BufWinEnter,TabEnter,BufWritePost,CursorMoved,InsertLeave"
@@ -18,7 +18,7 @@ function M.setup_autocmd()
         group = group,
         buffer = 0,
         callback = function()
-            require("omega.modules.lsp.inlay_hints").inlay_hints()
+            require("omega.modules.langs.inlay_hints").inlay_hints()
         end,
     })
 end

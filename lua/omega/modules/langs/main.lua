@@ -14,7 +14,9 @@ lsp_mod.plugins = {
             "typescript",
             "zig",
             "css",
+            "cpp",
             "nix",
+            "julia",
             "rust",
             "haskell",
             "tex",
@@ -118,7 +120,7 @@ lsp_mod.configs = {
             },
         }
         local function on_attach(client, bufnr)
-            require("omega.modules.lsp.on_attach").setup(client, bufnr)
+            require("omega.modules.langs.on_attach").setup(client, bufnr)
         end
 
         local servers = {
@@ -129,6 +131,8 @@ lsp_mod.configs = {
             tsserver = {},
             cssls = { cmd = { "css-languageserver", "--stdio" } },
             rnix = {},
+            clangd = {},
+            julials = {},
             -- rust_analyzer = {
             --     root_dir = root_pattern("Cargo.toml", "rust-project.json", ".git"),
             -- },
@@ -142,7 +146,7 @@ lsp_mod.configs = {
                     "hie.yaml"
                 ),
             },
-            texlab = require("omega.modules.lsp.tex").config(),
+            texlab = require("omega.modules.langs.tex").config(),
             intelephense = {},
             vimls = {},
             zls = { cmd = { vim.fn.expand("~") .. "/zls/zig-out/bin/zls" } },

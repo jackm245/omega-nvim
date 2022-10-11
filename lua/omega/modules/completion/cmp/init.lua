@@ -122,7 +122,7 @@ cmp_mod.configs = {
         local luasnip = require("luasnip")
         local neogen = require("neogen")
         local str = require("cmp.utils.str")
-        local kind = require("omega.modules.lsp.kind")
+        local kind = require("omega.modules.langs.kind")
 
         local function get_abbr(vim_item, entry)
             local word = entry:get_insert_text()
@@ -306,7 +306,7 @@ cmp_mod.configs = {
 
                 { name = "nvim_lsp", priority = 9 },
                 { name = "luasnip", priority = 8 },
-                { name = "neorg", priority = 6 },
+                -- { name = "neorg", priority = 6 },
                 { name = "latex_symbols", priority = 1 },
                 { name = "nvim_lsp_signature_help", priority = 10 },
             },

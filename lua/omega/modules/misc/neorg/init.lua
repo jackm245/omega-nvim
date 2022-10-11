@@ -4,7 +4,16 @@ neorg_mod.plugins = {
     ["neorg"] = {
         -- "nvim-neorg/neorg",
         "~/neovim_plugins/neorg",
+        ft = "neorg",
+        setup = function()
+            vim.filetype.add({
+                extension = {
+                    norg = "neorg",
+                },
+            })
+        end,
         requires = { "nvim-treesitter" },
+        run = ":Neorg sync-parsers",
     },
     ["neorg-telescope"] = { "~/neovim_plugins/neorg-telescope/", after = "neorg" },
     ["neorg-context"] = { "~/neovim_plugins/neorg-context/", after = "neorg" },
@@ -163,7 +172,7 @@ neorg_mod.configs = {
                         extensions = "all",
                     },
                 },
-                ["core.promo"] = {},
+                -- ["core.promo"] = {},
             },
             logger = {
                 level = "warn",
@@ -171,6 +180,7 @@ neorg_mod.configs = {
         })
 
         local neorg_leader = ","
+        ---@diagnostic disable-next-line: missing-parameter
         neorg_callbacks.on_event("core.keybinds.events.enable_keybinds", function(_, keybinds)
             -- Map all the below keybinds only when the "norg" mode is active
             keybinds.map_event_to_mode("norg", {

@@ -12,6 +12,7 @@ local ts_filetypes = {
     "latex",
     "java",
     "help",
+    "julia",
     "vim",
     "norg",
     "zig",
@@ -85,30 +86,14 @@ ts_mod.configs = {
         local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
         local colors = require("omega.colors").get()
 
-        parser_configs.norg = {
-            install_info = {
-                url = "https://github.com/nvim-neorg/tree-sitter-norg",
-                files = { "src/parser.c", "src/scanner.cc" },
-                branch = "main",
-                -- branch = "dev",
-            },
-        }
-
-        parser_configs.norg_table = {
-            install_info = {
-                url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
-                files = { "src/parser.c" },
-                branch = "main",
-            },
-        }
-
-        parser_configs.norg_meta = {
-            install_info = {
-                url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
-                branch = "main",
-                files = { "src/parser.c" },
-            },
-        }
+        -- parser_configs.norg = {
+        --     install_info = {
+        --         url = "https://github.com/nvim-neorg/tree-sitter-norg",
+        --         files = { "src/parser.c", "src/scanner.cc" },
+        --         branch = "main",
+        --         -- branch = "dev",
+        --     },
+        -- }
 
         parser_configs.luap = {
             install_info = {
@@ -121,6 +106,7 @@ ts_mod.configs = {
 
         require("nvim-treesitter.configs").setup({
             ensure_installed = {
+                "julia",
                 "markdown",
                 "typescript",
                 "rust",
@@ -134,10 +120,10 @@ ts_mod.configs = {
                 "java",
                 "help",
                 "vim",
-                "norg",
                 "comment",
-                "norg_meta",
-                "norg_table",
+                -- "norg",
+                -- "norg_meta",
+                -- "norg_table",
                 "zig",
             },
             highlight = {
