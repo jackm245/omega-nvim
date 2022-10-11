@@ -16,3 +16,6 @@ operatorfunc.lua
 flexible_heirline.lua
 ffi.lua
 queries.lua
+query_test.lua
+colors
+ui_attach.lua
