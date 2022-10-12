@@ -30,23 +30,21 @@ function utils.view_messages()
         style = "minimal",
     })
     vim.api.nvim_win_set_option(win, "winblend", 20)
-    vim.cmd([[put =execute('messages')]])
+    vim.cmd.put([[=execute('messages')]])
 end
 
 --- Preview latex
 function utils.LatexPreview()
-    vim.cmd([[
-      write
-      silent !pdflatex %; open %:t:r.pdf
-    ]])
+    vim.cmd.write()
+    vim.cmd([[!pdflatex %; open %:t:r.pdf]])
 end
 
 --- Convert markdown file to html and open
 function utils.MarkdownPreview()
+    vim.cmd.write()
     vim.cmd([[
-  write
-  silent !python3 -m markdown % > ~/temp_html.html
-  silent !open ~/temp_html.html
+      silent !python3 -m markdown % > ~/temp_html.html
+      silent !open ~/temp_html.html
   ]])
 end
 
@@ -90,7 +88,7 @@ function utils.bootstrap_plugins()
             })
         end
 
-        vim.cmd("packadd which-key.nvim")
+        vim.cmd.packadd("which-key.nvim")
     end
 
     if not omega.config.use_impatient then
@@ -112,12 +110,10 @@ function utils.bootstrap_plugins()
             })
         end
 
-        vim.cmd("packadd impatient.nvim")
-        -- vim.cmd([[LuaCacheClear]])
+        vim.cmd.packadd("impatient.nvim")
 
         require("impatient").enable_profile()
     else
-        -- vim.cmd([[LuaCacheClear]])
         require("impatient").enable_profile()
     end
 end
@@ -127,7 +123,7 @@ function utils.append_comma()
     -- save cursor position
     local cursor = vim.api.nvim_win_get_cursor(0)
     -- append ,
-    vim.cmd([[normal A,]])
+    vim.cmd.normal("A,")
     -- restore cursor position
     vim.api.nvim_win_set_cursor(0, cursor)
 end
@@ -137,7 +133,7 @@ function utils.append_semicolon()
     -- save cursor position
     local cursor = vim.api.nvim_win_get_cursor(0)
     -- append ,
-    vim.cmd([[normal A;]])
+    vim.cmd.normal("A;")
     -- restore cursor position
     vim.api.nvim_win_set_cursor(0, cursor)
 end
@@ -225,7 +221,7 @@ function utils.last_place()
             local cursor = vim.api.nvim_win_get_cursor(0)
             -- if there are folds under the cursor open them
             if vim.fn.foldclosed(cursor[1]) ~= -1 then
-                vim.cmd([[silent normal! zO]])
+                vim.cmd.normal({ "zO", bang = true })
             end
         end
     end

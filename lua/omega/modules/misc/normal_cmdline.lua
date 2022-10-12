@@ -213,7 +213,7 @@ local mappings = {
 
 enable_cmdline = function()
     is_enabled = true
-    vim.cmd([[set guicursor=n-v-ci-sm:block,i-c-ve:ver25,r-cr-o:hor20]])
+    vim.opt.guicursor = "n-v-ci-sm:block,i-c-ve:ver25,r-cr-o:hor20"
     vim.keymap.del("c", "jk")
     for key, mapping in pairs(mappings) do
         vim.keymap.set("c", key, mapping, {})
@@ -228,7 +228,7 @@ disable_normal_cmdline = function()
     vim.keymap.set("c", "jk", function()
         enable_cmdline()
     end)
-    vim.cmd([[set guicursor=n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20]])
+    vim.opt.guicursor = "n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20"
     for key, _ in pairs(mappings) do
         vim.keymap.del("c", key, {})
     end

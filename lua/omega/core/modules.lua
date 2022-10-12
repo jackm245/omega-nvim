@@ -89,7 +89,7 @@ function modules.setup()
             "trouble",
             "undotree",
             "venn",
-            "windows",
+            -- "windows",
         },
         ["games"] = {
             "vimbegood",
@@ -177,25 +177,23 @@ function modules.load()
 end
 
 function modules.bootstrap_packer()
-    function modules.packer_bootstrap()
-        local has_packer = pcall(require, "packer")
-        if not has_packer then
-            -- Packer Bootstrapping
-            local packer_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
-            if vim.fn.isdirectory(packer_path) == 0 then
-                vim.notify("Bootstrapping packer.nvim, please wait ...")
-                vim.fn.system({
-                    "git",
-                    "clone",
-                    "--depth",
-                    "1",
-                    "https://github.com/wbthomason/packer.nvim",
-                    packer_path,
-                })
-            end
-
-            vim.cmd("packadd packer.nvim")
+    local has_packer = pcall(require, "packer")
+    if not has_packer then
+        -- Packer Bootstrapping
+        local packer_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+        if vim.fn.isdirectory(packer_path) == 0 then
+            vim.notify("Bootstrapping packer.nvim, please wait ...")
+            vim.fn.system({
+                "git",
+                "clone",
+                "--depth",
+                "1",
+                "https://github.com/wbthomason/packer.nvim",
+                packer_path,
+            })
         end
+
+        vim.cmd.packadd("packer.nvim")
     end
 end
 

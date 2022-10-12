@@ -264,7 +264,7 @@ ts_mod.configs = {
         })
     end,
     ["nvim-treesitter-context"] = function()
-        vim.cmd([[hi! link TreesitterContext TS_Context]])
+        vim.api.nvim_set_hl(0, "TreesitterContext", { link = "TS_Context" })
         require("treesitter-context").setup({
             enable = true,
             line_numbers = true,

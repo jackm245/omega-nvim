@@ -6,7 +6,7 @@ gitsigns.plugins = {
         "lewis6991/gitsigns.nvim",
         opt = true,
         setup = function()
-            vim.api.nvim_create_autocmd({"BufEnter"}, {
+            vim.api.nvim_create_autocmd({ "BufEnter" }, {
                 -- vim.api.nvim_create_autocmd({ "BufAdd" }, {
                 callback = function()
                     local function onexit(code, _)
@@ -69,11 +69,9 @@ gitsigns.configs = {
                 },
             },
         })
-        vim.cmd([[
-            highlight GitSignsAdd guifg=#9ece6a
-            highlight GitSignsChange guifg=#e0af68
-            highlight GitSignsDelete guifg=#db4b4b
-            ]])
+        vim.api.nvim_set_hl(0, "GitSignsAdd", { fg = "#9ece6a" })
+        vim.api.nvim_set_hl(0, "GitSignsChange", { fg = "#e0af68" })
+        vim.api.nvim_set_hl(0, "GitSignsDelte", { fg = "#db4b4b" })
     end,
 }
 

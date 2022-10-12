@@ -79,13 +79,13 @@ wk.register({
         },
         y = {
             function()
-                vim.cmd([[let @0 = execute('messages')]])
+                vim.cmd.let([[@0 = execute('messages')]])
             end,
             "Yank",
         },
         c = {
             function()
-                vim.cmd([[let @+ = execute('messages')]])
+                vim.cmd.let([[@+ = execute('messages')]])
             end,
             "Copy to Clipboard",
         },
@@ -143,12 +143,9 @@ map(
     ":s///g<LEFT><LEFT><LEFT>",
     { noremap = true, desc = "Substitue on visual selection" }
 )
-map(
-    "n",
-    "<C-f>",
-    ':lua vim.cmd(":vert :h "..vim.fn.expand("<cword>"))<CR>',
-    { noremap = true, silent = true, desc = "Open helpfile of word under cursor" }
-)
+map("n", "<C-f>", function()
+    vim.cmd(":vert :h " .. vim.fn.expand("<cword>"))
+end, { noremap = true, silent = true, desc = "Open helpfile of word under cursor" })
 map("i", "<m-cr>", "<cr>", { noremap = true, silent = true, desc = "Unmapped <cr>" })
 
 map("n", "<c-j>", ":wincmd j<CR>", { noremap = true, silent = true, desc = "Move to split above" })

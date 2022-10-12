@@ -11,7 +11,7 @@ bufferline_mod.plugins = {
                 callback = function()
                     local count = #vim.fn.getbufinfo({ buflisted = 1 })
                     if count >= 2 then
-                        vim.cmd([[PackerLoad bufferline.nvim]])
+                        vim.cmd.PackerLoad("bufferline.nvim")
                     end
                 end,
             })

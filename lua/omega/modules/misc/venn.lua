@@ -4,7 +4,7 @@ local venn = {}
 venn.plugins = {
     ["venn.nvim"] = {
         "jbyuki/venn.nvim",
-        cmd = {"VBox","VBoxH","VBoxD","VBoxHO","VBoxDO",},
+        cmd = { "VBox", "VBoxH", "VBoxD", "VBoxHO", "VBoxDO" },
     },
 }
 
@@ -12,7 +12,7 @@ local function toggle_venn()
     local venn_enabled = vim.inspect(vim.b.venn_enabled)
     if venn_enabled == "nil" then
         vim.b.venn_enabled = true
-        vim.cmd([[setlocal ve=all]])
+        vim.opt_local.ve = "all"
         -- draw a line on HJKL keystokes
         vim.keymap.set("n", "J", "<C-v>j:VBox<CR>", { noremap = true, buffer = true })
         vim.keymap.set("n", "K", "<C-v>k:VBox<CR>", { noremap = true, buffer = true })
@@ -21,7 +21,7 @@ local function toggle_venn()
         -- draw a box by pressing "b" with visual selection
         vim.keymap.set("v", "b", ":VBox<CR>", { noremap = true, buffer = true })
     else
-        vim.cmd([[setlocal ve=]])
+        vim.opt_local.ve = ""
         vim.keymap.del("n", "H", { buffer = 0 })
         vim.keymap.del("n", "J", { buffer = 0 })
         vim.keymap.del("n", "K", { buffer = 0 })

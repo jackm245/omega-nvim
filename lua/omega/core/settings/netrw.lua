@@ -62,7 +62,7 @@ vim.g.netrw_browse_split = 4
 -- end
 
 -- Highlight marked files in the same way search matches are
-vim.cmd("hi! link netrwMarkFile Search")
+vim.api.nvim_set_hl(0, "netrwMarkFile", { link = "Search" })
 
 ----- KEYBINDS ------------------------
 ---------------------------------------

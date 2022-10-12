@@ -38,10 +38,10 @@ tele_mod.plugins = {
         setup = function()
             omega.ui_select = vim.ui.select
             vim.ui.select = function(items, opts, on_choice)
-                vim.cmd([[
-                    PackerLoad telescope.nvim
-                    PackerLoad telescope-ui-select.nvim
-                ]])
+                vim.cmd.PackerLoad({
+                    "PackerLoad telescope.nvim",
+                    "PackerLoad telescope-ui-select.nvim",
+                })
                 require("telescope").load_extension("ui-select")
                 vim.ui.select(items, opts, on_choice)
             end
@@ -244,12 +244,12 @@ tele_mod.api = {
         require("telescope.builtin").current_buffer_fuzzy_find(opts)
     end,
     ["help_tags"] = function()
-        vim.cmd([[
-            PackerLoad nvim-luaref
-            PackerLoad help_files
-            PackerLoad luv-vimdocs
-            PackerLoad crefvim
-        ]])
+        vim.cmd.PackerLoad({
+            "nvim-luaref",
+            "help_files",
+            "luv-vimdocs",
+            "crefvim",
+        })
         local builtin = require("telescope.builtin")
         local opts = {
             prompt_title = "~ Help Tags ~",

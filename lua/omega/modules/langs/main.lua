@@ -34,7 +34,11 @@ lsp_mod.plugins = {
 
 lsp_mod.configs = {
     ["nvim-lightbulb"] = function()
-        vim.cmd([[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]])
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            callback = function()
+                require("nvim-lightbulb").update_lightbulb()
+            end,
+        })
         vim.fn.sign_define(
             "LightBulbSign",
             { text = " ", texthl = "String", linehl = "", numhl = "" }

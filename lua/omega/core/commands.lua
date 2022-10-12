@@ -67,7 +67,7 @@ end, {
 add_cmd("ClearUndo", function()
     local old = vim.opt.undolevels
     vim.opt.undolevels = -1
-    vim.cmd([[exe "normal a \<BS>\<Esc>"]])
+    vim.cmd.exe([["normal a \<BS>\<Esc>"]])
     vim.opt.undolevels = old
 end, {
     desc = "Clear undo history",

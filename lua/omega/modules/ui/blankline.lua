@@ -7,7 +7,9 @@ blankline.plugins = {
         setup = function()
             vim.api.nvim_create_autocmd("BufEnter", {
                 callback = function()
-                    if vim.bo.ft=="" then return end
+                    if vim.bo.ft == "" then
+                        return
+                    end
                     if
                         vim.tbl_contains({
                             "help",
@@ -81,8 +83,8 @@ blankline.configs = {
         vim.wo.colorcolumn = "99999"
         local colors = require("omega.colors").get()
 
-        vim.cmd("highlight IndentBlanklineChar guifg=" .. colors.grey_fg)
-        vim.cmd("highlight IndentBlanklineContextChar guifg=" .. colors.red)
+        vim.api.nvim_set_hl(0, "IndentBlanklineChar", { fg = colors.grey_fg })
+        vim.api.nvim_set_hl(0, "IndentBlanklineContextChar", { fg = colors.red })
     end,
 }
 

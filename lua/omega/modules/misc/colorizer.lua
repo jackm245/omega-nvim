@@ -15,7 +15,7 @@ colorizer.configs = {
             mode = "foreground",
             hsl_fn = true,
         })
-        vim.cmd([[ColorizerAttachToBuffer]])
+        vim.cmd.ColorizerAttachToBuffer()
     end,
 }
 

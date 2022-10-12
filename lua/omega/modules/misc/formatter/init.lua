@@ -8,7 +8,7 @@ formatter.plugins = {
             local group = vim.api.nvim_create_augroup("Formatter", {})
             vim.api.nvim_create_autocmd("BufWritePost", {
                 callback = function()
-                    vim.cmd([[FormatWrite]])
+                    vim.cmd.FormatWrite()
                 end,
                 group = group,
             })

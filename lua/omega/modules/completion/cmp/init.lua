@@ -146,8 +146,8 @@ cmp_mod.configs = {
             end
             return word
         end
-        vim.cmd([[PackerLoad nvim-autopairs]])
-        vim.cmd([[PackerLoad LuaSnip]])
+        vim.cmd.PackerLoad("nvim-autopairs")
+        vim.cmd.PackerLoad("LuaSnip")
         define_highlights()
         local cmp_autopairs = require("nvim-autopairs.completion.cmp")
         cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done({ map_char = { tex = "" } }))
@@ -458,7 +458,7 @@ cmp_mod.configs = {
             },
         })
 
-        vim.cmd([[hi NormalFloat guibg=none]])
+        vim.api.nvim_set_hl(0, "NormalFloat", {})
     end,
 }
 

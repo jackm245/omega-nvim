@@ -49,7 +49,7 @@ local files = {
 
 toggleterm.keybindings = function()
     local function run_file()
-        vim.cmd([[w]])
+        vim.cmd.w()
         local command = files[vim.bo.filetype]
         if command ~= nil then
             require("toggleterm.terminal").Terminal

@@ -110,9 +110,7 @@ local configs = {
             pick_pickers(dir)
         end
 
-        vim.cmd([[
-            PackerLoad telescope-fzf-native.nvim
-        ]])
+        vim.cmd.PackerLoad("telescope-fzf-native.nvim")
         local action_layout = require("telescope.actions.layout")
         local actions_layout = require("telescope.actions.layout")
         -- local fb_actions = require("telescope._extensions.file_browser.actions")

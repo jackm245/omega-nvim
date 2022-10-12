@@ -27,7 +27,7 @@ debugging.configs = {
             "DapStopped",
             { text = "⧐", texthl = "TSString", linehl = "", numhl = "" }
         )
-        vim.cmd([[PackerLoad nvim-dap-ui]])
+        vim.cmd.PackerLoad("nvim-dap-ui")
     end,
     ["nvim-dap-ui"] = function()
         require("dapui").setup({

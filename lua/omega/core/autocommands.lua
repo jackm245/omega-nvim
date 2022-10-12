@@ -79,7 +79,7 @@ aucmd({ "FileType" }, {
     pattern = { "help", "startuptime", "qf", "lspinfo", "man", "tsplayground" },
     callback = function()
         vim.keymap.set("n", "q", function()
-            vim.cmd([[close]])
+            vim.cmd.close()
         end, {
             noremap = true,
             silent = true,
@@ -219,19 +219,13 @@ aucmd("CmdLineEnter", {
 aucmd("BufEnter", {
     pattern = { "*" },
     callback = function()
-        vim.cmd([[
-            setlocal nospell
-            " setlocal spelllang=en
-        ]])
+        vim.opt_local.spell = false
     end,
 })
 aucmd("BufEnter", {
     pattern = { "*.tex", "*.norg" },
     callback = function()
-        vim.cmd([[
-            setlocal spell
-            " setlocal spelllang=en
-        ]])
+        vim.opt_local.spell = true
     end,
 })
 
