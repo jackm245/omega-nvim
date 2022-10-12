@@ -3,6 +3,7 @@ local extras = {}
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
 local conf = require("telescope.config").values
+local actions = require("telescope.actions")
 local action_state = require("telescope.actions.state")
 local exp = vim.fn.expand
 local utils = require("omega.utils")
@@ -21,15 +22,9 @@ local files = {
         .. "&& rm "
         .. vim.fn.stdpath("data")
         .. "/temp",
-    cpp = "clang++ -o tmp "
-        .. vim.fn.stdpath("data")
-        .. "/temp"
-        .. " && "
-        .. vim.fn.stdpath("data")
-        .. "/temp"
-        .. "&& rm "
-        .. vim.fn.stdpath("data")
-        .. "/temp",
+    cpp = "clang++ -o tmp " .. vim.fn.stdpath("data") .. "/temp" .. " && " .. vim.fn.stdpath(
+        "data"
+    ) .. "/temp" .. "&& rm " .. vim.fn.stdpath("data") .. "/temp",
     rust = "cargo run",
     ---@diagnostic disable-next-line: missing-parameter
     javascript = "node " .. exp("%:t"),
@@ -77,7 +72,6 @@ local function open_scratch_buffer(language)
         border = "single",
         style = "minimal",
     })
-    vim.api.nvim_win_set_option(win, "winblend", 20)
     vim.api.nvim_buf_set_option(buf, "filetype", language)
     scratch_buf = buf
     vim.keymap.set("n", "<leader>r", function()
@@ -89,46 +83,51 @@ local function open_scratch_buffer(language)
     })
 end
 
-local open_scratch = function()
+local open_scratch = function(bufnr)
     local entry = action_state.get_selected_entry()
+    actions.close(bufnr)
+
     if entry ~= nil then
         open_scratch_buffer(entry[1])
     end
-    vim.fn.feedkeys(utils.t("<ESC><ESC>"), "i")
 end
 
-extras.scratch_buf = function(args)
+local scratch_filetypes = {
+    "lua",
+    "rust",
+    "python",
+    "c",
+    "cpp",
+    "java",
+    "tex",
+    "javascript",
+    "typescrip",
+    "plain",
+    "norg",
+}
+
+function extras.scratch_buf(args)
     og_win = vim.api.nvim_get_current_win()
-    if args.fargs and args.fargs[1] ~= "" then
+    if args.fargs[1] and vim.tbl_contains(scratch_filetypes, args.fargs[1]) then
         open_scratch_buffer(args.fargs[1])
         return
     end
     local opts = {}
-    opts.data = {
-        "lua",
-        "rust",
-        "python",
-        "c",
-        "cpp",
-        "java",
-        "tex",
-        "javascript",
-        "typescrip",
-        "plain",
-        "norg",
-    }
-    pickers.new(opts, {
-        prompt_title = "~ Scratch Picker ~",
-        results_title = "~ Scratch Filetypes ~",
-        layout_strategy = "custom_bottom",
-        finder = finders.new_table(opts.data),
-        sorter = conf.generic_sorter(opts),
-        attach_mappings = function(_, map)
-            map("i", "<CR>", open_scratch)
-            map("n", "<CR>", open_scratch)
-            return true
-        end,
-    }):find()
+    opts.data = scratch_filetypes
+    pickers
+        .new(opts, {
+            prompt_title = "~ Scratch Picker ~",
+            results_title = "~ Scratch Filetypes ~",
+            -- layout_strategy = "custom_bottom",
+            finder = finders.new_table(opts.data),
+            sorter = conf.generic_sorter(opts),
+            attach_mappings = function(_, map)
+                map("i", "<CR>", open_scratch)
+                map("n", "<CR>", open_scratch)
+                return true
+            end,
+        })
+        :find()
 end
 
 return extras

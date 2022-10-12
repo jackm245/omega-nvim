@@ -64,24 +64,9 @@ toggleterm.keybindings = function()
             :toggle()
     end
 
-    local wk = require("which-key")
-    wk.register({
-        r = {
-            function()
-                run_file()
-            end,
-            "ﰌ Run File",
-        },
-        G = {
-            function()
-                toggle_lazygit()
-            end,
-            " Lazygit",
-        },
-    }, {
-        prefix = "<leader>",
-        mode = "n",
-    })
+    vim.keymap.set("n", "<leader>r", function()
+        run_file()
+    end, { noremap = true })
     vim.keymap.set("n", "<c-t>", function()
         require("toggleterm.terminal").Terminal:new({ close_on_exit = true }):toggle()
     end, {

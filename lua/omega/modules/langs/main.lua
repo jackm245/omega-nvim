@@ -158,6 +158,7 @@ lsp_mod.configs = {
         for server, config in pairs(servers) do
             lspconfig[server].setup(vim.tbl_deep_extend("force", {
                 on_attach = on_attach,
+                single_file_support = true,
                 capabilities = capabilities,
                 flags = {
                     debounce_text_changes = 150,
