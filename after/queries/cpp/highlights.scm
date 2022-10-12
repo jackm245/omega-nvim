@@ -1,3 +1,4 @@
+;; extends
 (
  function_definition
  (function_declarator

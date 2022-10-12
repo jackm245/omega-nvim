@@ -1,3 +1,4 @@
+;; extends
 (character) @character
 (".") @punctuation.delimiter
 
