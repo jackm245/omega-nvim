@@ -6,6 +6,7 @@ local ts_filetypes = {
     "lua",
     "python",
     "tex",
+    "query",
     "cpp",
     "c",
     "vim",
@@ -103,6 +104,7 @@ ts_mod.configs = {
                 -- branch = "attached-modifiers",
             },
         }
+        vim.cmd.PackerLoad("playground")
 
         require("nvim-treesitter.configs").setup({
             ensure_installed = {
@@ -177,7 +179,7 @@ ts_mod.configs = {
             query_linter = {
                 enable = true,
                 use_virtual_text = true,
-                lint_events = { "BufWrite", "CursorHold", "CursorMoved" },
+                lint_events = { "BufWrite", "CursorHold" },
             },
             endwise = { enable = true },
             indent = { enable = true, disable = { "python" } },
