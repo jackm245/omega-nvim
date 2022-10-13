@@ -21,7 +21,7 @@ function lsp_utils.server_capabilities()
 end
 
 function lsp_utils.inlay_hints()
-    local ns = vim.api.nvim_create_namespace("inlay hints")
+    local ns = vim.api.nvim_create_namespace("inlay_hints")
     vim.api.nvim_buf_clear_namespace(0, ns, 0, -1)
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
     vim.lsp.buf_request(

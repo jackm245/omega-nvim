@@ -13,7 +13,7 @@ neorg_mod.plugins = {
             })
         end,
         requires = { "nvim-treesitter" },
-        run = ":Neorg sync-parsers",
+        -- run = ":Neorg sync-parsers",
     },
     ["neorg-telescope"] = { "~/neovim_plugins/neorg-telescope/", after = "neorg" },
     ["neorg-context"] = { "~/neovim_plugins/neorg-context/", after = "neorg" },
