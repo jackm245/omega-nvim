@@ -12,13 +12,10 @@ trouble.plugins = {
             "TroubleRefresh",
             "TodoTrouble",
         },
+        config = function()
+            require("omega.modules.misc.trouble.configs")["trouble.nvim"]()
+        end,
     },
-}
-
-trouble.configs = {
-    ["trouble.nvim"] = function()
-        require("trouble").setup()
-    end,
 }
 
 trouble.keybindings = function()
