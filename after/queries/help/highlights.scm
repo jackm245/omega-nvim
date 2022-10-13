@@ -1,2 +1,2 @@
 ;; extends
-(code_block) @code
+; (code_block) @code
