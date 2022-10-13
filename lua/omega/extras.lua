@@ -10,7 +10,7 @@ local utils = require("omega.utils")
 
 -- Commands to execute file types
 local files = {
-    python = "python3 -i " .. vim.fn.stdpath("data") .. "/temp",
+    python = "python3 " .. vim.fn.stdpath("data") .. "/temp",
     lua = "lua " .. vim.fn.stdpath("data") .. "/temp",
     applescript = "osascript " .. vim.fn.stdpath("data") .. "/temp",
     c = "gcc -o tmp "
@@ -25,7 +25,20 @@ local files = {
     cpp = "clang++ -o tmp " .. vim.fn.stdpath("data") .. "/temp" .. " && " .. vim.fn.stdpath(
         "data"
     ) .. "/temp" .. "&& rm " .. vim.fn.stdpath("data") .. "/temp",
-    rust = "cargo run",
+    rust = "rustc -o "
+        .. vim.fn.stdpath("data")
+        .. "/tmp "
+        .. vim.fn.stdpath("data")
+        .. "/temp"
+        .. " && "
+        .. vim.fn.stdpath("data")
+        .. "/tmp"
+        .. "&& rm "
+        .. vim.fn.stdpath("data")
+        .. "/temp"
+        .. "&& rm "
+        .. vim.fn.stdpath("data")
+        .. "/tmp",
     ---@diagnostic disable-next-line: missing-parameter
     javascript = "node " .. exp("%:t"),
     ---@diagnostic disable-next-line: missing-parameter
