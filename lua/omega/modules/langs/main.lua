@@ -13,6 +13,7 @@ lsp_mod.plugins = {
             "html",
             "typescript",
             "zig",
+            "rust",
             "css",
             "cpp",
             "nix",
@@ -124,7 +125,7 @@ lsp_mod.configs = {
             },
         }
         local function on_attach(client, bufnr)
-            require("omega.modules.langs.on_attach").setup(client, bufnr)
+            require("omega.modules.lsp.on_attach").setup(client, bufnr)
         end
 
         local servers = {
@@ -158,7 +159,7 @@ lsp_mod.configs = {
         for server, config in pairs(servers) do
             lspconfig[server].setup(vim.tbl_deep_extend("force", {
                 on_attach = on_attach,
-                single_file_support = true,
+                -- single_file_support = true,
                 capabilities = capabilities,
                 flags = {
                     debounce_text_changes = 150,

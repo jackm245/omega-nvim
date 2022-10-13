@@ -10,7 +10,7 @@ rust_lsp.plugins = {
 rust_lsp.configs = {
     ["rust-tools.nvim"] = function()
         local function on_attach(client, bufnr)
-            require("omega.modules.langs.on_attach").setup(client, bufnr)
+            require("omega.modules.lsp.on_attach").setup(client, bufnr)
         end
         local extension_path = vim.fn.expand("~")
             .. "/.vscode/extensions/vadimcn.vscode-lldb-1.7.0/"
@@ -25,6 +25,7 @@ rust_lsp.configs = {
             },
             server = {
                 on_attach = on_attach,
+                single_file_support = true,
             },
         })
     end,

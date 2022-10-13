@@ -180,7 +180,7 @@ python.configs = {
                 autocmds = autocmds,
                 common = {
                     on_attach = function(client, bufnr)
-                        require("omega.modules.langs.on_attach").setup(client, bufnr)
+                        require("omega.modules.lsp.on_attach").setup(client, bufnr)
                         --     local function buf_set_option(...)
                         --         vim.api.nvim_buf_set_option(bufnr, ...)
                         --     end

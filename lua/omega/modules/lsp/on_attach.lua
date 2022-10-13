@@ -19,7 +19,9 @@ local function lsp_highlight_document(client, bufnr)
 end
 
 function on_attach.setup(client, bufnr)
-    require("omega.modules.langs.inlay_hints").setup_autocmd()
+    -- require("omega.modules.langs.inlay_hints").setup_autocmd()
+    -- require("omega.modules.lsp.inlay_hints").setup(bufnr)
+    require("omega.modules.lsp.available_code_action").setup(bufnr)
     local opts = { noremap = true, silent = true, buffer = bufnr }
     vim.keymap.set("n", "g0", vim.lsp.buf.document_symbol, opts)
     vim.keymap.set("n", "g0", vim.lsp.buf.document_symbol, opts)

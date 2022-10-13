@@ -14,8 +14,8 @@ lua_lsp.configs = {
             vim.fn.expand("~") .. "/lua-language-server/bin/lua-language-server",
         }
         local function on_attach(client, bufnr)
-            require("omega.modules.langs.inlay_hints").setup_autocmd()
-            require("omega.modules.langs.on_attach").setup(client, bufnr)
+            -- require("omega.modules.langs.inlay_hints").setup_autocmd()
+            require("omega.modules.lsp.on_attach").setup(client, bufnr)
         end
 
         local sumneko_lua_server = {
