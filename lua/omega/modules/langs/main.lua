@@ -1,10 +1,6 @@
 local lsp_mod = {}
 
 lsp_mod.plugins = {
-    ["nvim-lightbulb"] = {
-        "kosayoda/nvim-lightbulb",
-        after = "nvim-lspconfig",
-    },
     ["nvim-lspconfig"] = {
         "neovim/nvim-lspconfig",
         opt = true,
@@ -34,17 +30,6 @@ lsp_mod.plugins = {
 }
 
 lsp_mod.configs = {
-    ["nvim-lightbulb"] = function()
-        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-            callback = function()
-                require("nvim-lightbulb").update_lightbulb()
-            end,
-        })
-        vim.fn.sign_define(
-            "LightBulbSign",
-            { text = " ", texthl = "String", linehl = "", numhl = "" }
-        )
-    end,
     ["lsp_signature.nvim"] = function()
         require("lsp_signature").setup({
             bind = true,
