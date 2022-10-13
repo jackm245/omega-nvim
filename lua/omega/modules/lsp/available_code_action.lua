@@ -6,8 +6,8 @@ local function place_sign(line, buf)
     vim.fn.sign_place(line, "ca_available", "code_action", buf, { lnum = line + 1 })
 end
 
-local function remove_sign(line, buf)
-    vim.fn.sign_unplace("ca_available", { id = line, buffer = buf })
+local function remove_sign()
+    vim.fn.sign_unplace("ca_available")
 end
 
 local function update_sign(bufnr)
@@ -16,13 +16,10 @@ local function update_sign(bufnr)
     local context = { diagnostics = vim.diagnostic.get(bufnr, { lnum = line }) }
     params.context = context
     vim.lsp.buf_request_all(bufnr, "textDocument/codeAction", params, function(results)
-        if old_line then
-            remove_sign(old_line, bufnr)
-        end
+        remove_sign()
         if vim.tbl_isempty(results[1]) then
             return
         end
-        old_line = line
         place_sign(line, bufnr)
     end)
 end
@@ -32,6 +29,13 @@ function ca_available.setup(bufnr)
     vim.api.nvim_create_autocmd("CursorHold", {
         callback = function(args)
             update_sign(args.buf)
+        end,
+        buffer = bufnr,
+        group = augroup,
+    })
+    vim.api.nvim_create_autocmd("CursorMoved", {
+        callback = function()
+            remove_sign()
         end,
         buffer = bufnr,
         group = augroup,
