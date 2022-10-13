@@ -17,9 +17,16 @@ noice.plugins = {
 
 noice.configs = {
     ["noice.nvim"] = function()
+        vim.o.lazyredraw = false
         require("noice").setup({
             cmdline = {
-                -- view = "cmdline",
+                enabled = false,
+            },
+            popupmenu = {
+                enabled = false,
+            },
+            notiy = {
+                enabled = false,
             },
         })
     end,
