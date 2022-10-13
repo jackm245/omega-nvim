@@ -400,9 +400,13 @@ local configs = {
                             ["<a-cr>"] = picker_selection_as_cwd,
                         },
                     },
+                    set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
                     extensions = {
                         ["ui-select"] = {
-                            require("telescope.themes").get_dropdown({}),
+                            require("telescope.themes").get_dropdown({
+                                width = 0.3,
+                                height = 0.7,
+                            }),
                         },
                         ["file_browser"] = {
                             -- theme = "ivy",
@@ -421,7 +425,6 @@ local configs = {
                             case_mode = "smart_case", -- or "ignore_case" or "respect_case"
                         },
                     },
-                    set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
                 },
             }))
         elseif omega.config.telescope_theme == "float_all_borders" then
@@ -484,32 +487,36 @@ local configs = {
                             ["<a-cr>"] = picker_selection_as_cwd,
                         },
                     },
-                    extensions = {
-                        ["ui-select"] = {
-                            require("telescope.themes").get_dropdown({}),
-                        },
-                        ["file_browser"] = {
-                            -- theme = "ivy",
-                            mappings = {
-                                ["i"] = {
-                                    ["<C-o>"] = actions.select_vertical,
-                                    -- ["<C-b>"] = fb_actions.toggle_browser,
-                                },
-                                ["n"] = {},
+                    set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
+                },
+                extensions = {
+                    ["ui-select"] = {
+                        require("telescope.themes").get_dropdown({
+                            width = 0.3,
+                            height = 0.7,
+                        }),
+                    },
+                    ["file_browser"] = {
+                        -- theme = "ivy",
+                        mappings = {
+                            ["i"] = {
+                                ["<C-o>"] = actions.select_vertical,
+                                -- ["<C-b>"] = fb_actions.toggle_browser,
                             },
-                        },
-                        fzf = {
-                            fuzzy = true, -- false will only do exact matching
-                            override_generic_sorter = false, -- override the generic sorter
-                            override_file_sorter = true, -- override the file sorter
-                            case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+                            ["n"] = {},
                         },
                     },
-                    set_env = { ["COLORTERM"] = "truecolor" }, -- default = nil,
+                    fzf = {
+                        fuzzy = true, -- false will only do exact matching
+                        override_generic_sorter = false, -- override the generic sorter
+                        override_file_sorter = true, -- override the file sorter
+                        case_mode = "smart_case", -- or "ignore_case" or "respect_case"
+                    },
                 },
             })
         end
         require("telescope").load_extension("fzf")
+        require("telescope").load_extension("ui-select")
     end,
     ["telescope-emoji.nvim"] = function()
         require("telescope").load_extension("emoji")

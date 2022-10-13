@@ -39,10 +39,9 @@ tele_mod.plugins = {
             omega.ui_select = vim.ui.select
             vim.ui.select = function(items, opts, on_choice)
                 vim.cmd.PackerLoad({
-                    "PackerLoad telescope.nvim",
-                    "PackerLoad telescope-ui-select.nvim",
+                    "telescope.nvim",
+                    "telescope-ui-select.nvim",
                 })
-                require("telescope").load_extension("ui-select")
                 vim.ui.select(items, opts, on_choice)
             end
         end,
