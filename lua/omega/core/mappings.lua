@@ -54,6 +54,12 @@ wk.register({
             end,
             "Formulas",
         },
+        h = {
+            function()
+                vim.cmd.TSHighlightCapturesUnderCursor()
+            end,
+            "Highlight Groups",
+        },
         m = {
             function()
                 require("omega.utils").MarkdownPreview()
