@@ -1,4 +1,3 @@
-local color_utils = require("omega.utils.colors")
 local function highlight(group, guifg, guibg, attr, guisp)
     local arg = {}
     if guifg then
@@ -97,7 +96,7 @@ local function apply_base16_theme(theme)
     highlight("NonText", theme.base03, nil, nil, nil)
     highlight("NeorgMarkupVerbatim", theme.base03, nil, nil, nil)
     highlight("LineNr", theme.base03, "NONE", nil, nil)
-    highlight("SignColumn", theme.base03,nil, nil, nil)
+    highlight("SignColumn", theme.base03, nil, nil, nil)
     highlight("StatusLine", theme.base04, nil, nil, nil)
     highlight("StatusLineNC", theme.base03, nil, nil, nil)
     highlight("VertSplit", theme.base02, nil, nil, nil)
@@ -244,8 +243,12 @@ local function apply_base16_theme(theme)
     highlight("FloatBorder", theme.base0D, nil, nil, nil)
     highlight("Special", theme.base0C, nil, "italic", nil)
     highlight("markdownBold", theme.base0A, nil, "bold", nil)
-    highlight("FunctionDefinition", theme.base0D, nil, "italic", nil)
-    highlight("RequireCall", theme.base0E, nil, "italic", nil)
+    highlight("@quantifier", theme.base0C, nil, "italic", nil)
+    highlight("@function_definition", theme.base0D, nil, "italic", nil)
+    highlight("@require_call", theme.base0E, nil, "italic", nil)
+    highlight("@utils", theme.base0D, nil, nil, nil)
+    highlight("@code", theme.base03, nil, nil, nil)
+    highlight("@rust_path", theme.base0B, nil, nil, nil)
     highlight("TSEmphasis", theme.base05, nil, "italic", nil)
 end
 

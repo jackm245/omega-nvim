@@ -123,17 +123,10 @@ ts_mod.configs = {
                 "help",
                 "vim",
                 "comment",
-                -- "norg",
-                -- "norg_meta",
-                -- "norg_table",
                 "zig",
             },
             highlight = {
                 enable = true,
-                -- custom_captures = {
-                --     ["require_call"] = "RequireCall",
-                --     ["function_definition"] = "FunctionDefinition",
-                -- },
             },
             incremental_selection = {
                 enable = true,
@@ -252,17 +245,6 @@ ts_mod.configs = {
                     },
                 },
             },
-        })
-
-        require("nvim-treesitter.highlight").set_custom_captures({
-            -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-            -- ["foo.bar"] = "Identifier",
-            ["require_call"] = "RequireCall",
-            ["function_definition"] = "FunctionDefinition",
-            ["quantifier"] = "Special",
-            ["utils"] = "Function",
-            ["code"] = "Comment",
-            ["rust_path"] = "String",
         })
     end,
     ["nvim-treesitter-context"] = function()

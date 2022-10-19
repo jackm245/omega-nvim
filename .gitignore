@@ -18,5 +18,5 @@ flexible_heirline.lua
 ffi.lua
 queries.lua
 query_test.lua
-colors
+nice_colors
 ui_attach.lua
